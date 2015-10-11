@@ -14,7 +14,8 @@ module VagrantPlugins
           return 1
         end
 
-        puts "found \"Commandfile\" at path: #{ command_file }"
+        import_commands(command_file)
+        list_commands()
 
         return 0
       end
@@ -24,6 +25,26 @@ module VagrantPlugins
 
       def command_file_path
         File.join @env.cwd, 'Commandfile'
+      end
+
+      def import_commands(command_file)
+        load command_file
+      end
+
+      def list_commands()
+        if Vagrant::DevCommand.commands.empty?
+          puts 'No commands defined!'
+          return
+        end
+
+        puts "Available commands:"
+
+        Vagrant::DevCommand.commands.each_key do | name |
+          puts "- #{ name }"
+        end
+
+        puts ''
+        puts 'Usage: vagrant run <command>'
       end
 
     end
