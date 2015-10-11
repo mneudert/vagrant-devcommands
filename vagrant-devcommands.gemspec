@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.authors  = ['Marc Neudert']
   spec.email    = ['marc.neudert@gmail.com']
 
-  spec.summary     = ''
+  spec.summary     = 'Runs vagrant commands from a Commandfile'
   spec.description = ''
   spec.homepage    = ''
   spec.license     = 'MIT'
