@@ -15,9 +15,15 @@ module VagrantPlugins
         end
 
         import_commands(command_file)
-        list_commands()
 
-        return 0
+        command = @argv.pop()
+
+        if !command
+          list_commands()
+          return 127
+        end
+
+        run command
       end
 
 
@@ -45,6 +51,29 @@ module VagrantPlugins
 
         puts ''
         puts 'Usage: vagrant run <command>'
+      end
+
+      def run(name)
+        if !valid_command?(name)
+          puts "Invalid command \"#{ name }\""
+          return 1
+        end
+
+        command = Vagrant::DevCommand.commands[name][:command]
+
+        with_target_vms(@argv, single_target: true) do |vm|
+          env = vm.action(:ssh_run,
+                          ssh_opts: { extra_args: [ '-q' ]},
+                          ssh_run_command: command)
+
+          return env[:ssh_run_exit_status] || 0
+        end
+
+        return 0
+      end
+
+      def valid_command?(command)
+        Vagrant::DevCommand.commands.include? command
       end
 
     end
