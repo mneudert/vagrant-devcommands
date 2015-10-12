@@ -8,8 +8,8 @@ Runs vagrant commands from a Commandfile.
 Add to a `Commandfile` besides your `Vagrantfile`:
 
 ```ruby
-Vagrant::DevCommand.define 'with_options', box: :my_box, command: 'hostname'
-Vagrant::DevCommand.define 'without_otions', 'hostname'
+VagrantPlugins::DevCommands::Definer.define 'with_options', box: :my_box, command: 'hostname'
+VagrantPlugins::DevCommands::Definer.define 'without_otions', 'hostname'
 ```
 
 

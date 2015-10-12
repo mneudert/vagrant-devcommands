@@ -38,14 +38,14 @@ module VagrantPlugins
       end
 
       def list_commands()
-        if Vagrant::DevCommand.commands.empty?
+        if Definer.commands.empty?
           puts 'No commands defined!'
           return
         end
 
         puts "Available commands:"
 
-        Vagrant::DevCommand.commands.each_key do | name |
+        Definer.commands.each_key do | name |
           puts "- #{ name }"
         end
 
@@ -59,7 +59,7 @@ module VagrantPlugins
           return 1
         end
 
-        cmd = Vagrant::DevCommand.commands[name]
+        cmd = Definer.commands[name]
 
         if cmd[:box] and 0 == @argv.size
           @argv.unshift(cmd[:box].to_s)
@@ -79,7 +79,7 @@ module VagrantPlugins
       end
 
       def valid_command?(command)
-        Vagrant::DevCommand.commands.include? command
+        Definer.commands.include? command
       end
 
     end
