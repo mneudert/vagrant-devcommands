@@ -8,15 +8,12 @@ module Vagrant
       @@commands
     end
 
-    def self.define(name, *args)
-      command = args.last
-      options = {}
-
-      if 2 == args.size
-        options = args.first
+    def self.define(name, options)
+      if options.kind_of?(String)
+        @@commands[name] = { command: options }
+      else
+        @@commands[name] = options
       end
-
-      @@commands[name] = { options: options, command: command }
     end
 
   end
