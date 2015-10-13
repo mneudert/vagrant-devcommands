@@ -14,4 +14,4 @@ namespace :style do
   end
 end
 
-task default: [ 'style:ruby' ]
+task default: ['style:ruby']
