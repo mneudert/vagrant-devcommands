@@ -1,4 +1,5 @@
 require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
 namespace :style do
@@ -14,4 +15,12 @@ namespace :style do
   end
 end
 
-task default: ['style:ruby']
+namespace :test do
+  desc 'Run tests'
+
+  RSpec::Core::RakeTask.new(:unit) do |t|
+    t.pattern = 'test/unit/**/*_spec.rb'
+  end
+end
+
+task default: ['style:ruby', 'test:unit']
