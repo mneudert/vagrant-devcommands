@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = 'http://ignore'
+    spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   end
 
   spec.add_development_dependency 'bundler', '~> 1.8'
