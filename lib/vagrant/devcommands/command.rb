@@ -18,7 +18,7 @@ module VagrantPlugins
         return display_help unless command
 
         unless valid_command?(command)
-          return display_error("Invalid command \"#{command}\"")
+          return display_error("Invalid command \"#{command}\"\n")
         end
 
         run command
@@ -31,13 +31,11 @@ module VagrantPlugins
       end
 
       def display_error(msg)
-        puts msg
-
-        display_help
+        puts(msg) && display_help
       end
 
       def display_help
-        list_commands
+        Help.display
 
         # return exit code
         127
@@ -45,22 +43,6 @@ module VagrantPlugins
 
       def import_commands(command_file)
         load command_file
-      end
-
-      def list_commands
-        if Definer.commands.empty?
-          puts 'No commands defined!'
-          return
-        end
-
-        puts 'Available commands:'
-
-        Definer.commands.each_key do |name|
-          puts "- #{name}"
-        end
-
-        puts ''
-        puts 'Usage: vagrant run <command>'
       end
 
       def run(name)
