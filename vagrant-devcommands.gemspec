@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.summary     = 'Runs vagrant commands from a Commandfile'
   spec.description = ''
-  spec.homepage    = ''
+  spec.homepage    = 'https://github.com/mneudert/vagrant-devcommands'
   spec.license     = 'MIT'
 
   spec.files = `git ls-files -z`.split("\x0").reject { |f|
