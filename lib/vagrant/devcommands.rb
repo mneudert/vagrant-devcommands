@@ -1,5 +1,6 @@
 require 'vagrant'
 
+require 'vagrant/devcommands/command'
 require 'vagrant/devcommands/definer'
 require 'vagrant/devcommands/help'
 require 'vagrant/devcommands/plugin'

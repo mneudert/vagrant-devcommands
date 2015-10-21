@@ -6,7 +6,6 @@ module VagrantPlugins
       description 'Runs vagrant commands from a Commandfile'
 
       command :run do
-        require_relative 'command'
         Command
       end
     end
