@@ -1,6 +1,9 @@
 require 'bundler/gem_tasks'
+require 'coveralls/rake/task'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+
+Coveralls::RakeTask.new
 
 namespace :style do
   desc 'Run ruby style checks'
@@ -24,4 +27,4 @@ namespace :test do
 end
 
 task default: ['style:ruby', 'test:unit']
-task travis: ['test:unit']
+task travis: ['test:unit', 'coveralls:push']
