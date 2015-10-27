@@ -10,11 +10,18 @@ describe VagrantPlugins::DevCommands::Help do
     end
 
     it 'displays a list of available commands' do
-      definer.define 'bar', command: 'bar'
-      definer.define 'foo', command: 'foo'
+      definer.define 'bar', 'bar'
+      definer.define 'foo', 'foo'
 
       expect { help.display }.to output(/bar/).to_stdout
       expect { help.display }.to output(/foo/).to_stdout
+    end
+
+    it 'display description if available' do
+      definer.define 'bar', 'bar'
+      definer.define 'foo', desc: 'has a description', command: 'foo'
+
+      expect { help.display }.to output(/has a description/).to_stdout
     end
   end
 end

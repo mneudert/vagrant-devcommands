@@ -10,8 +10,12 @@ Runs vagrant commands from a Commandfile.
 Add to a `Commandfile` besides your `Vagrantfile`:
 
 ```ruby
-VagrantDevCommands.define 'with_options', box: :my_box, command: 'hostname'
-VagrantDevCommands.define 'without_otions', 'hostname'
+VagrantDevCommands.define 'basic', 'hostname'
+
+VagrantDevCommands.define 'with_options',
+    box: :my_box,
+    desc: 'executes "hostname" on the box "my_box"',
+    command: 'hostname'
 ```
 
 

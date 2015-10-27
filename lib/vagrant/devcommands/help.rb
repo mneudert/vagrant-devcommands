@@ -10,12 +10,29 @@ module VagrantPlugins
           return
         end
 
-        puts 'Usage: vagrant run [box] <command>'
-        puts ''
-        puts 'Available commands:'
+        display_header
+        display_commands
+      end
 
-        Definer.commands.each_key do |name|
-          puts "     #{name}"
+      class << self
+        private
+
+        def display_commands
+          pad_to = Definer.commands.keys.map(&:length).max
+
+          Definer.commands.each do |name, command|
+            if command.key?(:desc)
+              puts "     #{name.ljust(pad_to)}   #{command[:desc]}"
+            else
+              puts "     #{name}"
+            end
+          end
+        end
+
+        def display_header
+          puts 'Usage: vagrant run [box] <command>'
+          puts ''
+          puts 'Available commands:'
         end
       end
     end
