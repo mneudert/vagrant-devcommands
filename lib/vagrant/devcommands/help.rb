@@ -10,14 +10,13 @@ module VagrantPlugins
           return
         end
 
+        puts 'Usage: vagrant run [box] <command>'
+        puts ''
         puts 'Available commands:'
 
         Definer.commands.each_key do |name|
-          puts "- #{name}"
+          puts "     #{name}"
         end
-
-        puts ''
-        puts 'Usage: vagrant run <command>'
       end
     end
   end
