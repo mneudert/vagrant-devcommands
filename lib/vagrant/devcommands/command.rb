@@ -27,7 +27,7 @@ module VagrantPlugins
       private
 
       def command_file_path
-        File.join @env.cwd, 'Commandfile'
+        File.join @env.root_path, 'Commandfile'
       end
 
       def display_error(msg)
