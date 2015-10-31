@@ -4,6 +4,7 @@
 
 - Enhancements
   - Commandfile is read from the path of the loaded Vagrantfile
+  - Commandfile is looked up case insensitive (`Commandfile` vs `commandfile`)
   - Descriptions can be set for commands
 
 - Bug fixes

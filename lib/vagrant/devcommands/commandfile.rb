@@ -7,11 +7,11 @@ module VagrantPlugins
       end
 
       def exist?
-        File.exist? path
+        nil != find_commandfile
       end
 
       def path
-        File.join @env.root_path, 'Commandfile'
+        find_commandfile
       end
 
       def import
@@ -22,6 +22,16 @@ module VagrantPlugins
 
       attr_reader :env
       attr_writer :env
+
+      def find_commandfile
+        %w(Commandfile commandfile).each do |commandfile|
+          current_path = @env.root_path.join(commandfile)
+
+          return current_path if current_path.file?
+        end
+
+        nil
+      end
     end
   end
 end
