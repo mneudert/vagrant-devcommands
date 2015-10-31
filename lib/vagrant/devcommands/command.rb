@@ -7,13 +7,12 @@ module VagrantPlugins
       end
 
       def execute
-        command = @argv.last
+        command     = @argv.last
+        commandfile = Commandfile.new(@env)
 
-        unless File.exist?(command_file_path)
-          return display_error('Missing "Commandfile"')
-        end
+        return display_error('Missing "Commandfile"') unless commandfile.exist?
 
-        import_commands(command_file_path)
+        commandfile.import
 
         return display_help unless command
 
@@ -26,10 +25,6 @@ module VagrantPlugins
 
       private
 
-      def command_file_path
-        File.join @env.root_path, 'Commandfile'
-      end
-
       def display_error(msg)
         puts(msg) && display_help
       end
@@ -39,10 +34,6 @@ module VagrantPlugins
 
         # return exit code
         127
-      end
-
-      def import_commands(command_file)
-        load command_file
       end
 
       def run(name)
