@@ -20,10 +20,11 @@ module VagrantPlugins
 
       private
 
-      attr_reader :env
-      attr_writer :env
+      attr_accessor :env
 
       def find_commandfile
+        return nil unless @env.root_path
+
         %w(Commandfile commandfile).each do |commandfile|
           current_path = @env.root_path.join(commandfile)
 
