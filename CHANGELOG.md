@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.2.0.dev
+## v0.2.0 (2015-11-02)
 
 - Enhancements
   - Commandfile is read from the path of the loaded Vagrantfile
