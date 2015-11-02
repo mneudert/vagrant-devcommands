@@ -13,13 +13,12 @@ Gem::Specification.new do |spec|
   spec.email    = ['marc.neudert@gmail.com']
 
   spec.summary     = 'Runs vagrant commands from a Commandfile'
-  spec.description = ''
+  spec.description = 'Vagrant plugin to run commands specified'\
+                     ' in a Commandfile inside one of your vagrant boxes'
   spec.homepage    = 'https://github.com/mneudert/vagrant-devcommands'
   spec.license     = 'MIT'
 
-  spec.files = `git ls-files -z`.split("\x0").reject { |f|
-    f.match(%r{^(test|spec|features)/})
-  }
+  spec.files = Dir.glob('lib/**/*') + %w(CHANGELOG.md LICENSE.txt README.md)
 
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
