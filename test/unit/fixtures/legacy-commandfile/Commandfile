@@ -1,0 +1,4 @@
+command 'foo', 'foo'
+
+VagrantDevCommands.define 'bar', 'bar'
+VagrantDevCommands.define 'foo', 'overwritten'

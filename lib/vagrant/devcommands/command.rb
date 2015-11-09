@@ -50,7 +50,7 @@ module VagrantPlugins
         with_target_vms(argv, single_target: true) do |vm|
           env = vm.action(:ssh_run,
                           ssh_opts: { extra_args: ['-q'] },
-                          ssh_run_command: command[:command])
+                          ssh_run_command: command[:script])
 
           return env[:ssh_run_exit_status] || 0
         end

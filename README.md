@@ -10,12 +10,12 @@ Runs vagrant commands from a Commandfile.
 Add to a `Commandfile` besides your `Vagrantfile`:
 
 ```ruby
-VagrantDevCommands.define 'basic', 'hostname'
+command 'basic', 'hostname'
 
-VagrantDevCommands.define 'with_options',
+command 'with_options',
     box: :my_box,
     desc: 'executes "hostname" on the box "my_box"',
-    command: 'hostname'
+    script: 'hostname'
 ```
 
 
@@ -52,8 +52,8 @@ When using multi-line commands you probably need to define your command using
 a sigil notation like the following:
 
 ```ruby
-VagrantDevCommands.define 'long_running_task',
-    command: %(cd /path/to/somewhere \
+command 'long_running_task',
+    script: %(cd /path/to/somewhere \
                   && echo "starting long running task" \
                   && ./long_running_task.sh \
                   && echo "finished long running task")

@@ -14,10 +14,6 @@ module VagrantPlugins
         find_commandfile
       end
 
-      def import
-        load path
-      end
-
       private
 
       attr_accessor :env

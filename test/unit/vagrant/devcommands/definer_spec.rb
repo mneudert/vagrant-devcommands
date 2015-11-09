@@ -10,7 +10,7 @@ describe VagrantPlugins::DevCommands::Definer do
       cmd = definer.commands['from_hash']
 
       expect(cmd[:box]).to eq(:test)
-      expect(cmd[:command]).to eq('command from hash')
+      expect(cmd[:script]).to eq('command from hash')
     end
 
     it 'allows definition from string' do
@@ -18,7 +18,7 @@ describe VagrantPlugins::DevCommands::Definer do
 
       cmd = definer.commands['from_string']
 
-      expect(cmd[:command]).to eq('command from string')
+      expect(cmd[:script]).to eq('command from string')
     end
   end
 end

@@ -1,2 +1,2 @@
-VagrantDevCommands.define 'bar', 'bar'
-VagrantDevCommands.define 'foo', 'foo'
+command 'bar', 'bar'
+command 'foo', 'foo'
