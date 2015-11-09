@@ -6,41 +6,54 @@ module VagrantPlugins
         'runs vagrant commands from a Commandfile'
       end
 
+      def initialize(argv, env)
+        @registry = Registry.new
+
+        super(argv, env)
+      end
+
       def execute
         command     = @argv.last
         commandfile = Commandfile.new(@env)
 
         return display_error('Missing "Commandfile"') unless commandfile.exist?
 
-        commandfile.import
+        @registry.read_commandfile(commandfile)
 
         return display_help unless command
 
-        unless valid_command?(command)
+        unless @registry.valid_command?(command)
           return display_error("Invalid command \"#{command}\"\n")
         end
 
-        run command
+        run @registry.commands[command]
       end
 
       private
+
+      attr_accessor :registry
 
       def display_error(msg)
         puts(msg) && display_help
       end
 
       def display_help
-        Help.display
+        Help.display(@registry)
 
         # return exit code
         127
       end
 
-      def run(name)
-        cmd  = Definer.commands[name]
-        argv = run_argv(cmd)
+      def run(command)
+        argv = run_argv(command)
 
-        run_command(cmd, argv)
+        with_target_vms(argv, single_target: true) do |vm|
+          env = vm.action(:ssh_run,
+                          ssh_opts: { extra_args: ['-q'] },
+                          ssh_run_command: command[:command])
+
+          return env[:ssh_run_exit_status] || 0
+        end
       end
 
       def run_argv(cmd)
@@ -54,20 +67,6 @@ module VagrantPlugins
         end
 
         argv
-      end
-
-      def run_command(cmd, argv)
-        with_target_vms(argv, single_target: true) do |vm|
-          env = vm.action(:ssh_run,
-                          ssh_opts: { extra_args: ['-q'] },
-                          ssh_run_command: cmd[:command])
-
-          return env[:ssh_run_exit_status] || 0
-        end
-      end
-
-      def valid_command?(command)
-        Definer.commands.include? command
       end
     end
   end

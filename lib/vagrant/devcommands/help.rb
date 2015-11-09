@@ -4,23 +4,23 @@ module VagrantPlugins
     #
     # Printed when running "vagrant run" without a command
     class Help
-      def self.display
-        if Definer.commands.empty?
+      def self.display(registry)
+        if registry.commands.empty?
           puts 'No commands defined!'
           return
         end
 
         display_header
-        display_commands
+        display_commands(registry)
       end
 
       class << self
         private
 
-        def display_commands
-          pad_to = Definer.commands.keys.map(&:length).max
+        def display_commands(registry)
+          pad_to = registry.commands.keys.map(&:length).max
 
-          Definer.commands.each do |name, command|
+          registry.commands.each do |name, command|
             if command.key?(:desc)
               puts "     #{name.ljust(pad_to)}   #{command[:desc]}"
             else
