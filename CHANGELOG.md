@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.0.dev
+
+- Backwards incompatible changes
+  - Depecrated command definer was removed
+
 ## v0.3.0 (2015-11-21)
 
 - Enhancements

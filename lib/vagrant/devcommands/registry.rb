@@ -12,7 +12,6 @@ module VagrantPlugins
         contents = commandfile.path.read
 
         instance_eval(contents)
-        append_legacy
       end
 
       def valid_command?(command)
@@ -20,21 +19,6 @@ module VagrantPlugins
       end
 
       private
-
-      def append_legacy
-        unless Definer.commands.empty?
-          puts "You are using a deprecated way of defining your commands.\n" \
-               'The methods you are using will be removed in an upcoming' \
-               " release.\nPlease update your Commandfile!\n\nMore details: " \
-               'https://github.com/mneudert/vagrant-devcommands'
-        end
-
-        Definer.commands.each do |name, options|
-          next if @commands.include?(name)
-
-          command(name, options)
-        end
-      end
 
       def command(name, options)
         if options.is_a?(String)
