@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.3.0.dev
+## v0.3.0 (2015-11-21)
 
 - Enhancements
   - Commands can be created using `command 'name', 'script'`
