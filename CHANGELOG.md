@@ -5,6 +5,9 @@
 - Enhancements
   - Commands can be created using `command 'name', 'script'`
 
+- Deprecations
+  - Commands defined without the new `command ...` syntax are deprecated
+
 ## v0.2.0 (2015-11-02)
 
 - Enhancements

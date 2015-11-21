@@ -22,6 +22,13 @@ module VagrantPlugins
       private
 
       def append_legacy
+        unless Definer.commands.empty?
+          puts "You are using a deprecated way of defining your commands.\n" \
+               'The methods you are using will be removed in an upcoming' \
+               " release.\nPlease update your Commandfile!\n\nMore details: " \
+               'https://github.com/mneudert/vagrant-devcommands'
+        end
+
         Definer.commands.each do |name, options|
           next if @commands.include?(name)
 
