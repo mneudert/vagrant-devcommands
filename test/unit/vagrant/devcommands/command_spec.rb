@@ -65,4 +65,25 @@ describe VagrantPlugins::DevCommands::Command do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'with an invalid command' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/simple-commandfile')
+
+      Dir.chdir @newdir
+    end
+
+    it 'displays message' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = described_class.new(['xxx'], env)
+
+      expect { cmd.execute }.to output(/invalid command/i).to_stdout
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end

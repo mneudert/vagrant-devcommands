@@ -23,6 +23,17 @@ describe VagrantPlugins::DevCommands::Registry do
       expect(registry.commands['bar'][:script]).to eq('bar')
     end
 
+    it 'detects invalid commands' do
+      env      = Vagrant::Environment.new(cwd: @newdir)
+      file     = commandfile.new(env)
+      registry = described_class.new
+
+      registry.read_commandfile(file)
+
+      expect(registry.valid_command? 'foo').to be true
+      expect(registry.valid_command? 'xxx').to be false
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end

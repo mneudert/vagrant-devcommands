@@ -1,2 +1,2 @@
 command 'bar', 'bar'
-command 'foo', 'foo'
+command 'foo', script: 'foo'
