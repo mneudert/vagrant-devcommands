@@ -64,4 +64,14 @@ describe VagrantPlugins::DevCommands::Registry do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'validating a reserved command' do
+    it 'always returns true' do
+      registry = described_class.new
+
+      described_class::RESERVED_COMMANDS.each do |name|
+        expect(registry.valid_command? name).to be true
+      end
+    end
+  end
 end

@@ -13,18 +13,13 @@ module VagrantPlugins
       end
 
       def execute
-        command     = @argv.last
-        commandfile = Commandfile.new(@env)
+        return 127 unless read_commandfile
 
-        return display_error('Missing "Commandfile"') unless commandfile.exist?
+        command = @argv.last
 
-        @registry.read_commandfile(commandfile)
+        return 127 unless check_command(command)
 
-        return display_help unless command
-
-        unless @registry.valid_command?(command)
-          return display_error("Invalid command \"#{command}\"\n")
-        end
+        return Internal.run(command) if @registry.reserved_command?(command)
 
         run @registry.commands[command]
       end
@@ -33,15 +28,39 @@ module VagrantPlugins
 
       attr_accessor :registry
 
+      def check_command(command)
+        unless command
+          display_help
+          return false
+        end
+
+        unless @registry.valid_command?(command)
+          display_error("Invalid command \"#{command}\"\n")
+          return false
+        end
+
+        true
+      end
+
       def display_error(msg)
         puts(msg) && display_help
       end
 
       def display_help
         Help.display(@registry)
+      end
 
-        # return exit code
-        127
+      def read_commandfile
+        commandfile = Commandfile.new(@env)
+
+        unless commandfile.exist?
+          display_error('Missing "Commandfile"')
+          return false
+        end
+
+        @registry.read_commandfile(commandfile)
+
+        true
       end
 
       def run(command)

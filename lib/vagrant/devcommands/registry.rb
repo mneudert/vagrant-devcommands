@@ -17,11 +17,11 @@ module VagrantPlugins
       end
 
       def reserved_command?(command)
-        RESERVED_COMMANDS.include? command
+        RESERVED_COMMANDS.include?(command)
       end
 
       def valid_command?(command)
-        @commands.include? command
+        @commands.include?(command) || reserved_command?(command)
       end
 
       private
