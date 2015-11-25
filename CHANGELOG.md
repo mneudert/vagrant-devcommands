@@ -3,6 +3,7 @@
 ## v0.4.0.dev
 
 - Backwards incompatible changes
+  - Command names `help` and `version` are reserved for internal usage
   - Depecrated command definer was removed
 
 ## v0.3.0 (2015-11-21)

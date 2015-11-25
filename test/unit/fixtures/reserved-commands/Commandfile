@@ -1,0 +1,2 @@
+command 'help', 'help'
+command 'version', 'version'

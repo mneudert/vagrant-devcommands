@@ -38,4 +38,30 @@ describe VagrantPlugins::DevCommands::Registry do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'defining reserved commands' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/reserved-commands')
+
+      Dir.chdir @newdir
+    end
+
+    it 'displays a message' do
+      env      = Vagrant::Environment.new(cwd: @newdir)
+      file     = commandfile.new(env)
+      registry = described_class.new
+
+      described_class::RESERVED_COMMANDS.each do |command|
+        expect { registry.read_commandfile(file) }.to(
+          output(/#{command}.+reserved/i).to_stdout
+        )
+      end
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end
