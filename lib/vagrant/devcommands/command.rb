@@ -19,7 +19,7 @@ module VagrantPlugins
 
         return 127 unless check_command(command)
 
-        return Internal.run(command) if @registry.reserved_command?(command)
+        return run_internal(command) if @registry.reserved_command?(command)
 
         run @registry.commands[command]
       end
@@ -86,6 +86,10 @@ module VagrantPlugins
         end
 
         argv
+      end
+
+      def run_internal(command)
+        Internal.new.run(command)
       end
     end
   end

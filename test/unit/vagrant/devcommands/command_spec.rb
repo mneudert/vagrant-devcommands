@@ -86,4 +86,25 @@ describe VagrantPlugins::DevCommands::Command do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'with an empty Commandfile but internal command' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/empty-commandfile')
+
+      Dir.chdir @newdir
+    end
+
+    it 'allows running the command' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = described_class.new(['version'], env)
+
+      expect { cmd.execute }.to_not output(/no commands/i).to_stdout
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end

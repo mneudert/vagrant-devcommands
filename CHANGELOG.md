@@ -2,6 +2,9 @@
 
 ## v0.4.0.dev
 
+- Enhancements
+  - `vagrant run version` prints the currently used plugin version
+
 - Backwards incompatible changes
   - Command names `help` and `version` are reserved for internal usage
   - Depecrated command definer was removed
