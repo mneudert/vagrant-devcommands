@@ -2,7 +2,6 @@ require 'vagrant'
 
 require 'vagrant/devcommands/command'
 require 'vagrant/devcommands/commandfile'
-require 'vagrant/devcommands/help'
 require 'vagrant/devcommands/internal'
 require 'vagrant/devcommands/plugin'
 require 'vagrant/devcommands/registry'

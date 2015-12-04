@@ -30,7 +30,7 @@ module VagrantPlugins
 
       def check_command(command)
         unless command
-          display_help
+          run_internal('help')
           return false
         end
 
@@ -43,11 +43,7 @@ module VagrantPlugins
       end
 
       def display_error(msg)
-        puts(msg) && display_help
-      end
-
-      def display_help
-        Help.display(@registry)
+        puts(msg) && run_internal('help')
       end
 
       def read_commandfile
@@ -89,7 +85,7 @@ module VagrantPlugins
       end
 
       def run_internal(command)
-        Internal.new.run(command)
+        Internal.new(@registry).run(command)
       end
     end
   end

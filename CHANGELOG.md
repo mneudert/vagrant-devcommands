@@ -3,6 +3,7 @@
 ## v0.4.0.dev
 
 - Enhancements
+  - `vagrant run help` prints the plugin help (same as `vagrant run`)
   - `vagrant run version` prints the currently used plugin version
 
 - Backwards incompatible changes
