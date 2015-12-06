@@ -15,7 +15,7 @@ module VagrantPlugins
       def execute
         return 127 unless read_commandfile
 
-        command = @argv.last
+        command = argv_command
 
         return 127 unless check_command(command)
 
@@ -42,6 +42,15 @@ module VagrantPlugins
         true
       end
 
+      def argv_command
+        return nil unless @argv.length
+
+        command = @argv[0]
+        command = @argv[1] if @env.machine_index.include?(command)
+
+        command
+      end
+
       def display_error(msg)
         puts(msg) && run_internal('help')
       end
@@ -60,28 +69,23 @@ module VagrantPlugins
       end
 
       def run(command)
-        argv = run_argv(command)
+        box    = run_box(command)
+        script = command[:script]
 
-        with_target_vms(argv, single_target: true) do |vm|
+        with_target_vms(box, single_target: true) do |vm|
           env = vm.action(:ssh_run,
                           ssh_opts: { extra_args: ['-q'] },
-                          ssh_run_command: command[:script])
+                          ssh_run_command: script)
 
           return env[:ssh_run_exit_status] || 0
         end
       end
 
-      def run_argv(cmd)
-        argv = @argv.dup
-        argv.pop
+      def run_box(cmd)
+        return cmd[:box] if cmd[:box]
+        return @argv[0] if @env.machine_index.include?(@argv[0])
 
-        if cmd[:box] && argv.empty?
-          argv.unshift(cmd[:box].to_s)
-        elsif cmd[:box] && 1 == argv.size
-          argv[0] = cmd[:box].to_s
-        end
-
-        argv
+        nil
       end
 
       def run_internal(command)
