@@ -10,6 +10,9 @@
   - Command names `help` and `version` are reserved for internal usage
   - Depecrated command definer was removed
 
+- Bug fixes
+  - Commands without a script display a message and are ignored
+
 ## v0.3.0 (2015-11-21)
 
 - Enhancements

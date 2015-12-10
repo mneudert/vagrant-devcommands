@@ -76,6 +76,34 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
+  describe 'defining without command script' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/missing-script')
+
+      Dir.chdir @newdir
+    end
+
+    it 'displays a message' do
+      env  = Vagrant::Environment.new(cwd: @newdir)
+      file = commandfile.new(env)
+
+      command  = 'no_script_cmd'
+      registry = described_class.new
+
+      expect { registry.read_commandfile(file) }.to(
+        output(/#{command}.+no script/i).to_stdout
+      )
+
+      expect(registry.valid_command? command).to be false
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'validating a reserved command' do
     it 'always returns true' do
       registry = described_class.new

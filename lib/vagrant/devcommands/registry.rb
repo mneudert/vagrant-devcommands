@@ -29,13 +29,18 @@ module VagrantPlugins
       def command(name, options)
         return reserved_warning(name) if reserved_command?(name)
 
-        if options.is_a?(String)
-          @commands[name] = { script: options }
-        else
-          @commands[name] = options
-        end
+        options = { script: options } if options.is_a?(String)
 
+        return script_warning(name) unless options.key?(:script)
+
+        @commands[name]        = options
         @commands[name][:name] = name
+      end
+
+      def script_warning(name)
+        puts "The command '#{name}' has no script defined to execute."
+        puts 'Your definition of it will be ignored.'
+        puts ''
       end
 
       def reserved_warning(name)
