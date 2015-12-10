@@ -23,6 +23,17 @@ describe VagrantPlugins::DevCommands::Registry do
       expect(registry.commands['bar'][:script]).to eq('bar')
     end
 
+    it 'auto registers the commands name' do
+      env      = Vagrant::Environment.new(cwd: @newdir)
+      file     = commandfile.new(env)
+      registry = described_class.new
+
+      registry.read_commandfile(file)
+
+      expect(registry.commands['foo'][:name]).to eq('foo')
+      expect(registry.commands['bar'][:name]).to eq('bar')
+    end
+
     it 'detects invalid commands' do
       env      = Vagrant::Environment.new(cwd: @newdir)
       file     = commandfile.new(env)

@@ -34,6 +34,8 @@ module VagrantPlugins
         else
           @commands[name] = options
         end
+
+        @commands[name][:name] = name
       end
 
       def reserved_warning(name)
