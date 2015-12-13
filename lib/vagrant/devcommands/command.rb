@@ -69,8 +69,11 @@ module VagrantPlugins
       end
 
       def run(command)
+        argv   = run_argv
         box    = run_box(command)
-        script = command[:script]
+        script = run_script(command[:script], argv)
+
+        return 2 unless script
 
         with_target_vms(box, single_target: true) do |vm|
           env = vm.action(:ssh_run,
@@ -79,6 +82,14 @@ module VagrantPlugins
 
           return env[:ssh_run_exit_status] || 0
         end
+      end
+
+      def run_argv
+        argv = @argv.dup
+
+        argv.shift if @env.machine_index.include?(argv[0])
+        argv.shift
+        argv
       end
 
       def run_box(cmd)
@@ -90,6 +101,16 @@ module VagrantPlugins
 
       def run_internal(command)
         Internal.new(@registry).run(command)
+      end
+
+      def run_script(script, argv)
+        script % argv
+      rescue ArgumentError
+        error = "Not enough parameters to execute \"command[:name]\"!"
+
+        display_error(error)
+
+        nil
       end
     end
   end

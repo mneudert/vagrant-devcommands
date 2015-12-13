@@ -18,6 +18,25 @@ command 'with_options',
     script: 'hostname'
 ```
 
+#### Command Definition (parameters)
+
+Passing additional parameters to a command is (minimally) supported using an
+sprintf syntax:
+
+```ruby
+command 'with_param', script: 'echo "%s"'
+```
+
+This allows you to execute the following command:
+
+```shell
+# will execute something like 'echo "works"'
+vagrant run with_param works
+```
+
+For now a command expecting one or more parameters will fail if the user does
+not provide them. Any arguments exceeding the number used are silently
+discarded.
 
 ### Command Listing
 

@@ -107,4 +107,25 @@ describe VagrantPlugins::DevCommands::Command do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'with missing command parameters' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/parameters')
+
+      Dir.chdir @newdir
+    end
+
+    it 'displays an error' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = described_class.new(['paramecho'], env)
+
+      expect { cmd.execute }.to output(/not enough parameters/i).to_stdout
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end

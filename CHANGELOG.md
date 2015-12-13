@@ -5,6 +5,7 @@
 - Enhancements
   - `vagrant run help` prints the plugin help (same as `vagrant run`)
   - `vagrant run version` prints the currently used plugin version
+  - Commands can receive additional parameters from the command line
 
 - Backwards incompatible changes
   - Command names `help` and `version` are reserved for internal usage
