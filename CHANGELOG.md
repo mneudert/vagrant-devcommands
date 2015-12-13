@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0.dev
+## v0.4.0 (2015-12-13)
 
 - Enhancements
   - `vagrant run help` prints the plugin help (same as `vagrant run`)
