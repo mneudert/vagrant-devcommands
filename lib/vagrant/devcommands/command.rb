@@ -93,7 +93,7 @@ module VagrantPlugins
       end
 
       def run_box(cmd)
-        return cmd[:box] if cmd[:box]
+        return cmd[:box].to_s if cmd[:box]
         return @argv[0] if @env.machine_index.include?(@argv[0])
 
         nil
