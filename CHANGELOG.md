@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.1.dev
+
+- Bug fixes
+  - Properly handles commands targeting a single box when definition uses symbol for name
+
 ## v0.4.0 (2015-12-13)
 
 - Enhancements
