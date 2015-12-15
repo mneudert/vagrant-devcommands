@@ -43,10 +43,10 @@ module VagrantPlugins
       end
 
       def argv_command
-        return nil unless @argv.length
+        return nil if @argv.empty?
 
-        command = @argv[0]
-        command = @argv[1] if @env.machine_index.include?(command)
+        command = @argv[0].to_s
+        command = @argv[1].to_s if @env.machine_index.include?(command)
 
         command
       end
