@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.2 (2015-12-15)
+
+- Bug fixes
+  - Properly detects (missing) command name from argv
+
 ## v0.4.1 (2015-12-14)
 
 - Bug fixes
