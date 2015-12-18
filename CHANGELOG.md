@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0.dev
+
+- Enhancements
+  - Internal commands are included in the command listing (help)
+
 ## v0.4.2 (2015-12-15)
 
 - Bug fixes

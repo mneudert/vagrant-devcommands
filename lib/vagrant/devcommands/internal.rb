@@ -19,10 +19,24 @@ module VagrantPlugins
 
       private
 
-      def display_help_commands
-        pad_to = @registry.commands.keys.map(&:length).max
+      def collect_commands
+        @registry.commands.merge(
+          'help' => {
+            desc: 'display this help message',
+            name: 'help'
+          },
+          'version' => {
+            desc: 'display currently used the plugin version',
+            name: 'version'
+          }
+        )
+      end
 
-        @registry.commands.each do |name, command|
+      def display_help_commands
+        commands = collect_commands
+        pad_to   = commands.keys.map(&:length).max
+
+        commands.each do |name, command|
           if command.key?(:desc)
             puts "     #{name.ljust(pad_to)}   #{command[:desc]}"
           else
