@@ -19,16 +19,6 @@ module VagrantPlugins
 
       private
 
-      def print_help
-        if @registry.commands.empty?
-          puts 'No commands defined!'
-          return
-        end
-
-        display_help_header
-        display_help_commands
-      end
-
       def display_help_commands
         pad_to = @registry.commands.keys.map(&:length).max
 
@@ -49,6 +39,16 @@ module VagrantPlugins
 
       def print_version
         puts "vagrant-devcommands, version #{VERSION}"
+      end
+
+      def print_help
+        if @registry.commands.empty?
+          puts 'No commands defined!'
+          return
+        end
+
+        display_help_header
+        display_help_commands
       end
     end
   end
