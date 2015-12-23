@@ -6,6 +6,7 @@ module VagrantPlugins
         SPEC = {
           desc: 'display this help message',
           name: 'help',
+          usage: 'vagrant run %{command} [command]',
           help: <<-eoh
 Display the help of the command given as the first argument if defined.
 Just like this help for the help command!
@@ -47,14 +48,27 @@ eoh
         end
 
         def command_help_header(command)
-          puts "Usage: vagrant run [box] #{command} [args]"
+          usage = "vagrant run [box] #{command} [args]"
+
+          if @registry.commands[command].key?(:usage)
+            usage = @registry.commands[command][:usage] % { command: command }
+          end
+
+          puts "Usage: #{usage}"
         end
 
         def internal_help(command)
-          command_help_header(command)
+          internal_help_header(command)
 
           puts ''
           puts VagrantPlugins::DevCommands::Internal::SPECS[command][:help]
+        end
+
+        def internal_help_header(command)
+          spec  = VagrantPlugins::DevCommands::Internal::SPECS[command]
+          usage = spec[:usage] % { command: command }
+
+          puts "Usage: #{usage}"
         end
 
         def plugin_help

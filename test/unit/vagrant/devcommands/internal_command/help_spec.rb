@@ -44,6 +44,24 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
+    it 'displays its custom usage string if defined' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = command.new(%w(help foo), env)
+
+      expect { cmd.execute }.to(
+        output(/usage: vagrant run foo/i).to_stdout
+      )
+    end
+
+    it 'displays a default usage string if non defined' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = command.new(%w(help bar), env)
+
+      expect { cmd.execute }.to(
+        output(/usage: vagrant run \[box\] bar/i).to_stdout
+      )
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end

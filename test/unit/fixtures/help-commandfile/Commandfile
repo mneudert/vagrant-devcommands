@@ -2,4 +2,5 @@ command 'bar', 'no-help'
 
 command 'foo',
   script: 'foo',
+  usage: 'vagrant run foo',
   help: 'help message for foo'

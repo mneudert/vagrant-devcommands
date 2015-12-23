@@ -4,6 +4,7 @@
 
 - Enhancements
   - Commands can define a detailed help message
+  - Commands can define a custom usage string
   - Internal commands are included in the command listing (help)
 
 ## v0.4.2 (2015-12-15)

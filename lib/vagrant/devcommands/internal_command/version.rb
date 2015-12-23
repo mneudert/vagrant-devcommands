@@ -6,6 +6,7 @@ module VagrantPlugins
         SPEC = {
           desc: 'display currently used the plugin version',
           name: 'version',
+          usage: 'vagrant run %{command}',
           help: <<-eoh
 Displays the currently installed version the plugin you are using right now.
 eoh
