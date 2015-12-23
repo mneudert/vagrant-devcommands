@@ -5,21 +5,27 @@ module VagrantPlugins
       class Help
         SPEC = {
           desc: 'display this help message',
-          name: 'help'
+          name: 'help',
+          help: <<-eoh
+Display the help of the command given as the first argument if defined.
+Just like this help for the help command!
+eoh
         }
 
         def initialize(registry)
           @registry = registry
         end
 
-        def execute
+        def execute(argv)
           if @registry.commands.empty?
             puts 'No commands defined!'
             return
           end
 
-          display_help_header
-          display_help_commands
+          return plugin_help unless @registry.valid_command?(argv[0])
+          return internal_help(argv[0]) if @registry.reserved_command?(argv[0])
+
+          command_help(argv[0])
         end
 
         private
@@ -28,7 +34,35 @@ module VagrantPlugins
           @registry.commands.merge VagrantPlugins::DevCommands::Internal::SPECS
         end
 
-        def display_help_commands
+        def command_help(command)
+          command_help_header(command)
+
+          puts ''
+
+          if @registry.commands[command].key?(:help)
+            puts @registry.commands[command][:help]
+          else
+            puts 'No detailed help for this command available.'
+          end
+        end
+
+        def command_help_header(command)
+          puts "Usage: vagrant run [box] #{command} [args]"
+        end
+
+        def internal_help(command)
+          command_help_header(command)
+
+          puts ''
+          puts VagrantPlugins::DevCommands::Internal::SPECS[command][:help]
+        end
+
+        def plugin_help
+          plugin_help_header
+          plugin_help_commands
+        end
+
+        def plugin_help_commands
           commands = collect_commands
           pad_to   = commands.keys.map(&:length).max
 
@@ -41,8 +75,9 @@ module VagrantPlugins
           end
         end
 
-        def display_help_header
+        def plugin_help_header
           puts 'Usage: vagrant run [box] <command>'
+          puts 'Help:  vagrant run help <command>'
           puts ''
           puts 'Available commands:'
         end

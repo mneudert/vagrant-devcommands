@@ -3,6 +3,7 @@
 ## v0.5.0.dev
 
 - Enhancements
+  - Commands can define a detailed help message
   - Internal commands are included in the command listing (help)
 
 ## v0.4.2 (2015-12-15)

@@ -15,7 +15,11 @@ command 'basic', 'hostname'
 command 'with_options',
     box: :my_box,
     desc: 'executes "hostname" on the box "my_box"',
-    script: 'hostname'
+    script: 'hostname',
+    help: <<-eoh
+I am the help message for the command "with_options".
+I get displayed when running "vagrant run help with_options".
+eoh
 ```
 
 #### Command Definition (parameters)

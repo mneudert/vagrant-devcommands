@@ -1,0 +1,5 @@
+command 'bar', 'no-help'
+
+command 'foo',
+  script: 'foo',
+  help: 'help message for foo'

@@ -17,8 +17,8 @@ module VagrantPlugins
         @registry = registry
       end
 
-      def run(command)
-        @internal[command].execute if @internal.key?(command)
+      def run(command, args)
+        @internal[command].execute(args) if @internal.key?(command)
       end
     end
   end

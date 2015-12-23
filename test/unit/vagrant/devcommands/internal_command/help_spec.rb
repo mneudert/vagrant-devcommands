@@ -1,0 +1,64 @@
+require_relative '../../../spec_helper'
+
+describe VagrantPlugins::DevCommands::InternalCommand::Help do
+  command  = VagrantPlugins::DevCommands::Command
+  registry = VagrantPlugins::DevCommands::Registry
+
+  describe 'running help for an command command' do
+    it 'displays command help message' do
+      reg          = registry.new
+      reg.commands = { 'foo' => { command: 'foo' } }
+
+      help = described_class.new(reg)
+
+      expect { help.execute(['help']) }.to(
+        output(/help for the help command/).to_stdout
+      )
+    end
+  end
+
+  describe 'running help for a command' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../../fixtures/help-commandfile')
+
+      Dir.chdir @newdir
+    end
+
+    it 'displays its help message if defined' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = command.new(%w(help foo), env)
+
+      expect { cmd.execute }.to(
+        output(/help message for foo/).to_stdout
+      )
+    end
+
+    it 'displays an error if undefined' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = command.new(%w(help bar), env)
+
+      expect { cmd.execute }.to(
+        output(/no detailed help/i).to_stdout
+      )
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
+  describe 'running help for an unknown command' do
+    it 'displays command list' do
+      reg          = registry.new
+      reg.commands = { 'foo' => { command: 'foo' } }
+
+      help = described_class.new(reg)
+
+      expect { help.execute(['i-am-unknown']) }.to(
+        output(/available commands/i).to_stdout
+      )
+    end
+  end
+end
