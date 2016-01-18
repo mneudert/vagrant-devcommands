@@ -87,14 +87,14 @@ module VagrantPlugins
       def run_argv
         argv = @argv.dup
 
-        argv.shift if @env.machine_index.include?(argv[0])
+        argv.shift if @env.machine_index.include?(argv[0].to_s)
         argv.shift
         argv
       end
 
       def run_box(cmd)
         return cmd[:box].to_s if cmd[:box]
-        return @argv[0] if @env.machine_index.include?(@argv[0])
+        return @argv[0].to_s if @env.machine_index.include?(@argv[0].to_s)
 
         nil
       end
