@@ -7,6 +7,9 @@
   - Commands can define a custom usage string
   - Internal commands are included in the command listing (help)
 
+- Bug fixes
+  - Displays actual command name when an error occurs due to missing arguments
+
 ## v0.4.2 (2015-12-15)
 
 - Bug fixes

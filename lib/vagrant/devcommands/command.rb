@@ -71,7 +71,7 @@ module VagrantPlugins
       def run(command)
         argv   = run_argv
         box    = run_box(command)
-        script = run_script(command[:script], argv)
+        script = run_script(command, argv)
 
         return 2 unless script
 
@@ -103,10 +103,10 @@ module VagrantPlugins
         Internal.new(@registry).run(command, run_argv)
       end
 
-      def run_script(script, argv)
-        script % argv
+      def run_script(command, argv)
+        command[:script] % argv
       rescue ArgumentError
-        error = 'Not enough parameters to execute "command[:name]"!'
+        error = "Not enough parameters to execute \"#{command[:name]}\"!"
 
         display_error(error)
 

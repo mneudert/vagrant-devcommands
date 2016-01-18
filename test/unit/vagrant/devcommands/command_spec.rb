@@ -121,7 +121,9 @@ describe VagrantPlugins::DevCommands::Command do
       env = Vagrant::Environment.new(cwd: @newdir)
       cmd = described_class.new(['paramecho'], env)
 
-      expect { cmd.execute }.to output(/not enough parameters/i).to_stdout
+      expect { cmd.execute }.to(
+        output(/not enough parameters.+paramecho/i).to_stdout
+      )
     end
 
     after :context do
