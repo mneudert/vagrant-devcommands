@@ -41,8 +41,8 @@ describe VagrantPlugins::DevCommands::Registry do
 
       registry.read_commandfile(file)
 
-      expect(registry.valid_command? 'foo').to be true
-      expect(registry.valid_command? 'xxx').to be false
+      expect(registry.valid_command?('foo')).to be true
+      expect(registry.valid_command?('xxx')).to be false
     end
 
     after :context do
@@ -96,7 +96,7 @@ describe VagrantPlugins::DevCommands::Registry do
         output(/#{command}.+no script/i).to_stdout
       )
 
-      expect(registry.valid_command? command).to be false
+      expect(registry.valid_command?(command)).to be false
     end
 
     after :context do
@@ -109,7 +109,7 @@ describe VagrantPlugins::DevCommands::Registry do
       registry = described_class.new
 
       described_class::RESERVED_COMMANDS.each do |name|
-        expect(registry.valid_command? name).to be true
+        expect(registry.valid_command?(name)).to be true
       end
     end
   end

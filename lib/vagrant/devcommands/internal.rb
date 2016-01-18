@@ -7,7 +7,7 @@ module VagrantPlugins
       SPECS = {
         'help' => NAMESPACE::Help::SPEC,
         'version' => NAMESPACE::Version::SPEC
-      }
+      }.freeze
 
       def initialize(registry)
         @internal = {

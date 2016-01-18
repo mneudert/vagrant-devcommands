@@ -2,7 +2,7 @@ module VagrantPlugins
   module DevCommands
     # Vagrant command registry
     class Registry
-      RESERVED_COMMANDS = %w(help version)
+      RESERVED_COMMANDS = %w(help version).freeze
 
       attr_accessor :commands
 

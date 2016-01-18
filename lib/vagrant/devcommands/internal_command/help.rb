@@ -11,7 +11,7 @@ module VagrantPlugins
 Display the help of the command given as the first argument if defined.
 Just like this help for the help command!
 eoh
-        }
+        }.freeze
 
         def initialize(registry)
           @registry = registry

@@ -10,7 +10,7 @@ module VagrantPlugins
           help: <<-eoh
 Displays the currently installed version the plugin you are using right now.
 eoh
-        }
+        }.freeze
 
         def execute(_args)
           puts "vagrant-devcommands, version #{VERSION}"

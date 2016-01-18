@@ -106,7 +106,7 @@ module VagrantPlugins
       def run_script(script, argv)
         script % argv
       rescue ArgumentError
-        error = "Not enough parameters to execute \"command[:name]\"!"
+        error = 'Not enough parameters to execute "command[:name]"!'
 
         display_error(error)
 
