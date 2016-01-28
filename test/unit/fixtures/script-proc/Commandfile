@@ -1,0 +1,2 @@
+command 'lambdaecho', lambda { 'echo "%s"' }
+command 'procecho', proc { 'echo "%s"' }

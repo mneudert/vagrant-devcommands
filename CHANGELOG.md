@@ -5,6 +5,7 @@
 - Enhancements
   - Commands can define a detailed help message
   - Commands can define a custom usage string
+  - Commands can be defined using a lambda/proc
   - Internal commands are included in the command listing (help)
 
 - Bug fixes

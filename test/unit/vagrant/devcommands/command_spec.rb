@@ -130,4 +130,32 @@ describe VagrantPlugins::DevCommands::Command do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'with a proc/lambda as script' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/script-proc')
+
+      Dir.chdir @newdir
+    end
+
+    it 'calls lambda before running' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = described_class.new(['lambdaecho'], env)
+
+      expect { cmd.execute }.to output(/parameters.+lambdaecho/i).to_stdout
+    end
+
+    it 'calls proc before running' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = described_class.new(['procecho'], env)
+
+      expect { cmd.execute }.to output(/parameters.+procecho/i).to_stdout
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end

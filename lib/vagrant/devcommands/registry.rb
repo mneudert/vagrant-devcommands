@@ -29,7 +29,7 @@ module VagrantPlugins
       def command(name, options)
         return reserved_warning(name) if reserved_command?(name)
 
-        options = { script: options } if options.is_a?(String)
+        options = { script: options } unless options.is_a?(Hash)
 
         return script_warning(name) unless options.key?(:script)
 

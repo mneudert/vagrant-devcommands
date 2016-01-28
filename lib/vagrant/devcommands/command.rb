@@ -104,7 +104,10 @@ module VagrantPlugins
       end
 
       def run_script(command, argv)
-        command[:script] % argv
+        script = command[:script]
+        script = command[:script].call if command[:script].is_a?(Proc)
+
+        script % argv
       rescue ArgumentError
         error = "Not enough parameters to execute \"#{command[:name]}\"!"
 

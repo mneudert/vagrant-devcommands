@@ -49,6 +49,20 @@ For now a command expecting one or more parameters will fail if the user does
 not provide them. Any arguments exceeding the number used are silently
 discarded.
 
+#### Experimental: Command Definition (lambda/proc)
+
+You can (more or less) dynamically generate your scripts by defining the
+command with a lambda or proc as its script.
+
+```ruby
+command 'from_lambda', script: lambda { 'echo "lambda works"' }
+command 'from_proc', script: proc { 'echo "proc works"' }
+```
+
+These will be evaluated when running the command.
+
+Every rules from regular scripts (parameters, escaping "%", ...) still apply.
+
 ### Command Listing
 
 ```shell
