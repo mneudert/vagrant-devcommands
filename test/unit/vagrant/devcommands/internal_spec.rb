@@ -6,7 +6,7 @@ describe VagrantPlugins::DevCommands::Internal do
   describe 'displaying command list' do
     it 'includes internal commands' do
       reg          = registry.new
-      reg.commands = { 'foo' => { command: 'foo' } }
+      reg.commands = { 'foo' => { script: 'foo' } }
 
       internal = described_class.new(reg)
 
@@ -25,8 +25,8 @@ describe VagrantPlugins::DevCommands::Internal do
     it 'displays a list of available commands' do
       reg          = registry.new
       reg.commands = {
-        'bar' => { command: 'bar' },
-        'foo' => { command: 'foo' }
+        'bar' => { script: 'bar' },
+        'foo' => { script: 'foo' }
       }
 
       internal = described_class.new(reg)
@@ -38,8 +38,8 @@ describe VagrantPlugins::DevCommands::Internal do
     it 'display description if available' do
       reg          = registry.new
       reg.commands = {
-        'bar' => { command: 'bar' },
-        'foo' => { command: 'foo', desc: 'has a description' }
+        'bar' => { script: 'bar' },
+        'foo' => { script: 'foo', desc: 'has a description' }
       }
 
       internal = described_class.new(reg)

@@ -7,7 +7,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   describe 'running help for an command command' do
     it 'displays command help message' do
       reg          = registry.new
-      reg.commands = { 'foo' => { command: 'foo' } }
+      reg.commands = { 'foo' => { script: 'foo' } }
 
       help = described_class.new(reg)
 
@@ -70,7 +70,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   describe 'running help for an unknown command' do
     it 'displays command list' do
       reg          = registry.new
-      reg.commands = { 'foo' => { command: 'foo' } }
+      reg.commands = { 'foo' => { script: 'foo' } }
 
       help = described_class.new(reg)
 
