@@ -56,7 +56,7 @@ module VagrantPlugins
       end
 
       def read_commandfile
-        commandfile = Commandfile.new(@env)
+        commandfile = CommandFile.new(@env)
 
         unless commandfile.exist?
           display_error('Missing "Commandfile"')

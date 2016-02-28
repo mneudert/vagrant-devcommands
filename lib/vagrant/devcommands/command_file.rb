@@ -1,7 +1,7 @@
 module VagrantPlugins
   module DevCommands
     # Loads and handles the Commandfile
-    class Commandfile
+    class CommandFile
       def initialize(env)
         @env = env
       end

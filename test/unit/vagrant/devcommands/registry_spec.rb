@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Registry do
-  commandfile = VagrantPlugins::DevCommands::Commandfile
+  commandfile = VagrantPlugins::DevCommands::CommandFile
 
   describe 'command definition' do
     before :context do
