@@ -105,8 +105,8 @@ module VagrantPlugins
 
       def run_script(command, argv)
         command.run_script(argv)
-      rescue ArgumentError
-        error = "Not enough parameters to execute \"#{command.name}\"!"
+      rescue KeyError, OptionParser::InvalidOption
+        error = "Invalid/Missing parameters to execute \"#{command.name}\"!"
 
         display_error(error)
 

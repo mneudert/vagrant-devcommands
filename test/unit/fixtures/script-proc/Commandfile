@@ -1,2 +1,7 @@
-command 'lambdaecho', lambda { 'echo "%s"' }
-command 'procecho', proc { 'echo "%s"' }
+command 'lambdaecho',
+  parameters: { what: {} },
+  script:     lambda { 'echo "%{what}"' }
+
+command 'procecho',
+  parameters: { what: {} },
+  script:     proc { 'echo "%{what}"' }

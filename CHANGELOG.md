@@ -6,7 +6,11 @@
   - Commands can define a detailed help message
   - Commands can define a custom usage string
   - Commands can be defined using a lambda/proc
+  - Commands can be defined with additional named parameters to be interpolated
   - Internal commands are included in the command listing (help)
+
+- Backwards incompatible changes
+  - Positional parameters have been replaced with named parameters
 
 - Bug fixes
   - Displays actual command name when an error occurs due to missing arguments

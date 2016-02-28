@@ -35,14 +35,19 @@ Passing additional parameters to a command is (minimally) supported using an
 sprintf syntax:
 
 ```ruby
-command 'with_param', script: 'echo "%s"'
+command 'with_param',
+  parameters: {
+    # default definition of mandatory parameter
+    what: {}
+  },
+  script: 'echo "%{what}"'
 ```
 
 This allows you to execute the following command:
 
 ```shell
 # will execute something like 'echo "works"'
-vagrant run with_param works
+vagrant run with_param --what works
 ```
 
 For now a command expecting one or more parameters will fail if the user does

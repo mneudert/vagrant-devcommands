@@ -1,8 +1,11 @@
+require 'optparse'
+
 module VagrantPlugins
   module DevCommands
     # Definition of an executable command
     class CommandDef
       attr_reader :name
+      attr_reader :parameters
       attr_reader :script
 
       attr_reader :box
@@ -11,8 +14,9 @@ module VagrantPlugins
       attr_reader :usage
 
       def initialize(spec)
-        @name   = spec[:name]
-        @script = spec[:script]
+        @name       = spec[:name]
+        @parameters = spec[:parameters]
+        @script     = spec[:script]
 
         @box   = spec[:box]
         @desc  = spec[:desc]
@@ -24,7 +28,26 @@ module VagrantPlugins
         script = @script
         script = script.call if script.is_a?(Proc)
 
-        script % argv
+        opts = []
+        opts = parse_argv(argv) if @parameters
+
+        script % opts
+      end
+
+      private
+
+      def parse_argv(argv)
+        options = {}
+
+        OptionParser.new do |opts|
+          @parameters.each do |key, _def|
+            opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
+              options[key] = o
+            end
+          end
+        end.parse!(argv)
+
+        options
       end
     end
   end

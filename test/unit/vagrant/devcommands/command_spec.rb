@@ -122,7 +122,30 @@ describe VagrantPlugins::DevCommands::Command do
       cmd = described_class.new(['paramecho'], env)
 
       expect { cmd.execute }.to(
-        output(/not enough parameters.+paramecho/i).to_stdout
+        output(/missing parameters.+paramecho/i).to_stdout
+      )
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
+  describe 'with invalid command parameters' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/parameters')
+
+      Dir.chdir @newdir
+    end
+
+    it 'displays an error' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = described_class.new(['paramecho', '--will', 'raise'], env)
+
+      expect { cmd.execute }.to(
+        output(/invalid.+paramecho/i).to_stdout
       )
     end
 
