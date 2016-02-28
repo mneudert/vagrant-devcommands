@@ -19,8 +19,8 @@ describe VagrantPlugins::DevCommands::Registry do
 
       registry.read_commandfile(file)
 
-      expect(registry.commands['foo'][:script]).to eq('foo')
-      expect(registry.commands['bar'][:script]).to eq('bar')
+      expect(registry.commands['foo'].script).to eq('foo')
+      expect(registry.commands['bar'].script).to eq('bar')
     end
 
     it 'auto registers the commands name' do
@@ -30,8 +30,8 @@ describe VagrantPlugins::DevCommands::Registry do
 
       registry.read_commandfile(file)
 
-      expect(registry.commands['foo'][:name]).to eq('foo')
-      expect(registry.commands['bar'][:name]).to eq('bar')
+      expect(registry.commands['foo'].name).to eq('foo')
+      expect(registry.commands['bar'].name).to eq('bar')
     end
 
     it 'detects invalid commands' do

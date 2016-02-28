@@ -32,7 +32,9 @@ eoh
         private
 
         def collect_commands
-          @registry.commands.merge VagrantPlugins::DevCommands::Internal::SPECS
+          internal = VagrantPlugins::DevCommands::Internal::COMMANDS
+
+          @registry.commands.merge internal
         end
 
         def command_help(command)
@@ -40,18 +42,18 @@ eoh
 
           puts ''
 
-          if @registry.commands[command].key?(:help)
-            puts @registry.commands[command][:help]
-          else
+          if @registry.commands[command].help.nil?
             puts 'No detailed help for this command available.'
+          else
+            puts @registry.commands[command].help
           end
         end
 
         def command_help_header(command)
           usage = "vagrant run [box] #{command} [args]"
 
-          if @registry.commands[command].key?(:usage)
-            usage = @registry.commands[command][:usage] % { command: command }
+          unless @registry.commands[command].usage.nil?
+            usage = @registry.commands[command].usage % { command: command }
           end
 
           puts "Usage: #{usage}"
@@ -61,12 +63,12 @@ eoh
           internal_help_header(command)
 
           puts ''
-          puts VagrantPlugins::DevCommands::Internal::SPECS[command][:help]
+          puts VagrantPlugins::DevCommands::Internal::COMMANDS[command].help
         end
 
         def internal_help_header(command)
-          spec  = VagrantPlugins::DevCommands::Internal::SPECS[command]
-          usage = spec[:usage] % { command: command }
+          spec  = VagrantPlugins::DevCommands::Internal::COMMANDS[command]
+          usage = spec.usage % { command: command }
 
           puts "Usage: #{usage}"
         end
@@ -81,10 +83,10 @@ eoh
           pad_to   = commands.keys.map(&:length).max
 
           commands.each do |name, command|
-            if command.key?(:desc)
-              puts "     #{name.ljust(pad_to)}   #{command[:desc]}"
-            else
+            if command.desc.nil?
               puts "     #{name}"
+            else
+              puts "     #{name.ljust(pad_to)}   #{command.desc}"
             end
           end
         end

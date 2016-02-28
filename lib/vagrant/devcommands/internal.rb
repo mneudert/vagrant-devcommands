@@ -4,9 +4,9 @@ module VagrantPlugins
     class Internal
       NAMESPACE = VagrantPlugins::DevCommands::InternalCommand
 
-      SPECS = {
-        'help' => NAMESPACE::Help::SPEC,
-        'version' => NAMESPACE::Version::SPEC
+      COMMANDS = {
+        'help'    => CommandDef.new(NAMESPACE::Help::SPEC),
+        'version' => CommandDef.new(NAMESPACE::Version::SPEC)
       }.freeze
 
       def initialize(registry)

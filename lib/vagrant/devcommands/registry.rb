@@ -33,8 +33,9 @@ module VagrantPlugins
 
         return script_warning(name) unless options.key?(:script)
 
-        @commands[name]        = options
-        @commands[name][:name] = name
+        options[:name] = name
+
+        @commands[name] = CommandDef.new(options)
       end
 
       def script_warning(name)

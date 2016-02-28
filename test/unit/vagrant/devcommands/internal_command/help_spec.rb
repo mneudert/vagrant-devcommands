@@ -1,13 +1,15 @@
 require_relative '../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::InternalCommand::Help do
-  command  = VagrantPlugins::DevCommands::Command
-  registry = VagrantPlugins::DevCommands::Registry
+  command     = VagrantPlugins::DevCommands::Command
+  command_def = VagrantPlugins::DevCommands::CommandDef
+  registry    = VagrantPlugins::DevCommands::Registry
 
   describe 'running help for an command command' do
     it 'displays command help message' do
+      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
       reg          = registry.new
-      reg.commands = { 'foo' => { script: 'foo' } }
+      reg.commands = { 'foo' => cmd_foo }
 
       help = described_class.new(reg)
 
@@ -69,8 +71,9 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
   describe 'running help for an unknown command' do
     it 'displays command list' do
+      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
       reg          = registry.new
-      reg.commands = { 'foo' => { script: 'foo' } }
+      reg.commands = { 'foo' => cmd_foo }
 
       help = described_class.new(reg)
 

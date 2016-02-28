@@ -93,7 +93,7 @@ module VagrantPlugins
       end
 
       def run_box(cmd)
-        return cmd[:box].to_s if cmd[:box]
+        return cmd.box.to_s if cmd.box
         return @argv[0].to_s if @env.machine_index.include?(@argv[0].to_s)
 
         nil
@@ -104,12 +104,12 @@ module VagrantPlugins
       end
 
       def run_script(command, argv)
-        script = command[:script]
-        script = command[:script].call if command[:script].is_a?(Proc)
+        script = command.script
+        script = command.script.call if command.script.is_a?(Proc)
 
         script % argv
       rescue ArgumentError
-        error = "Not enough parameters to execute \"#{command[:name]}\"!"
+        error = "Not enough parameters to execute \"#{command.name}\"!"
 
         display_error(error)
 
