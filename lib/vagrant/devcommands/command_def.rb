@@ -19,6 +19,13 @@ module VagrantPlugins
         @help  = spec[:help]
         @usage = spec[:usage]
       end
+
+      def run_script(argv)
+        script = @script
+        script = script.call if script.is_a?(Proc)
+
+        script % argv
+      end
     end
   end
 end
