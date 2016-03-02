@@ -30,6 +30,15 @@ describe VagrantPlugins::DevCommands::CommandDef do
         eq('echo mandatory optional')
       )
     end
+
+    it 'allows parameter defaults' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { dflt: { default: 'dflt' } },
+                                script:     'echo "%{dflt}"')
+
+      expect(cmd.run_script([])).to eq('echo "dflt"')
+      expect(cmd.run_script(['--dflt', 'changed'])).to eq('echo "changed"')
+    end
   end
 
   describe 'with literal percent sign' do

@@ -39,20 +39,25 @@ command 'with_param',
   parameters: {
     # mandatory parameter
     mdtry: {},
+    # parameter with default (implies optional)
+    dflt: { default: "always" },
     # optional parameter
     optnl: { optional: true }
   },
-  script: 'echo %{mdtry} %{optnl}'
+  script: 'echo %{mdtry} %{dflt} %{optnl}'
 ```
 
 This allows you to execute the following command:
 
 ```shell
-# will execute 'echo works'
+# will execute 'echo works always'
 vagrant run with_param --mdtry works
 
-# will execute 'echo works like a charm'
+# will execute 'echo works always like a charm'
 vagrant run with_param --mdtry works --optnl "like a charm"
+
+# will execute 'echo works sometimes like a charm'
+vagrant run with_param --mdtry works --dflt sometimes --optnl "like a charm"
 ```
 
 For now a command expecting one or more parameters will fail if the user does

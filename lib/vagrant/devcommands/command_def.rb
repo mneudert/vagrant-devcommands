@@ -55,6 +55,7 @@ module VagrantPlugins
 
         @parameters.each do |key, conf|
           options[key] = '' if conf[:optional]
+          options[key] = conf[:default] if conf[:default]
         end
 
         options
