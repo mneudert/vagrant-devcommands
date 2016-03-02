@@ -31,21 +31,31 @@ module VagrantPlugins
         opts = []
         opts = parse_argv(argv) if @parameters
 
-        script % opts
+        (script % opts).strip
       end
 
       private
 
       def parse_argv(argv)
-        options = {}
+        options = options_with_defaults
 
         OptionParser.new do |opts|
-          @parameters.each do |key, _def|
+          @parameters.each do |key, _conf|
             opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
               options[key] = o
             end
           end
         end.parse!(argv)
+
+        options
+      end
+
+      def options_with_defaults
+        options = {}
+
+        @parameters.each do |key, conf|
+          options[key] = '' if conf[:optional]
+        end
 
         options
       end

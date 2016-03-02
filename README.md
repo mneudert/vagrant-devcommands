@@ -37,17 +37,22 @@ sprintf syntax:
 ```ruby
 command 'with_param',
   parameters: {
-    # default definition of mandatory parameter
-    what: {}
+    # mandatory parameter
+    mdtry: {},
+    # optional parameter
+    optnl: { optional: true }
   },
-  script: 'echo "%{what}"'
+  script: 'echo %{mdtry} %{optnl}'
 ```
 
 This allows you to execute the following command:
 
 ```shell
-# will execute something like 'echo "works"'
-vagrant run with_param --what works
+# will execute 'echo works'
+vagrant run with_param --mdtry works
+
+# will execute 'echo works like a charm'
+vagrant run with_param --mdtry works --optnl "like a charm"
 ```
 
 For now a command expecting one or more parameters will fail if the user does

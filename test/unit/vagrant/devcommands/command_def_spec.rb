@@ -12,6 +12,24 @@ describe VagrantPlugins::DevCommands::CommandDef do
         eq('echo "works also"')
       )
     end
+
+    it 'allows optional parameters' do
+      parameters = {
+        mdtry: {},
+        optnl: { optional: true }
+      }
+
+      cmd = described_class.new(name:       'foo',
+                                parameters: parameters,
+                                script:     'echo %{mdtry} %{optnl}')
+
+      expect(cmd.run_script(['--mdtry', 'mandatory'])).to eq('echo mandatory')
+      expect(
+        cmd.run_script(['--mdtry', 'mandatory', '--optnl', 'optional'])
+      ).to(
+        eq('echo mandatory optional')
+      )
+    end
   end
 
   describe 'with literal percent sign' do

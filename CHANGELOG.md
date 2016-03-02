@@ -8,6 +8,7 @@
   - Commands can be defined using a lambda/proc
   - Commands can be defined with additional named parameters to be interpolated
   - Internal commands are included in the command listing (help)
+  - Script parameters can be optional
 
 - Backwards incompatible changes
   - Positional parameters have been replaced with named parameters
