@@ -5,6 +5,23 @@ Runs vagrant commands from a Commandfile.
 
 ## Usage
 
+### Command Listing
+
+```shell
+vagrant run
+```
+
+### Command Execution
+
+```shell
+# single-vm environment
+# or multi-vm environment with :box option
+vagrant run your_command
+
+# multi-vm environment
+vagrant run your_box your_command
+```
+
 ### Command Definition
 
 Add to a `Commandfile` besides your `Vagrantfile`:
@@ -76,25 +93,7 @@ command 'from_proc', script: proc { 'echo "proc works"' }
 
 These will be evaluated when running the command.
 
-Every rules from regular scripts (parameters, escaping "%", ...) still apply.
-
-### Command Listing
-
-```shell
-vagrant run
-```
-
-
-### Command Execution
-
-```shell
-# single-vm environment
-# or multi-vm environment with :box option
-vagrant run your_command
-
-# multi-vm environment
-vagrant run your_box your_command
-```
+Every rule from regular scripts (parameters, escaping "%", ...) still apply.
 
 
 ## Notes for Windows Users
