@@ -4,3 +4,10 @@ command 'foo',
   script: 'foo',
   usage: 'vagrant run foo',
   help: 'help message for foo'
+
+command 'znk',
+  script: 'znk',
+  parameters: {
+    frst: {},
+    scnd: { optional: true }
+  }

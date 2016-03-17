@@ -64,6 +64,13 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
+    it 'lists parameters if defined' do
+      env = Vagrant::Environment.new(cwd: @newdir)
+      cmd = command.new(%w(help znk), env)
+
+      expect { cmd.execute }.to output(/znk <frst> \[scnd\]/i).to_stdout
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end

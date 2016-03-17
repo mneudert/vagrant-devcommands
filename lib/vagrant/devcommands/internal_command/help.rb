@@ -50,7 +50,8 @@ eoh
         end
 
         def command_help_header(command)
-          usage = "vagrant run [box] #{command} [args]"
+          usage = "vagrant run [box] #{command}"
+          usage = usage_params(usage, @registry.commands[command])
 
           unless @registry.commands[command].usage.nil?
             usage = @registry.commands[command].usage % { command: command }
@@ -96,6 +97,20 @@ eoh
           puts 'Help:  vagrant run help <command>'
           puts ''
           puts 'Available commands:'
+        end
+
+        def usage_params(usage, command)
+          return usage if command.parameters.nil?
+
+          params = command.parameters.collect do |key, opts|
+            if opts[:optional]
+              "[#{key}]"
+            else
+              "<#{key}>"
+            end
+          end
+
+          "#{usage} #{params.join(' ')}"
         end
       end
     end
