@@ -39,6 +39,14 @@ describe VagrantPlugins::DevCommands::CommandDef do
       expect(cmd.run_script([])).to eq('echo "dflt"')
       expect(cmd.run_script(['--dflt', 'changed'])).to eq('echo "changed"')
     end
+
+    it 'allows option value wrapping' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { wrppd: { wrap: '--opt %s' } },
+                                script:     'script %{wrppd}')
+
+      expect(cmd.run_script(['--wrppd', 'custom'])).to eq('script --opt custom')
+    end
   end
 
   describe 'with literal percent sign' do

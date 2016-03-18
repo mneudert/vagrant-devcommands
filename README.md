@@ -59,9 +59,11 @@ command 'with_param',
     # parameter with default (implies optional)
     dflt: { default: "always" },
     # optional parameter
-    optnl: { optional: true }
+    optnl: { optional: true },
+    # wrapped option value
+    wrppd: { wrap: "--and %s wrapped" }
   },
-  script: 'echo %{mdtry} %{dflt} %{optnl}'
+  script: 'echo %{mdtry} %{dflt} %{optnl} %{wrppd}'
 ```
 
 This allows you to execute the following command:
@@ -73,8 +75,12 @@ vagrant run with_param --mdtry works
 # will execute 'echo works always like a charm'
 vagrant run with_param --mdtry works --optnl "like a charm"
 
-# will execute 'echo works sometimes like a charm'
-vagrant run with_param --mdtry works --dflt sometimes --optnl "like a charm"
+# will execute 'echo works sometimes like a charm --and is wrapped'
+vagrant run with_param \
+    --mdtry works \
+    --dflt sometimes \
+    --optnl "like a charm" \
+    --wrppd is
 ```
 
 For now a command expecting one or more parameters will fail if the user does
