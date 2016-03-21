@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.5.0.dev
+## v0.5.0 (2015-03-21)
 
 - Enhancements
   - Commands can define a detailed help message
