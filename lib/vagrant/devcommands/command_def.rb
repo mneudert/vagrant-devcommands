@@ -28,7 +28,7 @@ module VagrantPlugins
         script = @script
         script = script.call if script.is_a?(Proc)
 
-        opts = []
+        opts = {}
         opts = parse_argv(argv) if @parameters
 
         (script % opts).strip
