@@ -8,11 +8,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/missing-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays warning' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new([], env)
+      cmd = described_class.new([], @env)
 
       expect { cmd.execute }.to output(/missing.+Commandfile/i).to_stdout
     end
@@ -29,11 +30,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/empty-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays help' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new([], env)
+      cmd = described_class.new([], @env)
 
       expect { cmd.execute }.to output(/no commands/i).to_stdout
     end
@@ -50,12 +52,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/simple-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays help' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new([], env)
-
+      cmd       = described_class.new([], @env)
       output_re = /usage.+vagrant run.+available.+bar.+foo/im
 
       expect { cmd.execute }.to output(output_re).to_stdout
@@ -73,11 +75,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/simple-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays message' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new(['xxx'], env)
+      cmd = described_class.new(['xxx'], @env)
 
       expect { cmd.execute }.to output(/invalid command/i).to_stdout
     end
@@ -94,11 +97,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/empty-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'allows running the command' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new(['version'], env)
+      cmd = described_class.new(['version'], @env)
 
       expect { cmd.execute }.to_not output(/no commands/i).to_stdout
     end
@@ -115,11 +119,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/parameters')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays an error' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new(['paramecho'], env)
+      cmd = described_class.new(['paramecho'], @env)
 
       expect { cmd.execute }.to(
         output(/missing parameters.+paramecho/i).to_stdout
@@ -138,11 +143,12 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/parameters')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays an error' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new(['paramecho', '--will', 'raise'], env)
+      cmd = described_class.new(['paramecho', '--will', 'raise'], @env)
 
       expect { cmd.execute }.to(
         output(/invalid.+paramecho/i).to_stdout
@@ -161,18 +167,18 @@ describe VagrantPlugins::DevCommands::Command do
                           '../../fixtures/script-proc')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'calls lambda before running' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new(['lambdaecho'], env)
+      cmd = described_class.new(['lambdaecho'], @env)
 
       expect { cmd.execute }.to output(/parameters.+lambdaecho/i).to_stdout
     end
 
     it 'calls proc before running' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = described_class.new(['procecho'], env)
+      cmd = described_class.new(['procecho'], @env)
 
       expect { cmd.execute }.to output(/parameters.+procecho/i).to_stdout
     end

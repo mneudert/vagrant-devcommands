@@ -10,11 +10,12 @@ describe VagrantPlugins::DevCommands::Registry do
                           '../../fixtures/simple-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'allows defining commands' do
-      env      = Vagrant::Environment.new(cwd: @newdir)
-      file     = commandfile.new(env)
+      file     = commandfile.new(@env)
       registry = described_class.new
 
       registry.read_commandfile(file)
@@ -24,8 +25,7 @@ describe VagrantPlugins::DevCommands::Registry do
     end
 
     it 'auto registers the commands name' do
-      env      = Vagrant::Environment.new(cwd: @newdir)
-      file     = commandfile.new(env)
+      file     = commandfile.new(@env)
       registry = described_class.new
 
       registry.read_commandfile(file)
@@ -35,8 +35,7 @@ describe VagrantPlugins::DevCommands::Registry do
     end
 
     it 'detects invalid commands' do
-      env      = Vagrant::Environment.new(cwd: @newdir)
-      file     = commandfile.new(env)
+      file     = commandfile.new(@env)
       registry = described_class.new
 
       registry.read_commandfile(file)
@@ -57,11 +56,12 @@ describe VagrantPlugins::DevCommands::Registry do
                           '../../fixtures/reserved-commands')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays a message' do
-      env      = Vagrant::Environment.new(cwd: @newdir)
-      file     = commandfile.new(env)
+      file     = commandfile.new(@env)
       registry = described_class.new
 
       described_class::RESERVED_COMMANDS.each do |command|
@@ -83,12 +83,12 @@ describe VagrantPlugins::DevCommands::Registry do
                           '../../fixtures/missing-script')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays a message' do
-      env  = Vagrant::Environment.new(cwd: @newdir)
-      file = commandfile.new(env)
-
+      file     = commandfile.new(@env)
       command  = 'no_script_cmd'
       registry = described_class.new
 

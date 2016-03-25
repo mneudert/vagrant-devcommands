@@ -26,11 +26,12 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
                           '../../../fixtures/help-commandfile')
 
       Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
     end
 
     it 'displays its help message if defined' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = command.new(%w(help foo), env)
+      cmd = command.new(%w(help foo), @env)
 
       expect { cmd.execute }.to(
         output(/help message for foo/).to_stdout
@@ -38,8 +39,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
 
     it 'displays an error if undefined' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = command.new(%w(help bar), env)
+      cmd = command.new(%w(help bar), @env)
 
       expect { cmd.execute }.to(
         output(/no detailed help/i).to_stdout
@@ -47,8 +47,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
 
     it 'displays its custom usage string if defined' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = command.new(%w(help foo), env)
+      cmd = command.new(%w(help foo), @env)
 
       expect { cmd.execute }.to(
         output(/usage: vagrant run foo/i).to_stdout
@@ -56,8 +55,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
 
     it 'displays a default usage string if non defined' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = command.new(%w(help bar), env)
+      cmd = command.new(%w(help bar), @env)
 
       expect { cmd.execute }.to(
         output(/usage: vagrant run \[box\] bar/i).to_stdout
@@ -65,8 +63,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
 
     it 'lists parameters if defined' do
-      env = Vagrant::Environment.new(cwd: @newdir)
-      cmd = command.new(%w(help znk), env)
+      cmd = command.new(%w(help znk), @env)
 
       expect { cmd.execute }.to output(/znk <frst> \[scnd\]/i).to_stdout
     end
