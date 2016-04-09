@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.6.0.dev
+
+- Enhancements
+  - Error output (i.e. "missing Commandfile") is now printed using
+    the configured ui class (allows colored output)
+
 ## v0.5.0 (2015-03-21)
 
 - Enhancements

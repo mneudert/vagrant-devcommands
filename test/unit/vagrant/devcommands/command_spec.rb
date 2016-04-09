@@ -9,13 +9,18 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays warning' do
-      cmd = described_class.new([], @env)
+      described_class
+        .new([], @env)
+        .execute
 
-      expect { cmd.execute }.to output(/missing.+Commandfile/i).to_stdout
+      expect(@env.ui.messages[0][:message]).to match(/missing.+Commandfile/i)
     end
 
     after :context do
@@ -76,13 +81,20 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays message' do
-      cmd = described_class.new(['xxx'], @env)
+      allow($stdout).to receive(:puts)
 
-      expect { cmd.execute }.to output(/invalid command/i).to_stdout
+      described_class
+        .new(['xxx'], @env)
+        .execute
+
+      expect(@env.ui.messages[0][:message]).to match(/invalid command/i)
     end
 
     after :context do
@@ -120,14 +132,21 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays an error' do
-      cmd = described_class.new(['paramecho'], @env)
+      allow($stdout).to receive(:puts)
 
-      expect { cmd.execute }.to(
-        output(/missing parameters.+paramecho/i).to_stdout
+      described_class
+        .new(['paramecho'], @env)
+        .execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/missing parameters.+paramecho/i)
       )
     end
 
@@ -144,15 +163,20 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays an error' do
-      cmd = described_class.new(['paramecho', '--will', 'raise'], @env)
+      allow($stdout).to receive(:puts)
 
-      expect { cmd.execute }.to(
-        output(/invalid.+paramecho/i).to_stdout
-      )
+      described_class
+        .new(['paramecho', '--will', 'raise'], @env)
+        .execute
+
+      expect(@env.ui.messages[0][:message]).to match(/invalid.+paramecho/i)
     end
 
     after :context do
@@ -168,19 +192,34 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'calls lambda before running' do
-      cmd = described_class.new(['lambdaecho'], @env)
+      allow($stdout).to receive(:puts)
 
-      expect { cmd.execute }.to output(/parameters.+lambdaecho/i).to_stdout
+      @env.ui.messages = []
+
+      described_class
+        .new(['lambdaecho'], @env)
+        .execute
+
+      expect(@env.ui.messages[0][:message]).to match(/parameters.+lambdaecho/i)
     end
 
     it 'calls proc before running' do
-      cmd = described_class.new(['procecho'], @env)
+      allow($stdout).to receive(:puts)
 
-      expect { cmd.execute }.to output(/parameters.+procecho/i).to_stdout
+      @env.ui.messages = []
+
+      described_class
+        .new(['procecho'], @env)
+        .execute
+
+      expect(@env.ui.messages[0][:message]).to match(/parameters.+procecho/i)
     end
 
     after :context do

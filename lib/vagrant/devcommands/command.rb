@@ -54,15 +54,15 @@ module VagrantPlugins
       end
 
       def display_error(msg)
-        puts msg
-        puts ''
+        @env.ui.error msg
+        @env.ui.error ''
       end
 
       def read_commandfile
         commandfile = CommandFile.new(@env)
 
         unless commandfile.exist?
-          puts 'Missing "Commandfile"'
+          @env.ui.error 'Missing "Commandfile"'
 
           return false
         end
