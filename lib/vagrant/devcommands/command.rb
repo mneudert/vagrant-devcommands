@@ -35,7 +35,9 @@ module VagrantPlugins
         end
 
         unless @registry.valid_command?(command)
-          display_error("Invalid command \"#{command}\"\n")
+          display_error("Invalid command \"#{command}\"!")
+          run_internal('help', ['--commands'])
+
           return false
         end
 
@@ -52,14 +54,16 @@ module VagrantPlugins
       end
 
       def display_error(msg)
-        puts(msg) && run_internal('help')
+        puts msg
+        puts ''
       end
 
       def read_commandfile
         commandfile = CommandFile.new(@env)
 
         unless commandfile.exist?
-          display_error('Missing "Commandfile"')
+          puts 'Missing "Commandfile"'
+
           return false
         end
 
@@ -99,8 +103,8 @@ module VagrantPlugins
         nil
       end
 
-      def run_internal(command)
-        Internal.new(@registry).run(command, run_argv)
+      def run_internal(command, args = nil)
+        Internal.new(@registry).run(command, args || run_argv)
       end
 
       def run_script(command, argv)
@@ -109,6 +113,7 @@ module VagrantPlugins
         error = "Invalid/Missing parameters to execute \"#{command.name}\"!"
 
         display_error(error)
+        run_internal('help', [command.name])
 
         nil
       end

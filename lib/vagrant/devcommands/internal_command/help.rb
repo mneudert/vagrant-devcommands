@@ -18,15 +18,14 @@ eoh
         end
 
         def execute(argv)
-          if @registry.commands.empty?
-            puts 'No commands defined!'
-            return
-          end
+          return plugin_help_empty if @registry.commands.empty?
 
-          return plugin_help unless @registry.valid_command?(argv[0])
-          return internal_help(argv[0]) if @registry.reserved_command?(argv[0])
+          command = argv[0]
 
-          command_help(argv[0])
+          return plugin_help(argv) unless @registry.valid_command?(command)
+          return internal_help(command) if @registry.reserved_command?(command)
+
+          command_help(command)
         end
 
         private
@@ -74,8 +73,8 @@ eoh
           puts "Usage: #{usage}"
         end
 
-        def plugin_help
-          plugin_help_usage
+        def plugin_help(command)
+          plugin_help_usage unless '--commands' == command
           plugin_help_commands
         end
 
@@ -92,6 +91,10 @@ eoh
               puts "     #{name.ljust(pad_to)}   #{command.desc}"
             end
           end
+        end
+
+        def plugin_help_empty
+          puts 'No commands defined!'
         end
 
         def plugin_help_usage
