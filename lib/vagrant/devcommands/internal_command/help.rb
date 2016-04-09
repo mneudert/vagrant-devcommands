@@ -75,11 +75,13 @@ eoh
         end
 
         def plugin_help
-          plugin_help_header
+          plugin_help_usage
           plugin_help_commands
         end
 
         def plugin_help_commands
+          puts 'Available commands:'
+
           commands = collect_commands
           pad_to   = commands.keys.map(&:length).max
 
@@ -92,11 +94,10 @@ eoh
           end
         end
 
-        def plugin_help_header
+        def plugin_help_usage
           puts 'Usage: vagrant run [box] <command>'
           puts 'Help:  vagrant run help <command>'
           puts ''
-          puts 'Available commands:'
         end
 
         def usage_params(usage, command)
