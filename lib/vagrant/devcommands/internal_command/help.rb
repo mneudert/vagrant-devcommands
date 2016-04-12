@@ -22,7 +22,7 @@ eoh
 
           command = argv[0]
 
-          return plugin_help(argv) unless @registry.valid_command?(command)
+          return plugin_help(command) unless @registry.valid_command?(command)
           return internal_help(command) if @registry.reserved_command?(command)
 
           command_help(command)
