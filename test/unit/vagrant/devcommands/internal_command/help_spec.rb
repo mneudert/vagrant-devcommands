@@ -70,6 +70,14 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
+    it 'lists mandatory params before optional params' do
+      cmd = command.new(%w(help unordered), @env)
+
+      expect { cmd.execute }.to(
+        output(/unordered --scnd=<scnd> \[--frst=<frst>\]/i).to_stdout
+      )
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end

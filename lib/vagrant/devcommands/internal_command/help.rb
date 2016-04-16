@@ -106,15 +106,23 @@ eoh
         def usage_params(usage, command)
           return usage if command.parameters.nil?
 
-          params = command.parameters.collect do |key, opts|
-            if opts[:optional]
-              "[--#{key}=<#{key}>]"
-            else
-              "--#{key}=<#{key}>"
-            end
-          end
+          [
+            usage,
+            usage_params_mandatory(command.parameters),
+            usage_params_optional(command.parameters)
+          ].flatten.compact.join(' ').strip
+        end
 
-          "#{usage} #{params.join(' ')}"
+        def usage_params_mandatory(params)
+          params.collect do |key, opts|
+            "--#{key}=<#{key}>" unless opts[:optional]
+          end
+        end
+
+        def usage_params_optional(params)
+          params.collect do |key, opts|
+            "[--#{key}=<#{key}>]" if opts[:optional]
+          end
         end
       end
     end

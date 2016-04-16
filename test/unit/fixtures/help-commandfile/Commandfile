@@ -11,3 +11,10 @@ command 'znk',
     frst: {},
     scnd: { optional: true }
   }
+
+command 'unordered',
+  script: 'unordered',
+  parameters: {
+    frst: { optional: true },
+    scnd: {}
+  }

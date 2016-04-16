@@ -4,6 +4,7 @@
 
 - Enhancements
   - Command usage now displays the correct parameter syntax
+  - Command usage always displays mandatory parameters before optional ones
   - Error output (i.e. "missing Commandfile") is now printed using
     the configured ui class (allows colored output)
   - Parameter wrapping is only done if a value is passed
