@@ -47,6 +47,23 @@ describe VagrantPlugins::DevCommands::CommandDef do
 
       expect(cmd.run_script(['--wrppd', 'custom'])).to eq('script --opt custom')
     end
+
+    it 'does not wrap unpassed optional parameters' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { wrppd: { wrap: '--opt %s' } },
+                                script:     'script %{wrppd}')
+
+      expect { cmd.run_script([]) }.to raise_error(KeyError)
+    end
+
+    it 'does wrap unpassed optional parameters with empty default' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { wrppd: { wrap:    '--opt %s',
+                                                       default: '' } },
+                                script:     'script %{wrppd}')
+
+      expect(cmd.run_script([])).to eq('script --opt')
+    end
   end
 
   describe 'with literal percent sign' do

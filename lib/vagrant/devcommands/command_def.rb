@@ -55,7 +55,7 @@ module VagrantPlugins
 
         @parameters.each do |key, conf|
           options[key] = '' if conf[:optional]
-          options[key] = conf[:default] if conf[:default]
+          options[key] = conf[:default] unless conf[:default].nil?
         end
 
         options
@@ -64,6 +64,7 @@ module VagrantPlugins
       def wrap_option_values(options)
         @parameters.each do |key, conf|
           next if conf[:wrap].nil?
+          next if options[key].nil? && conf[:default].nil?
 
           options[key] = conf[:wrap] % options[key]
         end

@@ -5,6 +5,8 @@
 - Enhancements
   - Error output (i.e. "missing Commandfile") is now printed using
     the configured ui class (allows colored output)
+  - Parameter wrapping is only done if a value is passed
+    or a default (at least empty string) is configured
 
 ## v0.5.0 (2015-03-21)
 
