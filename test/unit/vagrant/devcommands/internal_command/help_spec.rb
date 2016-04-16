@@ -65,7 +65,9 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'lists parameters if defined' do
       cmd = command.new(%w(help znk), @env)
 
-      expect { cmd.execute }.to output(/znk <frst> \[scnd\]/i).to_stdout
+      expect { cmd.execute }.to(
+        output(/znk --frst=<frst> \[--scnd=<scnd>\]/i).to_stdout
+      )
     end
 
     after :context do

@@ -3,6 +3,7 @@
 ## v0.6.0.dev
 
 - Enhancements
+  - Command usage now displays the correct parameter syntax
   - Error output (i.e. "missing Commandfile") is now printed using
     the configured ui class (allows colored output)
   - Parameter wrapping is only done if a value is passed

@@ -108,9 +108,9 @@ eoh
 
           params = command.parameters.collect do |key, opts|
             if opts[:optional]
-              "[#{key}]"
+              "[--#{key}=<#{key}>]"
             else
-              "<#{key}>"
+              "--#{key}=<#{key}>"
             end
           end
 
