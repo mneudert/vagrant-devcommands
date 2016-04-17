@@ -109,11 +109,15 @@ module VagrantPlugins
 
       def run_script(command, argv)
         command.run_script(argv)
-      rescue KeyError, OptionParser::InvalidOption
-        error = "Invalid/Missing parameters to execute \"#{command.name}\"!"
+      rescue KeyError
+        run_script_error(command.name, 'missing parameters')
+      rescue OptionParser::InvalidOption
+        run_script_error(command.name, 'invalid parameters')
+      end
 
-        display_error(error)
-        run_internal('help', [command.name])
+      def run_script_error(command, error)
+        display_error("Could not execute #{command}: #{error}!")
+        run_internal('help', [command])
 
         nil
       end
