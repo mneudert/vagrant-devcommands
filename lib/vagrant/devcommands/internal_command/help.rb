@@ -53,6 +53,14 @@ eoh
           puts "Usage: #{usage}"
         end
 
+        def command_pad_to
+          VagrantPlugins::DevCommands::Internal::COMMANDS
+            .merge(@registry.commands)
+            .keys
+            .map(&:length)
+            .max
+        end
+
         def internal_help(command)
           internal_help_header(command)
 
@@ -70,18 +78,19 @@ eoh
         def plugin_help(command)
           plugin_help_usage unless '--commands' == command
 
-          plugin_help_commands('Available', @registry.commands)
+          pad_to = command_pad_to
+
+          plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_commands(
             'Internal',
-            VagrantPlugins::DevCommands::Internal::COMMANDS
+            VagrantPlugins::DevCommands::Internal::COMMANDS,
+            pad_to
           )
         end
 
-        def plugin_help_commands(type, commands)
+        def plugin_help_commands(type, commands, pad_to)
           puts ''
           puts "#{type} commands:"
-
-          pad_to = commands.keys.map(&:length).max
 
           commands.each do |name, command|
             if command.desc.nil?
