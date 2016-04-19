@@ -16,7 +16,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
     it 'allows defining commands' do
       file     = commandfile.new(@env)
-      registry = described_class.new
+      registry = described_class.new(@env)
 
       registry.read_commandfile(file)
 
@@ -26,7 +26,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
     it 'auto registers the commands name' do
       file     = commandfile.new(@env)
-      registry = described_class.new
+      registry = described_class.new(@env)
 
       registry.read_commandfile(file)
 
@@ -36,7 +36,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
     it 'detects invalid commands' do
       file     = commandfile.new(@env)
-      registry = described_class.new
+      registry = described_class.new(@env)
 
       registry.read_commandfile(file)
 
@@ -57,17 +57,22 @@ describe VagrantPlugins::DevCommands::Registry do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays a message' do
       file     = commandfile.new(@env)
-      registry = described_class.new
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 
       described_class::RESERVED_COMMANDS.each do |command|
-        expect { registry.read_commandfile(file) }.to(
-          output(/#{command}.+reserved/i).to_stdout
-        )
+        expect(messages).to match(/#{command}.+reserved/i)
       end
     end
 
@@ -84,19 +89,21 @@ describe VagrantPlugins::DevCommands::Registry do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays a message' do
       file     = commandfile.new(@env)
       command  = 'no_script_cmd'
-      registry = described_class.new
+      registry = described_class.new(@env)
 
-      expect { registry.read_commandfile(file) }.to(
-        output(/#{command}.+no script/i).to_stdout
-      )
+      registry.read_commandfile(file)
 
-      expect(registry.valid_command?(command)).to be false
+      expect(@env.ui.messages[0][:message]).to match(/#{command}.+no script/i)
+      expect(registry.valid_command?(command)).to be(false)
     end
 
     after :context do
@@ -106,7 +113,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'validating a reserved command' do
     it 'always returns true' do
-      registry = described_class.new
+      registry = described_class.new(nil)
 
       described_class::RESERVED_COMMANDS.each do |name|
         expect(registry.valid_command?(name)).to be true

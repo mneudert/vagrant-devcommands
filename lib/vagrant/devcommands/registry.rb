@@ -6,8 +6,9 @@ module VagrantPlugins
 
       attr_accessor :commands
 
-      def initialize
+      def initialize(env)
         @commands = {}
+        @env      = env
       end
 
       def read_commandfile(commandfile)
@@ -39,15 +40,18 @@ module VagrantPlugins
       end
 
       def script_warning(name)
-        puts "The command '#{name}' has no script defined to execute."
-        puts 'Your definition of it will be ignored.'
-        puts ''
+        @env.ui.warn "The command '#{name}' has no script defined to execute."
+        @env.ui.warn 'Your definition of it will be ignored.'
+        @env.ui.warn ''
       end
 
       def reserved_warning(name)
-        puts "The command name '#{name}' is reserved for internal usage."
-        puts 'Your definition of it will be ignored.'
-        puts ''
+        @env.ui.warn(
+          "The command name '#{name}' is reserved for internal usage."
+        )
+
+        @env.ui.warn 'Your definition of it will be ignored.'
+        @env.ui.warn ''
       end
     end
   end

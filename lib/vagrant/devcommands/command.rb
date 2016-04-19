@@ -7,7 +7,7 @@ module VagrantPlugins
       end
 
       def initialize(argv, env)
-        @registry = Registry.new
+        @registry = Registry.new(env)
 
         super(argv, env)
       end
