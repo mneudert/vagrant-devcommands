@@ -36,13 +36,16 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays help' do
-      cmd = described_class.new([], @env)
+      described_class.new([], @env).execute
 
-      expect { cmd.execute }.to output(/no commands/i).to_stdout
+      expect(@env.ui.messages[0][:message]).to match(/no commands/i)
     end
 
     after :context do
@@ -58,14 +61,18 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays help' do
-      cmd       = described_class.new([], @env)
-      output_re = /usage.+vagrant run.+available.+bar.+foo/im
+      described_class.new([], @env).execute
 
-      expect { cmd.execute }.to output(output_re).to_stdout
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/usage.+vagrant run.+available.+bar.+foo/im)
     end
 
     after :context do
@@ -88,8 +95,6 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays message' do
-      allow($stdout).to receive(:puts)
-
       described_class
         .new(['xxx'], @env)
         .execute
@@ -110,13 +115,18 @@ describe VagrantPlugins::DevCommands::Command do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'allows running the command' do
-      cmd = described_class.new(['version'], @env)
+      described_class.new(['version'], @env).execute
 
-      expect { cmd.execute }.to_not output(/no commands/i).to_stdout
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to_not match(/no commands/i)
     end
 
     after :context do
@@ -139,8 +149,6 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays an error' do
-      allow($stdout).to receive(:puts)
-
       described_class
         .new(['paramecho'], @env)
         .execute
@@ -168,8 +176,6 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays an error' do
-      allow($stdout).to receive(:puts)
-
       described_class
         .new(['paramecho', '--will', 'raise'], @env)
         .execute
@@ -197,8 +203,6 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'calls lambda before running' do
-      allow($stdout).to receive(:puts)
-
       @env.ui.messages = []
 
       described_class
@@ -209,8 +213,6 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'calls proc before running' do
-      allow($stdout).to receive(:puts)
-
       @env.ui.messages = []
 
       described_class

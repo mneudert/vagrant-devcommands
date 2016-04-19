@@ -8,14 +8,15 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   describe 'running help for an command command' do
     it 'displays command help message' do
       cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
 
-      help = described_class.new(reg)
+      described_class.new(env, reg).execute(['help'])
 
-      expect { help.execute(['help']) }.to(
-        output(/help for the help command/).to_stdout
-      )
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/help for the help command/)
     end
   end
 
@@ -27,54 +28,67 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
       Dir.chdir @newdir
 
-      @env = Vagrant::Environment.new(cwd: @newdir)
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
     end
 
     it 'displays its help message if defined' do
-      cmd = command.new(%w(help foo), @env)
+      @env.ui.messages = []
 
-      expect { cmd.execute }.to(
-        output(/help message for foo/).to_stdout
-      )
+      command.new(%w(help foo), @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/help message for foo/)
     end
 
     it 'displays an error if undefined' do
-      cmd = command.new(%w(help bar), @env)
+      @env.ui.messages = []
 
-      expect { cmd.execute }.to(
-        output(/no detailed help/i).to_stdout
-      )
+      command.new(%w(help bar), @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/no detailed help/i)
     end
 
     it 'displays its custom usage string if defined' do
-      cmd = command.new(%w(help foo), @env)
+      @env.ui.messages = []
 
-      expect { cmd.execute }.to(
-        output(/usage: vagrant run foo/i).to_stdout
-      )
+      command.new(%w(help foo), @env).execute
+
+      expect(@env.ui.messages[0][:message]).to match(/usage: vagrant run foo/i)
     end
 
     it 'displays a default usage string if non defined' do
-      cmd = command.new(%w(help bar), @env)
+      @env.ui.messages = []
 
-      expect { cmd.execute }.to(
-        output(/usage: vagrant run \[box\] bar/i).to_stdout
+      command.new(%w(help bar), @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/usage: vagrant run \[box\] bar/i)
       )
     end
 
     it 'lists parameters if defined' do
-      cmd = command.new(%w(help znk), @env)
+      @env.ui.messages = []
 
-      expect { cmd.execute }.to(
-        output(/znk --frst=<frst> \[--scnd=<scnd>\]/i).to_stdout
+      command.new(%w(help znk), @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/znk --frst=<frst> \[--scnd=<scnd>\]/i)
       )
     end
 
     it 'lists mandatory params before optional params' do
-      cmd = command.new(%w(help unordered), @env)
+      @env.ui.messages = []
 
-      expect { cmd.execute }.to(
-        output(/unordered --scnd=<scnd> \[--frst=<frst>\]/i).to_stdout
+      command.new(%w(help unordered), @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/unordered --scnd=<scnd> \[--frst=<frst>\]/i)
       )
     end
 
@@ -86,14 +100,15 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   describe 'running help for an unknown command' do
     it 'displays command list' do
       cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
 
-      help = described_class.new(reg)
+      described_class.new(env, reg).execute(['i-am-unknown'])
 
-      expect { help.execute(['i-am-unknown']) }.to(
-        output(/available commands/i).to_stdout
-      )
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/available commands/i)
     end
   end
 end

@@ -13,7 +13,8 @@ Just like this help for the help command!
 eoh
         }.freeze
 
-        def initialize(registry)
+        def initialize(env, registry)
+          @env      = env
           @registry = registry
         end
 
@@ -33,12 +34,12 @@ eoh
         def command_help(command)
           command_help_header(command)
 
-          puts ''
+          @env.ui.info ''
 
           if @registry.commands[command].help.nil?
-            puts 'No detailed help for this command available.'
+            @env.ui.info 'No detailed help for this command available.'
           else
-            puts @registry.commands[command].help
+            @env.ui.info @registry.commands[command].help
           end
         end
 
@@ -50,29 +51,33 @@ eoh
             usage = @registry.commands[command].usage % { command: command }
           end
 
-          puts "Usage: #{usage}"
+          @env.ui.info "Usage: #{usage}"
         end
 
         def command_pad_to
-          VagrantPlugins::DevCommands::Internal::COMMANDS
+          internal_commands
             .merge(@registry.commands)
             .keys
             .map(&:length)
             .max
         end
 
+        def internal_commands
+          VagrantPlugins::DevCommands::Internal::COMMANDS
+        end
+
         def internal_help(command)
           internal_help_header(command)
 
-          puts ''
-          puts VagrantPlugins::DevCommands::Internal::COMMANDS[command].help
+          @env.ui.info ''
+          @env.ui.info internal_commands[command].help
         end
 
         def internal_help_header(command)
-          spec  = VagrantPlugins::DevCommands::Internal::COMMANDS[command]
+          spec  = internal_commands[command]
           usage = spec.usage % { command: command }
 
-          puts "Usage: #{usage}"
+          @env.ui.info "Usage: #{usage}"
         end
 
         def plugin_help(command)
@@ -81,33 +86,29 @@ eoh
           pad_to = command_pad_to
 
           plugin_help_commands('Available', @registry.commands, pad_to)
-          plugin_help_commands(
-            'Internal',
-            VagrantPlugins::DevCommands::Internal::COMMANDS,
-            pad_to
-          )
+          plugin_help_commands('Internal', internal_commands, pad_to)
         end
 
         def plugin_help_commands(type, commands, pad_to)
-          puts ''
-          puts "#{type} commands:"
+          @env.ui.info ''
+          @env.ui.info "#{type} commands:"
 
           commands.each do |name, command|
             if command.desc.nil?
-              puts "     #{name}"
+              @env.ui.info "     #{name}"
             else
-              puts "     #{name.ljust(pad_to)}   #{command.desc}"
+              @env.ui.info "     #{name.ljust(pad_to)}   #{command.desc}"
             end
           end
         end
 
         def plugin_help_empty
-          puts 'No commands defined!'
+          @env.ui.info 'No commands defined!'
         end
 
         def plugin_help_usage
-          puts 'Usage: vagrant run [box] <command>'
-          puts 'Help:  vagrant run help <command>'
+          @env.ui.info 'Usage: vagrant run [box] <command>'
+          @env.ui.info 'Help:  vagrant run help <command>'
         end
 
         def usage_params(usage, command)

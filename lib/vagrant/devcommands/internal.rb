@@ -9,9 +9,9 @@ module VagrantPlugins
         'version' => CommandDef.new(NAMESPACE::Version::SPEC)
       }.freeze
 
-      def initialize(registry, env)
+      def initialize(env, registry)
         @internal = {
-          'help'    => NAMESPACE::Help.new(registry),
+          'help'    => NAMESPACE::Help.new(env, registry),
           'version' => NAMESPACE::Version.new(env)
         }
         @registry = registry
