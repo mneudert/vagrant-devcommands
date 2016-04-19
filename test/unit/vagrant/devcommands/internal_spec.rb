@@ -10,7 +10,7 @@ describe VagrantPlugins::DevCommands::Internal do
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
 
-      internal = described_class.new(reg)
+      internal = described_class.new(reg, nil)
 
       expect { internal.run('help', []) }.to output(/version/).to_stdout
       expect { internal.run('help', []) }.to output(/help/).to_stdout
@@ -20,7 +20,7 @@ describe VagrantPlugins::DevCommands::Internal do
   describe 'internal help command' do
     it 'notifies if no command is available' do
       reg      = registry.new(nil)
-      internal = described_class.new(reg)
+      internal = described_class.new(reg, nil)
 
       expect { internal.run('help', []) }.to output(/no commands/i).to_stdout
     end
@@ -31,7 +31,7 @@ describe VagrantPlugins::DevCommands::Internal do
       reg          = registry.new(nil)
       reg.commands = { 'bar' => cmd_bar, 'foo' => cmd_foo }
 
-      internal = described_class.new(reg)
+      internal = described_class.new(reg, nil)
 
       expect { internal.run('help', []) }.to output(/bar/).to_stdout
       expect { internal.run('help', []) }.to output(/foo/).to_stdout
@@ -44,7 +44,7 @@ describe VagrantPlugins::DevCommands::Internal do
       reg          = registry.new(nil)
       reg.commands = { 'bar' => cmd_bar, 'foo' => cmd_foo }
 
-      internal = described_class.new(reg)
+      internal = described_class.new(reg, nil)
 
       expect { internal.run('help', []) }.to(
         output(/has a description/).to_stdout
@@ -54,11 +54,14 @@ describe VagrantPlugins::DevCommands::Internal do
 
   describe 'internal version command' do
     it 'displays the plugin version' do
+      env      = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg      = registry.new(nil)
-      internal = described_class.new(reg)
+      internal = described_class.new(reg, env)
       version  = VagrantPlugins::DevCommands::VERSION
 
-      expect { internal.run('version', []) }.to output(/#{version}/).to_stdout
+      internal.run('version', [])
+
+      expect(env.ui.messages[0][:message]).to match(/#{version}/)
     end
   end
 end

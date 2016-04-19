@@ -104,7 +104,7 @@ module VagrantPlugins
       end
 
       def run_internal(command, args = nil)
-        Internal.new(@registry).run(command, args || run_argv)
+        Internal.new(@registry, @env).run(command, args || run_argv)
       end
 
       def run_script(command, argv)

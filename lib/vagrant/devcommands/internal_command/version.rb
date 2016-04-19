@@ -12,8 +12,12 @@ Displays the currently installed version the plugin you are using right now.
 eoh
         }.freeze
 
+        def initialize(env)
+          @env = env
+        end
+
         def execute(_args)
-          puts "vagrant-devcommands, version #{VERSION}"
+          @env.ui.info "vagrant-devcommands, version #{VERSION}"
         end
       end
     end
