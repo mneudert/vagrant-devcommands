@@ -97,13 +97,17 @@ describe VagrantPlugins::DevCommands::Registry do
 
     it 'displays a message' do
       file     = commandfile.new(@env)
-      command  = 'no_script_cmd'
       registry = described_class.new(@env)
 
       registry.read_commandfile(file)
 
-      expect(@env.ui.messages[0][:message]).to match(/#{command}.+no script/i)
-      expect(registry.valid_command?(command)).to be(false)
+      commands = %w(no_params no_script empty_script)
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      commands.each do |command|
+        expect(messages).to match(/#{command}.+no script/i)
+        expect(registry.valid_command?(command)).to be(false)
+      end
     end
 
     after :context do

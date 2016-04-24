@@ -1,1 +1,3 @@
-command 'no_script_cmd', desc: 'has no script!'
+command 'no_params'
+command 'no_script', desc: 'has no script!'
+command 'empty_script', script: ''

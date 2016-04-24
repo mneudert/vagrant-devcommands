@@ -27,12 +27,12 @@ module VagrantPlugins
 
       private
 
-      def command(name, options)
+      def command(name, options = nil)
         return reserved_warning(name) if reserved_command?(name)
 
         options = { script: options } unless options.is_a?(Hash)
 
-        return script_warning(name) unless options.key?(:script)
+        return script_warning(name) unless valid_script?(options[:script])
 
         options[:name] = name
 
@@ -52,6 +52,15 @@ module VagrantPlugins
 
         @env.ui.warn 'Your definition of it will be ignored.'
         @env.ui.warn ''
+      end
+
+      def valid_script?(script)
+        return true if script.is_a?(Proc)
+
+        return false unless script.is_a?(String)
+        return false if script.empty?
+
+        true
       end
     end
   end
