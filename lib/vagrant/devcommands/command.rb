@@ -109,8 +109,10 @@ module VagrantPlugins
 
       def run_script(command, argv)
         command.run_script(argv)
-      rescue KeyError
-        run_script_error(command.name, 'missing parameters')
+      rescue KeyError => e
+        param = e.message.match(/{(.+)}/).captures.first
+
+        run_script_error(command.name, "missing parameter '#{param}'")
       rescue OptionParser::InvalidOption
         run_script_error(command.name, 'invalid parameters')
       end

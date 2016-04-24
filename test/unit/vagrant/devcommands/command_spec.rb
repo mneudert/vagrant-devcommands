@@ -153,7 +153,9 @@ describe VagrantPlugins::DevCommands::Command do
         .new(['paramecho'], @env)
         .execute
 
-      expect(@env.ui.messages[0][:message]).to match(/paramecho.+missing/i)
+      expect(@env.ui.messages[0][:message]).to(
+        match(/paramecho.+missing.+what/i)
+      )
     end
 
     after :context do
@@ -209,7 +211,7 @@ describe VagrantPlugins::DevCommands::Command do
         .new(['lambdaecho'], @env)
         .execute
 
-      expect(@env.ui.messages[0][:message]).to match(/lambdaecho.+parameters/i)
+      expect(@env.ui.messages[0][:message]).to match(/lambdaecho.+parameter/i)
     end
 
     it 'calls proc before running' do
@@ -219,7 +221,7 @@ describe VagrantPlugins::DevCommands::Command do
         .new(['procecho'], @env)
         .execute
 
-      expect(@env.ui.messages[0][:message]).to match(/procecho.+parameters/i)
+      expect(@env.ui.messages[0][:message]).to match(/procecho.+parameter/i)
     end
 
     after :context do
