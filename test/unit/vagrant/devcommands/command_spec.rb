@@ -179,10 +179,12 @@ describe VagrantPlugins::DevCommands::Command do
 
     it 'displays an error' do
       described_class
-        .new(['paramecho', '--will', 'raise'], @env)
+        .new(['paramecho', '--will=raise'], @env)
         .execute
 
-      expect(@env.ui.messages[0][:message]).to match(/paramecho.+invalid/i)
+      expect(@env.ui.messages[0][:message]).to(
+        match(/paramecho.+invalid.+--will/i)
+      )
     end
 
     after :context do

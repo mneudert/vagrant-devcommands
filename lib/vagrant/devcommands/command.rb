@@ -113,8 +113,8 @@ module VagrantPlugins
         param = e.message.match(/{(.+)}/).captures.first
 
         run_script_error(command.name, "missing parameter '#{param}'")
-      rescue OptionParser::InvalidOption
-        run_script_error(command.name, 'invalid parameters')
+      rescue OptionParser::InvalidOption => e
+        run_script_error(command.name, "invalid parameter '#{e.args.first}'")
       end
 
       def run_script_error(command, error)
