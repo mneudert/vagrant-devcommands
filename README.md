@@ -46,7 +46,7 @@ eoh
 _Note_: If you are defining literal `%` (percent sign) in your commands you
 have to escape them using a second `%`. For example `date "+%%Y-%%m-%%d"`.
 
-#### Experimental: Command Definition (parameters)
+#### Commands with Parameters
 
 Passing additional parameters to a command is (minimally) supported using an
 sprintf syntax:
