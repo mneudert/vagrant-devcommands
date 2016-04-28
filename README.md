@@ -87,7 +87,7 @@ For now a command expecting one or more parameters will fail if the user does
 not provide them. Any arguments exceeding the number used are silently
 discarded.
 
-#### Experimental: Command Definition (lambda/proc)
+#### Commands defined by Lambda/Proc
 
 You can (more or less) dynamically generate your scripts by defining the
 command with a lambda or proc as its script.
