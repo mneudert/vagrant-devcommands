@@ -12,7 +12,12 @@ module VagrantPlugins
       end
 
       def read_commandfile(commandfile)
-        contents = commandfile.path.read
+        global = commandfile.path_global
+        local  = commandfile.path
+
+        contents  = ''
+        contents += "\n" + global.read unless nil == global
+        contents += "\n" + local.read unless nil == local
 
         instance_eval(contents)
       end

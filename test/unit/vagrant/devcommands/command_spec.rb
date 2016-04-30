@@ -43,6 +43,10 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays help' do
+      allow(Dir).to receive(:home).and_return(
+        File.expand_path('../../fixtures/home_empty', File.dirname(__FILE__))
+      )
+
       described_class.new([], @env).execute
 
       expect(@env.ui.messages[0][:message]).to match(/no commands/i)
@@ -73,6 +77,49 @@ describe VagrantPlugins::DevCommands::Command do
       messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 
       expect(messages).to match(/usage.+vagrant run.+available.+bar.+foo/im)
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
+  describe 'with a global Commandfile' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/simple-commandfile')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'displays global commands' do
+      allow(Dir).to receive(:home).and_return(
+        File.expand_path('../../fixtures/home_notempty', File.dirname(__FILE__))
+      )
+
+      described_class.new([], @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/global_command/im)
+    end
+
+    it 'prefers local over global commands' do
+      allow(Dir).to receive(:home).and_return(
+        File.expand_path('../../fixtures/home_notempty', File.dirname(__FILE__))
+      )
+
+      described_class.new([], @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to_not match(/should not appear/im)
     end
 
     after :context do

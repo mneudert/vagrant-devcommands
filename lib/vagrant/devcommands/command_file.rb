@@ -1,3 +1,5 @@
+require 'pathname'
+
 module VagrantPlugins
   module DevCommands
     # Loads and handles the Commandfile
@@ -7,11 +9,19 @@ module VagrantPlugins
       end
 
       def exist?
-        nil != find_commandfile
+        nil != path
       end
 
       def path
         find_commandfile
+      end
+
+      def path_global
+        global = Pathname.new(Dir.home).join('.vagrant.devcommands')
+
+        return global if global.file?
+
+        nil
       end
 
       private

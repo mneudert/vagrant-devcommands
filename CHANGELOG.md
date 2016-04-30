@@ -7,6 +7,8 @@
   - Command usage always displays mandatory parameters before optional ones
   - Error output (i.e. "missing Commandfile") is now printed using
     the configured ui class (allows colored output)
+  - Global commands can be defined using a file
+    named `.vagrant.devcommands` located under `Dir.home()`
   - Invalid parameters are displayed in the error message
   - Missing parameters are displayed in the error message
   - Parameter wrapping is only done if a value is passed

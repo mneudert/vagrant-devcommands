@@ -102,6 +102,21 @@ These will be evaluated when running the command.
 Every rule from regular scripts (parameters, escaping "%", ...) still apply.
 
 
+### Experimental: global command definitions
+
+To have commands available even wihout a `Commandfile` you can define the
+globally. To do this just create a file named `.vagrant.devcommands` in your
+`$HOME` directory.
+
+You can use this command to find the correct path if unsure:
+
+```shell
+ruby -e "require 'pathname'; puts Pathname.new(Dir.home).join('.vagrant.devcommands')"
+```
+
+Any commands defined there will silently be overwritten by a local definition.
+
+
 ## Notes for Windows Users
 
 ### SSH

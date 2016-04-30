@@ -1,0 +1,2 @@
+command 'foo', desc: 'should not appear in test!', script: 'echo "foo"'
+command 'global_command', script: 'echo "global"'
