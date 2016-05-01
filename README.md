@@ -116,6 +116,30 @@ ruby -e "require 'pathname'; puts Pathname.new(Dir.home).join('.vagrant.devcomma
 
 Any commands defined there will silently be overwritten by a local definition.
 
+### Abort parsing inside Commandfile
+
+If you, for whatever reasons, want to abort further parsing of a `Commandfile`
+you can simple return from it:
+
+```ruby
+command 'foo', script: 'foo'
+
+
+v_cur = Gem::Version.new(VagrantPlugins::DevCommands::VERSION)
+v_min = Gem::Version.new('1.3.3.7')
+
+return if v_cur < v_min
+
+
+command 'bar', script: 'bar'
+```
+
+This example leads to the command `bar` not being available if the currently
+installed plugin has a version below `1.3.3.7`.
+
+Please be aware that returning from a global commandfile completely skips
+evaluating a local one.
+
 
 ## Notes for Windows Users
 
