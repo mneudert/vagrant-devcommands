@@ -93,7 +93,7 @@ eoh
           @env.ui.info ''
           @env.ui.info "#{type} commands:"
 
-          commands.each do |name, command|
+          commands.sort.each do |name, command|
             if command.desc.nil?
               @env.ui.info "     #{name}"
             else
