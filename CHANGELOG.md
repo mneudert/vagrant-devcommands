@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.6.0.dev
+## v0.6.0 (2016-05-05)
 
 - Enhancements
   - Command usage now displays the correct parameter syntax
