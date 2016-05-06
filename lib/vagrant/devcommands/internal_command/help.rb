@@ -4,13 +4,10 @@ module VagrantPlugins
       # Internal "help" command
       class Help
         SPEC = {
-          desc: 'display this help message',
-          name: 'help',
+          desc:  I18n.t('vagrant_devcommands.internal.help.desc'),
+          name:  'help',
           usage: 'vagrant run %{command} [command]',
-          help: <<-eoh
-Display the help of the command given as the first argument if defined.
-Just like this help for the help command!
-eoh
+          help:  I18n.t('vagrant_devcommands.internal.help.help')
         }.freeze
 
         def initialize(env, registry)

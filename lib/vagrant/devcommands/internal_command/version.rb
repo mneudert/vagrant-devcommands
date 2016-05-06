@@ -4,12 +4,10 @@ module VagrantPlugins
       # Internal "version" command
       class Version
         SPEC = {
-          desc: 'display currently used the plugin version',
-          name: 'version',
+          desc:  I18n.t('vagrant_devcommands.internal.version.desc'),
+          name:  'version',
           usage: 'vagrant run %{command}',
-          help: <<-eoh
-Displays the currently installed version the plugin you are using right now.
-eoh
+          help:  I18n.t('vagrant_devcommands.internal.version.help')
         }.freeze
 
         def initialize(env)

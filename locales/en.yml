@@ -1,0 +1,12 @@
+en:
+  vagrant_devcommands:
+    internal:
+      help:
+        desc: "display this help message"
+        help: |-
+          Display the help of the command given as the first argument if defined.
+          Just like this help for the help command!
+
+      version:
+        desc: "display currently used the plugin version"
+        help: "Displays the currently installed version the plugin you are using right now."

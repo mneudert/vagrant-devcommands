@@ -18,7 +18,9 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/mneudert/vagrant-devcommands'
   spec.license     = 'MIT'
 
-  spec.files = Dir.glob('lib/**/*') + %w(CHANGELOG.md LICENSE.txt README.md)
+  spec.files  = Dir.glob('lib/**/*')
+  spec.files += Dir.glob('locales/**/*')
+  spec.files += %w(CHANGELOG.md LICENSE.txt README.md)
 
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
