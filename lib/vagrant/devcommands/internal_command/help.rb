@@ -30,13 +30,16 @@ module VagrantPlugins
 
         def command_help(command)
           command_help_header(command)
+          command_help_body(@registry.commands[command].help)
+        end
 
+        def command_help_body(help)
           @env.ui.info ''
 
-          if @registry.commands[command].help.nil?
+          if help.nil?
             @env.ui.info 'No detailed help for this command available.'
           else
-            @env.ui.info @registry.commands[command].help
+            @env.ui.info help.strip
           end
         end
 
@@ -67,7 +70,7 @@ module VagrantPlugins
           internal_help_header(command)
 
           @env.ui.info ''
-          @env.ui.info internal_commands[command].help
+          @env.ui.info internal_commands[command].help.strip
         end
 
         def internal_help_header(command)
