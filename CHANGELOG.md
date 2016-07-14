@@ -16,7 +16,7 @@
   - Warnings about using internal command names or missing scripts are now
     printed using the configured ui class (allows colored output)
 
-## v0.5.0 (2015-03-21)
+## v0.5.0 (2016-03-21)
 
 - Enhancements
   - Commands can define a detailed help message
