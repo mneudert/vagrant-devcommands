@@ -2,17 +2,18 @@ module VagrantPlugins
   module DevCommands
     # Handles internal commands and their execution.
     class Internal
-      NAMESPACE = VagrantPlugins::DevCommands::InternalCommand
+      NAMESPACE_CMD  = VagrantPlugins::DevCommands::InternalCommand
+      NAMESPACE_SPEC = VagrantPlugins::DevCommands::InternalSpec
 
       COMMANDS = {
-        'help'    => CommandDef.new(NAMESPACE::Help::SPEC),
-        'version' => CommandDef.new(NAMESPACE::Version::SPEC)
+        'help'    => CommandDef.new(NAMESPACE_SPEC::HELP),
+        'version' => CommandDef.new(NAMESPACE_SPEC::VERSION)
       }.freeze
 
       def initialize(env, registry)
         @internal = {
-          'help'    => NAMESPACE::Help.new(env, registry),
-          'version' => NAMESPACE::Version.new(env)
+          'help'    => NAMESPACE_CMD::Help.new(env, registry),
+          'version' => NAMESPACE_CMD::Version.new(env)
         }
         @registry = registry
       end

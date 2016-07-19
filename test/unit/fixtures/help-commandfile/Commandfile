@@ -5,6 +5,12 @@ command 'foo',
   usage: 'vagrant run foo',
   help: 'help message for foo'
 
+command 'described',
+  script: 'described',
+  parameters: {
+    dscrbd: { desc: "mandatory with description" }
+  }
+
 command 'znk',
   script: 'znk',
   parameters: {

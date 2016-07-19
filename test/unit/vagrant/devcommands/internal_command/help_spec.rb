@@ -92,6 +92,16 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
+    it 'lists parameters with optional descriptions' do
+      @env.ui.messages = []
+
+      command.new(%w(help described), @env).execute
+
+      expect(@env.ui.messages[3][:message]).to(
+        match(/dscrbd\s+mandatory with description/i)
+      )
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end

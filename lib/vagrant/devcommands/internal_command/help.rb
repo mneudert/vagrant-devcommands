@@ -3,12 +3,7 @@ module VagrantPlugins
     module InternalCommand
       # Internal "help" command
       class Help
-        SPEC = {
-          desc:  I18n.t('vagrant_devcommands.internal.help.desc'),
-          name:  'help',
-          usage: 'vagrant run %{command} [command]',
-          help:  I18n.t('vagrant_devcommands.internal.help.help')
-        }.freeze
+        UTIL = VagrantPlugins::DevCommands::Util
 
         def initialize(env, registry)
           @env      = env
@@ -30,6 +25,7 @@ module VagrantPlugins
 
         def command_help(command)
           command_help_header(command)
+          command_help_parameters(command)
           command_help_body(@registry.commands[command].help)
         end
 
@@ -54,12 +50,22 @@ module VagrantPlugins
           @env.ui.info "Usage: #{usage}"
         end
 
-        def command_pad_to
-          internal_commands
-            .merge(@registry.commands)
-            .keys
-            .map(&:length)
-            .max
+        def command_help_parameters(command)
+          return if @registry.commands[command].parameters.nil?
+
+          @env.ui.info ''
+          @env.ui.info 'Parameters:'
+
+          command_help_parameters_body(command)
+        end
+
+        def command_help_parameters_body(command)
+          params = @registry.commands[command].parameters
+          pad_to = UTIL.pad_to(params)
+
+          params.sort.each do |name, options|
+            @env.ui.info UTIL.padded_columns(pad_to, name, options[:desc])
+          end
         end
 
         def internal_commands
@@ -83,7 +89,7 @@ module VagrantPlugins
         def plugin_help(command)
           plugin_help_usage unless '--commands' == command
 
-          pad_to = command_pad_to
+          pad_to = UTIL.pad_to(internal_commands.merge(@registry.commands))
 
           plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_commands('Internal', internal_commands, pad_to)
@@ -94,11 +100,7 @@ module VagrantPlugins
           @env.ui.info "#{type} commands:"
 
           commands.sort.each do |name, command|
-            if command.desc.nil?
-              @env.ui.info "     #{name}"
-            else
-              @env.ui.info "     #{name.ljust(pad_to)}   #{command.desc}"
-            end
+            @env.ui.info UTIL.padded_columns(pad_to, name, command.desc)
           end
         end
 

@@ -54,8 +54,8 @@ sprintf syntax:
 ```ruby
 command 'with_param',
   parameters: {
-    # mandatory parameter
-    mdtry: {},
+    # mandatory parameter with a description
+    mdtry: { desc: "mandatory parameter to do... stuff!" },
     # parameter with default (implies optional)
     dflt: { default: "always" },
     # optional parameter
