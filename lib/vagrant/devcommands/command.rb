@@ -62,7 +62,7 @@ module VagrantPlugins
         commandfile = CommandFile.new(@env)
 
         unless commandfile.exist?
-          @env.ui.error 'Missing "Commandfile"'
+          @env.ui.error 'Missing Commandfile'
 
           return false
         end
