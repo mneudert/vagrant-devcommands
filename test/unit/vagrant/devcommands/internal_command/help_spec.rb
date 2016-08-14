@@ -5,7 +5,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   command_def = VagrantPlugins::DevCommands::CommandDef
   registry    = VagrantPlugins::DevCommands::Registry
 
-  describe 'running help for an command command' do
+  describe 'running help for an internal command' do
     it 'displays command help message' do
       cmd_foo      = command_def.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
