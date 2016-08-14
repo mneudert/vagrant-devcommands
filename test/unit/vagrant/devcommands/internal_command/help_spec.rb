@@ -107,7 +107,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
   end
 
-  describe 'running help for an unknown command' do
+  describe 'running help for an unknown command (or without command)' do
     it 'displays command list' do
       cmd_foo      = command_def.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
@@ -119,6 +119,20 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
       expect(messages).to match(/available commands/i)
+    end
+
+    it 'displays extended help message' do
+      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
+      reg          = registry.new(nil)
+      reg.commands = { 'foo' => cmd_foo }
+
+      described_class.new(env, reg).execute([])
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/github/)
+      expect(messages).to match(/README.md/)
     end
   end
 end

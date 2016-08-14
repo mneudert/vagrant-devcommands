@@ -98,6 +98,8 @@ module VagrantPlugins
 
           plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_commands('Internal', internal_commands, pad_to)
+
+          message(:plugin_usage_info) unless '--commands' == command
         end
 
         def plugin_help_commands(type, commands, pad_to)
