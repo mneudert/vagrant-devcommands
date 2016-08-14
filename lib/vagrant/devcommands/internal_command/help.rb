@@ -3,7 +3,8 @@ module VagrantPlugins
     module InternalCommand
       # Internal "help" command
       class Help
-        UTIL = VagrantPlugins::DevCommands::Util
+        UTIL     = VagrantPlugins::DevCommands::Util
+        MESSAGES = VagrantPlugins::DevCommands::Messages
 
         def initialize(env, registry)
           @env      = env
@@ -11,7 +12,7 @@ module VagrantPlugins
         end
 
         def execute(argv)
-          return plugin_help_empty if @registry.commands.empty?
+          return message(:no_commands) if @registry.commands.empty?
 
           command = argv[0]
 
@@ -33,7 +34,7 @@ module VagrantPlugins
           @env.ui.info ''
 
           if help.nil?
-            @env.ui.info 'No detailed help for this command available.'
+            message(:no_help)
           else
             @env.ui.info help.strip
           end
@@ -86,8 +87,12 @@ module VagrantPlugins
           @env.ui.info "Usage: #{usage}"
         end
 
+        def message(msg)
+          MESSAGES.public_send(msg, &@env.ui.method(:info))
+        end
+
         def plugin_help(command)
-          plugin_help_usage unless '--commands' == command
+          message(:plugin_usage) unless '--commands' == command
 
           pad_to = UTIL.pad_to(internal_commands.merge(@registry.commands))
 
@@ -102,15 +107,6 @@ module VagrantPlugins
           commands.sort.each do |name, command|
             @env.ui.info UTIL.padded_columns(pad_to, name, command.desc)
           end
-        end
-
-        def plugin_help_empty
-          @env.ui.info 'No commands defined!'
-        end
-
-        def plugin_help_usage
-          @env.ui.info 'Usage: vagrant run [box] <command>'
-          @env.ui.info 'Help:  vagrant run help <command>'
         end
 
         def usage_params(usage, command)
