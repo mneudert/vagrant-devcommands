@@ -55,32 +55,35 @@ sprintf syntax:
 command 'with_param',
   parameters: {
     # mandatory parameter with a description
-    mdtry: { desc: "mandatory parameter to do... stuff!" },
+    p_mandatory: { desc: "mandatory parameter to do... stuff!" },
+
     # parameter with default (implies optional)
-    dflt: { default: "always" },
+    p_default: { default: "always" },
+
     # optional parameter
-    optnl: { optional: true },
+    p_optional: { optional: true },
+
     # wrapped option value
-    wrppd: { wrap: "--and %s wrapped" }
+    p_wrapped: { wrap: "--and %s wrapped" }
   },
-  script: 'echo %{mdtry} %{dflt} %{optnl} %{wrppd}'
+  script: 'echo %{p_mandatory} %{p_default} %{p_optional} %{p_wrapped}'
 ```
 
 This allows you to execute the following command:
 
 ```shell
 # will execute 'echo works always'
-vagrant run with_param --mdtry works
+vagrant run with_param --p_mandatory works
 
 # will execute 'echo works always like a charm'
-vagrant run with_param --mdtry works --optnl "like a charm"
+vagrant run with_param --p_mandatory works --p_optional "like a charm"
 
 # will execute 'echo works sometimes like a charm --and is wrapped'
 vagrant run with_param \
-    --mdtry works \
-    --dflt sometimes \
-    --optnl "like a charm" \
-    --wrppd is
+    --p_mandatory works \
+    --p_default sometimes \
+    --p_optional "like a charm" \
+    --p_wrapped is
 ```
 
 For now a command expecting one or more parameters will fail if the user does
