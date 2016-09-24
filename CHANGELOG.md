@@ -4,6 +4,7 @@
 
 - Enhancements
   - Parameters are allowed to have a detailed description
+  - Parameters values can be escaped before interpolation
 
 ## v0.6.0 (2016-05-05)
 

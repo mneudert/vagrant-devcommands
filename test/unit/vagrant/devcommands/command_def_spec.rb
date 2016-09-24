@@ -31,6 +31,17 @@ describe VagrantPlugins::DevCommands::CommandDef do
       )
     end
 
+    it 'allows escaping option values' do
+      param = { escape: { 'z' => 'y', 'y' => 'x' } }
+      cmd   = described_class.new(name:       'foo',
+                                  parameters: { escaped: param },
+                                  script:     'script %{escaped}')
+
+      expect(cmd.run_script(['--escaped', 'foo_z_bar'])).to(
+        eq('script foo_xyz_bar')
+      )
+    end
+
     it 'allows parameter defaults' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { dflt: { default: 'dflt' } },

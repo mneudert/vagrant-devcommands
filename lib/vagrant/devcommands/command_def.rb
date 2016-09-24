@@ -36,6 +36,18 @@ module VagrantPlugins
 
       private
 
+      def escape_option_values(options)
+        @parameters.each do |key, conf|
+          next if conf[:escape].nil?
+
+          conf[:escape].each do |char, with|
+            options[key] = options[key].sub(char, "#{with}#{char}")
+          end
+        end
+
+        options
+      end
+
       def options_with_defaults
         options = {}
 
@@ -58,7 +70,7 @@ module VagrantPlugins
           end
         end.parse!(argv)
 
-        wrap_option_values options
+        wrap_option_values(escape_option_values(options))
       end
 
       def wrap_option_values(options)

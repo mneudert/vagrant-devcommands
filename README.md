@@ -60,13 +60,16 @@ command 'with_param',
     # parameter with default (implies optional)
     p_default: { default: "always" },
 
+    # parameter with escaping rule
+    p_escaped: { escape: { '*' => '\\' }},
+
     # optional parameter
     p_optional: { optional: true },
 
     # wrapped option value
     p_wrapped: { wrap: "--and %s wrapped" }
   },
-  script: 'echo %{p_mandatory} %{p_default} %{p_optional} %{p_wrapped}'
+  script: 'echo %{p_mandatory} %{p_default} %{p_escaped} %{p_optional} %{p_wrapped}'
 ```
 
 This allows you to execute the following command:
@@ -89,6 +92,10 @@ vagrant run with_param \
 For now a command expecting one or more parameters will fail if the user does
 not provide them. Any arguments exceeding the number used are silently
 discarded.
+
+Escaping rules are defined as `{ "char_to_escape": "char_to_use_as_escape" }`.
+These are applied prior to interpolation into the command. Regular ruby escaping
+rules apply.
 
 #### Commands defined by Lambda/Proc
 
