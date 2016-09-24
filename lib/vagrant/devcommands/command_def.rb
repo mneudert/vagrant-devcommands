@@ -36,6 +36,17 @@ module VagrantPlugins
 
       private
 
+      def options_with_defaults
+        options = {}
+
+        @parameters.each do |key, conf|
+          options[key] = '' if conf[:optional]
+          options[key] = conf[:default] unless conf[:default].nil?
+        end
+
+        options
+      end
+
       def parse_argv(argv)
         options = options_with_defaults
 
@@ -48,17 +59,6 @@ module VagrantPlugins
         end.parse!(argv)
 
         wrap_option_values options
-      end
-
-      def options_with_defaults
-        options = {}
-
-        @parameters.each do |key, conf|
-          options[key] = '' if conf[:optional]
-          options[key] = conf[:default] unless conf[:default].nil?
-        end
-
-        options
       end
 
       def wrap_option_values(options)
