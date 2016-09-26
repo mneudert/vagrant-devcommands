@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.7.0.dev
+## v0.7.0 (2016-09-26)
 
 - Enhancements
   - Parameters are allowed to have a detailed description
