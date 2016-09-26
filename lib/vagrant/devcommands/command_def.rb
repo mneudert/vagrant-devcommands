@@ -41,6 +41,7 @@ module VagrantPlugins
           next if conf[:escape].nil?
 
           conf[:escape].each do |char, with|
+            char         = char.to_s unless char.is_a?(String)
             options[key] = options[key].sub(char, "#{with}#{char}")
           end
         end
