@@ -7,6 +7,7 @@ require 'vagrant/devcommands/internal_spec'
 require 'vagrant/devcommands/messages'
 require 'vagrant/devcommands/util'
 
+require 'vagrant/devcommands/model/chain'
 require 'vagrant/devcommands/model/command'
 
 require 'vagrant/devcommands/internal_command/help'

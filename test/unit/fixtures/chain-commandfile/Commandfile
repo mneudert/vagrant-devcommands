@@ -1,0 +1,4 @@
+command 'bar', script: 'bar'
+command 'foo', script: 'foo'
+
+chain 'xyz', commands: [ 'bar', 'foo' ]

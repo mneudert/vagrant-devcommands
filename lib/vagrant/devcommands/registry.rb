@@ -6,9 +6,11 @@ module VagrantPlugins
 
       RESERVED_COMMANDS = %w(help version).freeze
 
+      attr_accessor :chains
       attr_accessor :commands
 
       def initialize(env)
+        @chains   = {}
         @commands = {}
         @env      = env
       end
@@ -34,6 +36,17 @@ module VagrantPlugins
 
       private
 
+      def chain(name, options = nil)
+        options            = {} unless options.is_a?(Hash)
+        options[:commands] = {} unless options.key?(:commands)
+
+        return empty_chain_warning(name) if options[:commands].empty?
+
+        options[:name] = name
+
+        @chains[name] = NAMESPACE_MODEL::Chain.new(options)
+      end
+
       def command(name, options = nil)
         return reserved_warning(name) if reserved_command?(name)
 
@@ -44,6 +57,12 @@ module VagrantPlugins
         options[:name] = name
 
         @commands[name] = NAMESPACE_MODEL::Command.new(options)
+      end
+
+      def empty_chain_warning(name)
+        @env.ui.warn "The chain '#{name}' has no commands associated."
+        @env.ui.warn 'Your definition of it will be ignored.'
+        @env.ui.warn ''
       end
 
       def script_warning(name)

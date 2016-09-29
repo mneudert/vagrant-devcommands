@@ -3,6 +3,31 @@ require_relative '../../spec_helper'
 describe VagrantPlugins::DevCommands::Registry do
   commandfile = VagrantPlugins::DevCommands::CommandFile
 
+  describe 'chain definition' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/chain-commandfile')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
+    end
+
+    it 'allows defining chains' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(registry.chains['xyz'].commands).to eq(%w(bar foo))
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'command definition' do
     before :context do
       @olddir = Dir.pwd
@@ -81,7 +106,37 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
-  describe 'defining without command script' do
+  describe 'defining chain without commands' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/empty-chain')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'displays a message' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(@env.ui.messages.map { |m| m[:message] }.join("\n")).to(
+        match(/chain.+no commands/i)
+      )
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
+  describe 'defining command without script' do
     before :context do
       @olddir = Dir.pwd
       @newdir = File.join(File.dirname(__FILE__),
