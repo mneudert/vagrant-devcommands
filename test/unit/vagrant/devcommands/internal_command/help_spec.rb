@@ -1,13 +1,13 @@
 require_relative '../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::InternalCommand::Help do
-  command     = VagrantPlugins::DevCommands::Command
-  command_def = VagrantPlugins::DevCommands::CommandDef
-  registry    = VagrantPlugins::DevCommands::Registry
+  command       = VagrantPlugins::DevCommands::Command
+  command_model = VagrantPlugins::DevCommands::Model::Command
+  registry      = VagrantPlugins::DevCommands::Registry
 
   describe 'running help for an internal command' do
     it 'displays command help message' do
-      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      cmd_foo      = command_model.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
@@ -109,7 +109,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
   describe 'running help for an unknown command (or without command)' do
     it 'displays command list' do
-      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      cmd_foo      = command_model.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
@@ -122,7 +122,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
 
     it 'displays extended help message' do
-      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      cmd_foo      = command_model.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }

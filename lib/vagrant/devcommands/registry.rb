@@ -2,6 +2,8 @@ module VagrantPlugins
   module DevCommands
     # Vagrant command registry
     class Registry
+      NAMESPACE_MODEL = VagrantPlugins::DevCommands::Model
+
       RESERVED_COMMANDS = %w(help version).freeze
 
       attr_accessor :commands
@@ -41,7 +43,7 @@ module VagrantPlugins
 
         options[:name] = name
 
-        @commands[name] = CommandDef.new(options)
+        @commands[name] = NAMESPACE_MODEL::Command.new(options)
       end
 
       def script_warning(name)

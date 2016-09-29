@@ -1,12 +1,12 @@
 require_relative '../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Internal do
-  command_def = VagrantPlugins::DevCommands::CommandDef
-  registry    = VagrantPlugins::DevCommands::Registry
+  command_model = VagrantPlugins::DevCommands::Model::Command
+  registry      = VagrantPlugins::DevCommands::Registry
 
   describe 'displaying command list' do
     it 'includes internal commands' do
-      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      cmd_foo      = command_model.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
@@ -31,8 +31,8 @@ describe VagrantPlugins::DevCommands::Internal do
     end
 
     it 'displays a list of available commands' do
-      cmd_bar      = command_def.new(name: 'bar', script: 'bar')
-      cmd_foo      = command_def.new(name: 'foo', script: 'foo')
+      cmd_bar      = command_model.new(name: 'bar', script: 'bar')
+      cmd_foo      = command_model.new(name: 'foo', script: 'foo')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'bar' => cmd_bar, 'foo' => cmd_foo }
@@ -46,9 +46,9 @@ describe VagrantPlugins::DevCommands::Internal do
     end
 
     it 'display description if available' do
-      cmd_bar      = command_def.new(name: 'bar', script: 'bar')
-      cmd_foo      = command_def.new(name: 'foo', script: 'foo',
-                                     desc: 'has a description')
+      cmd_bar      = command_model.new(name: 'bar', script: 'bar')
+      cmd_foo      = command_model.new(name: 'foo', script: 'foo',
+                                       desc: 'has a description')
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.commands = { 'bar' => cmd_bar, 'foo' => cmd_foo }

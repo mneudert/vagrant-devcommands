@@ -1,6 +1,6 @@
-require_relative '../../spec_helper'
+require_relative '../../../spec_helper'
 
-describe VagrantPlugins::DevCommands::CommandDef do
+describe VagrantPlugins::DevCommands::Model::Command do
   describe 'with configured parameters' do
     it 'interpolates values' do
       cmd = described_class.new(name:       'foo',
