@@ -16,6 +16,10 @@ module VagrantPlugins
         @env      = env
       end
 
+      def available?(name)
+        valid_command?(name) || valid_chain?(name)
+      end
+
       def read_commandfile(commandfile)
         global = commandfile.path_global
         local  = commandfile.path

@@ -17,32 +17,17 @@ module VagrantPlugins
 
         command = argv_command
 
-        return 127 unless check_command(command)
+        return 127 unless non_empty?(command)
+        return 127 unless available?(command)
 
         return run_internal(command) if @registry.reserved_command?(command)
 
-        run @registry.commands[command]
+        run command
       end
 
       private
 
       attr_accessor :registry
-
-      def check_command(command)
-        unless command
-          run_internal('help')
-          return false
-        end
-
-        unless @registry.valid_command?(command)
-          display_error("Invalid command \"#{command}\"!")
-          run_internal('help', ['--commands'])
-
-          return false
-        end
-
-        true
-      end
 
       def argv_command
         return nil if @argv.empty?
@@ -53,9 +38,27 @@ module VagrantPlugins
         command
       end
 
+      def available?(command)
+        unless @registry.available?(command)
+          display_error("Invalid command \"#{command}\"!")
+          run_internal('help', ['--commands'])
+        end
+
+        @registry.available?(command)
+      end
+
       def display_error(msg)
         @env.ui.error msg
         @env.ui.error ''
+      end
+
+      def non_empty?(command)
+        unless command
+          run_internal('help')
+          return false
+        end
+
+        true
       end
 
       def read_commandfile
@@ -73,6 +76,20 @@ module VagrantPlugins
       end
 
       def run(command)
+        unless @registry.valid_command?(command)
+          return run_chain(@registry.chains[command])
+        end
+
+        run_command(@registry.commands[command])
+      end
+
+      def run_chain(chain)
+        @env.ui.info "Running chain: #{chain.name}"
+
+        0
+      end
+
+      def run_command(command)
         argv   = run_argv
         box    = run_box(command)
         script = run_script(command, argv)
