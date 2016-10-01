@@ -32,6 +32,10 @@ module VagrantPlugins
         RESERVED_COMMANDS.include?(command)
       end
 
+      def valid_chain?(chain)
+        @chains.include?(chain)
+      end
+
       def valid_command?(command)
         @commands.include?(command) || reserved_command?(command)
       end

@@ -23,6 +23,16 @@ describe VagrantPlugins::DevCommands::Registry do
       expect(registry.chains['xyz'].commands).to eq(%w(bar foo))
     end
 
+    it 'detects invalid chains' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(registry.valid_chain?('xyz')).to be true
+      expect(registry.valid_chain?('fump')).to be false
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end
