@@ -24,6 +24,7 @@ module VagrantPlugins
         contents += "\n" + local.read unless nil == local
 
         instance_eval(contents)
+        warn_naming_conflicts
       end
 
       def reserved_command?(command)
@@ -87,6 +88,20 @@ module VagrantPlugins
         return false if script.empty?
 
         true
+      end
+
+      def warn_naming_conflicts
+        @chains.keys.each do |chain|
+          next unless @commands.key?(chain)
+
+          @env.ui.warn(
+            "The name '#{chain}' is used for both a command and a chain."
+          )
+
+          @env.ui.warn(
+            'Your chain definition will be ignored in favor of the command'
+          )
+        end
       end
     end
   end

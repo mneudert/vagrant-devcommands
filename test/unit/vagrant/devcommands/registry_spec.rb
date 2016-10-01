@@ -170,6 +170,36 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
+  describe 'defining chaing with name of existing command' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/naming-conflicts')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'displays a message' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(@env.ui.messages.map { |m| m[:message] }.join("\n")).to(
+        match(/foo.+both.+ignored/im)
+      )
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'validating a reserved command' do
     it 'always returns true' do
       registry = described_class.new(nil)
