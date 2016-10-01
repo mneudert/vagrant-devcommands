@@ -2,6 +2,7 @@ module VagrantPlugins
   module DevCommands
     # Vagrant command registry
     class Registry
+      I18N_KEY        = 'vagrant_devcommands.registry'.freeze
       NAMESPACE_MODEL = VagrantPlugins::DevCommands::Model
 
       RESERVED_COMMANDS = %w(help version).freeze
@@ -61,23 +62,20 @@ module VagrantPlugins
       end
 
       def empty_chain_warning(name)
-        @env.ui.warn "The chain '#{name}' has no commands associated."
-        @env.ui.warn 'Your definition of it will be ignored.'
+        @env.ui.warn I18n.t("#{I18N_KEY}.empty_chain", name: name)
+        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
         @env.ui.warn ''
       end
 
       def script_warning(name)
-        @env.ui.warn "The command '#{name}' has no script defined to execute."
-        @env.ui.warn 'Your definition of it will be ignored.'
+        @env.ui.warn I18n.t("#{I18N_KEY}.no_script", name: name)
+        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
         @env.ui.warn ''
       end
 
       def reserved_warning(name)
-        @env.ui.warn(
-          "The command name '#{name}' is reserved for internal usage."
-        )
-
-        @env.ui.warn 'Your definition of it will be ignored.'
+        @env.ui.warn I18n.t("#{I18N_KEY}.reserved", name: name)
+        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
         @env.ui.warn ''
       end
 
@@ -94,13 +92,8 @@ module VagrantPlugins
         @chains.keys.each do |chain|
           next unless @commands.key?(chain)
 
-          @env.ui.warn(
-            "The name '#{chain}' is used for both a command and a chain."
-          )
-
-          @env.ui.warn(
-            'Your chain definition will be ignored in favor of the command'
-          )
+          @env.ui.warn I18n.t("#{I18N_KEY}.conflict", name: chain)
+          @env.ui.warn I18n.t("#{I18N_KEY}.chain_ignored")
         end
       end
     end
