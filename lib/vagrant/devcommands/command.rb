@@ -75,9 +75,15 @@ module VagrantPlugins
       end
 
       def run_chain(chain)
-        @env.ui.info "Running chain: #{chain.name}"
+        retval = 0
 
-        0
+        chain.commands.each do |command|
+          retval = run_command(@registry.commands[command])
+
+          break if retval.nonzero?
+        end
+
+        retval
       end
 
       def run_command(command)
