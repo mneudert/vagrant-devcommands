@@ -15,7 +15,7 @@ module VagrantPlugins
       def execute
         return 127 unless read_commandfile
 
-        command = argv_command
+        command = Util.argv_command(@argv, @env)
 
         return 127 unless non_empty?(command)
         return 127 unless available?(command)
@@ -28,15 +28,6 @@ module VagrantPlugins
       private
 
       attr_accessor :registry
-
-      def argv_command
-        return nil if @argv.empty?
-
-        command = @argv[0].to_s
-        command = @argv[1].to_s if @env.machine_index.include?(command)
-
-        command
-      end
 
       def available?(command)
         unless @registry.available?(command)
