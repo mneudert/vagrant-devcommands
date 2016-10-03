@@ -29,7 +29,7 @@ module VagrantPlugins
         contents += "\n" + local.read unless nil == local
 
         instance_eval(contents)
-        warn_naming_conflicts
+        resolve_naming_conflicts
       end
 
       def reserved_command?(command)
@@ -87,6 +87,17 @@ module VagrantPlugins
         @env.ui.warn ''
       end
 
+      def resolve_naming_conflicts
+        @chains.keys.each do |chain|
+          next unless @commands.key?(chain)
+
+          @env.ui.warn I18n.t("#{I18N_KEY}.conflict", name: chain)
+          @env.ui.warn I18n.t("#{I18N_KEY}.chain_ignored")
+
+          @chains.delete(chain)
+        end
+      end
+
       def valid_script?(script)
         return true if script.is_a?(Proc)
 
@@ -94,15 +105,6 @@ module VagrantPlugins
         return false if script.empty?
 
         true
-      end
-
-      def warn_naming_conflicts
-        @chains.keys.each do |chain|
-          next unless @commands.key?(chain)
-
-          @env.ui.warn I18n.t("#{I18N_KEY}.conflict", name: chain)
-          @env.ui.warn I18n.t("#{I18N_KEY}.chain_ignored")
-        end
       end
     end
   end

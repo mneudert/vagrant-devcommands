@@ -205,6 +205,15 @@ describe VagrantPlugins::DevCommands::Registry do
       )
     end
 
+    it 'removes conflicting chains from registry' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(registry.chains.empty?).to be true
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end
