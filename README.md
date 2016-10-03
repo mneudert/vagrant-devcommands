@@ -22,6 +22,8 @@ vagrant run your_command
 vagrant run your_box your_command
 ```
 
+This runs commands or alternatively a command chain with the passed name.
+
 ### Command Definition
 
 Add to a `Commandfile` besides your `Vagrantfile`:
@@ -149,6 +151,19 @@ installed plugin has a version below `1.3.3.7`.
 
 Please be aware that returning from a global commandfile completely skips
 evaluating a local one.
+
+### Chain definition
+
+You can define command chains to execute multiple commands in order:
+
+```
+chain 'my_chain', commands: [ 'first', 'second', 'third' ]
+```
+
+The configured commands will be executed in the order defined.
+
+If one or more of your commands requires parameters all of them have to be
+passed to the chain execution.
 
 
 ## Notes for Windows Users
