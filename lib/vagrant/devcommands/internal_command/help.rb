@@ -94,7 +94,7 @@ module VagrantPlugins
         def plugin_help(command)
           message(:plugin_usage) unless '--commands' == command
 
-          pad_to = UTIL.pad_to(internal_commands.merge(@registry.commands))
+          pad_to = UTIL.max_pad([internal_commands, @registry.commands])
 
           plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_commands('Internal', internal_commands, pad_to)

@@ -11,6 +11,10 @@ module VagrantPlugins
         command
       end
 
+      def self.max_pad(items_list)
+        items_list.map { |items| pad_to(items) }.max
+      end
+
       def self.pad_to(items)
         items.keys.map(&:length).max
       end
