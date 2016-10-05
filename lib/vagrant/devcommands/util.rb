@@ -11,6 +11,18 @@ module VagrantPlugins
         command
       end
 
+      def self.collect_mandatory_params(params)
+        params.collect do |key, opts|
+          "--#{key}=<#{key}>" unless opts[:optional]
+        end
+      end
+
+      def self.collect_optional_params(params)
+        params.collect do |key, opts|
+          "[--#{key}=<#{key}>]" if opts[:optional]
+        end
+      end
+
       def self.max_pad(items_list)
         items_list.map { |items| pad_to(items) }.max
       end

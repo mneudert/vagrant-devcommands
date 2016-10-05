@@ -116,21 +116,9 @@ module VagrantPlugins
 
           [
             usage,
-            usage_params_mandatory(command.parameters),
-            usage_params_optional(command.parameters)
+            UTIL.collect_mandatory_params(command.parameters),
+            UTIL.collect_optional_params(command.parameters)
           ].flatten.compact.join(' ').strip
-        end
-
-        def usage_params_mandatory(params)
-          params.collect do |key, opts|
-            "--#{key}=<#{key}>" unless opts[:optional]
-          end
-        end
-
-        def usage_params_optional(params)
-          params.collect do |key, opts|
-            "[--#{key}=<#{key}>]" if opts[:optional]
-          end
         end
       end
     end
