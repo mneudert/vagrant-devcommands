@@ -75,12 +75,6 @@ module VagrantPlugins
         @env.ui.warn ''
       end
 
-      def script_warning(name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.no_script", name: name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
-        @env.ui.warn ''
-      end
-
       def reserved_warning(name)
         @env.ui.warn I18n.t("#{I18N_KEY}.reserved", name: name)
         @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
@@ -96,6 +90,12 @@ module VagrantPlugins
 
           @chains.delete(chain)
         end
+      end
+
+      def script_warning(name)
+        @env.ui.warn I18n.t("#{I18N_KEY}.no_script", name: name)
+        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
+        @env.ui.warn ''
       end
 
       def valid_script?(script)
