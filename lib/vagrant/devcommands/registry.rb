@@ -30,6 +30,7 @@ module VagrantPlugins
 
         instance_eval(contents)
         resolve_naming_conflicts
+        validate_chains
       end
 
       def reserved_command?(command)
@@ -75,6 +76,14 @@ module VagrantPlugins
         @env.ui.warn ''
       end
 
+      def missing_chain_command_warning(chain, command)
+        i18n_args = { chain: chain, command: command }
+
+        @env.ui.warn I18n.t("#{I18N_KEY}.missing_command", i18n_args)
+        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
+        @env.ui.warn ''
+      end
+
       def reserved_warning(name)
         @env.ui.warn I18n.t("#{I18N_KEY}.reserved", name: name)
         @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
@@ -105,6 +114,20 @@ module VagrantPlugins
         return false if script.empty?
 
         true
+      end
+
+      def validate_chains
+        @chains.all? do |chain, chain_def|
+          chain_def.commands.each do |command|
+            next if valid_command?(command)
+
+            missing_chain_command_warning(chain, command)
+
+            @chains.delete(chain)
+
+            break
+          end
+        end
       end
     end
   end

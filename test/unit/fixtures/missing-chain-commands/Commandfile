@@ -1,0 +1,1 @@
+chain 'missing-commands', commands: [ 'foo', 'bar' ]

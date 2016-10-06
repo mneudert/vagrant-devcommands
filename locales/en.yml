@@ -12,9 +12,10 @@ en:
         help: "Displays the currently installed version the plugin you are using right now."
 
     registry:
-      chain_ignored: "Your chain definition will be ignored in favor of the command"
-      conflict:      "The name '%{name}' is used for both a command and a chain."
-      def_ignored:   "Your definition of it will be ignored."
-      empty_chain:   "The chain '%{name}' has no commands associated."
-      no_script:     "The command '%{name}' has no script defined to execute."
-      reserved:      "The command name '%{name}' is reserved for internal usage."
+      chain_ignored:   "Your chain definition will be ignored in favor of the command"
+      conflict:        "The name '%{name}' is used for both a command and a chain."
+      def_ignored:     "Your definition of it will be ignored."
+      empty_chain:     "The chain '%{name}' has no commands associated."
+      missing_command: "The chain '%{chain}' is using at least one unknown command ('%{command}')."
+      no_script:       "The command '%{name}' has no script defined to execute."
+      reserved:        "The command name '%{name}' is reserved for internal usage."
