@@ -157,7 +157,9 @@ evaluating a local one.
 You can define command chains to execute multiple commands in order:
 
 ```
-chain 'my_chain', commands: [ 'first', 'second', 'third' ]
+chain 'my_chain',
+    commands: [ 'first', 'second', 'third' ],
+    desc:     'Command chain for three commands.'
 ```
 
 The configured commands will be executed in the order defined.

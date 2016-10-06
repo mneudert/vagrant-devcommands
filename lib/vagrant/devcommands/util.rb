@@ -24,7 +24,13 @@ module VagrantPlugins
       end
 
       def self.max_pad(items_list)
-        items_list.map { |items| pad_to(items) }.max
+        paddings = items_list.map do |items|
+          return 0 if items.nil? || items.empty?
+
+          pad_to(items)
+        end
+
+        paddings.max
       end
 
       def self.pad_to(items)

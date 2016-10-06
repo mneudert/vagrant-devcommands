@@ -94,15 +94,31 @@ module VagrantPlugins
         def plugin_help(command)
           message(:plugin_usage) unless '--commands' == command
 
-          pad_to = UTIL.max_pad([internal_commands, @registry.commands])
+          pad_to = UTIL.max_pad([internal_commands,
+                                 @registry.commands,
+                                 @registry.chains])
 
           plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_commands('Internal', internal_commands, pad_to)
+          plugin_help_chains(@registry.chains, pad_to)
 
           message(:plugin_usage_info) unless '--commands' == command
         end
 
+        def plugin_help_chains(chains, pad_to)
+          return if chains.empty?
+
+          @env.ui.info ''
+          @env.ui.info 'Command chains:'
+
+          chains.sort.each do |name, chain|
+            @env.ui.info UTIL.padded_columns(pad_to, name, chain.desc)
+          end
+        end
+
         def plugin_help_commands(type, commands, pad_to)
+          return if commands.empty?
+
           @env.ui.info ''
           @env.ui.info "#{type} commands:"
 
