@@ -3,6 +3,7 @@ lib = File.expand_path('../lib', __FILE__)
 
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
+require 'vagrant/devcommands/synopsis'
 require 'vagrant/devcommands/version'
 
 Gem::Specification.new do |spec|
@@ -12,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.authors  = ['Marc Neudert']
   spec.email    = ['marc.neudert@gmail.com']
 
-  spec.summary     = 'Runs vagrant commands from a Commandfile'
+  spec.summary     = VagrantPlugins::DevCommands::SYNOPSIS
   spec.description = 'Vagrant plugin to run commands specified'\
                      ' in a Commandfile inside one of your vagrant boxes'
   spec.homepage    = 'https://github.com/mneudert/vagrant-devcommands'

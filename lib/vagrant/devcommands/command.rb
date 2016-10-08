@@ -3,7 +3,9 @@ module VagrantPlugins
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
       def self.synopsis
-        'runs vagrant commands from a Commandfile'
+        synopsis = VagrantPlugins::DevCommands::SYNOPSIS
+
+        synopsis[0, 1].downcase + synopsis[1..-1]
       end
 
       def initialize(argv, env)
