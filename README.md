@@ -158,14 +158,19 @@ You can define command chains to execute multiple commands in order:
 
 ```
 chain 'my_chain',
-    commands: [ 'first', 'second', 'third' ],
-    desc:     'Command chain for three commands.'
+    break_on_error: false,
+    commands:       [ 'first', 'second', 'third' ],
+    desc:           'Command chain for three commands.'
 ```
 
 The configured commands will be executed in the order defined.
 
 If one or more of your commands requires parameters all of them have to be
 passed to the chain execution.
+
+By default a chain breaks upon the first non-zero return value of any configured
+command. To deactivate this behaviour you can set `:break_on_error` to `false`.
+Any value other than `false` will stick to the default.
 
 
 ## Notes for Windows Users

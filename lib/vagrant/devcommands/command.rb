@@ -82,7 +82,7 @@ module VagrantPlugins
         chain.commands.each do |command|
           retval = run_command(@registry.commands[command])
 
-          break if retval.nonzero?
+          break if retval.nonzero? && chain.break_on_error?
         end
 
         retval
