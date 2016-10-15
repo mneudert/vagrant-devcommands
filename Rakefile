@@ -10,7 +10,7 @@ namespace :style do
 
   RuboCop::RakeTask.new(:ruby) do |task|
     task.patterns = [
-      '**/*.rb',
+      'lib/**/*.rb',
       '*.gemspec',
       'Gemfile',
       'Rakefile'
