@@ -4,6 +4,7 @@
 
 - Enhancements
   - Chains can be defined to execute multiple commands in order
+  - Commands can define flags (always optional!) for script interpolation
 
 ## v0.7.0 (2016-09-26)
 

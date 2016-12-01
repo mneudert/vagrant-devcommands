@@ -6,6 +6,8 @@ module VagrantPlugins
       # Definition of an executable command
       class Command
         attr_reader :name
+
+        attr_reader :flags
         attr_reader :parameters
         attr_reader :script
 
@@ -15,7 +17,9 @@ module VagrantPlugins
         attr_reader :usage
 
         def initialize(spec)
-          @name       = spec[:name]
+          @name = spec[:name]
+
+          @flags      = spec[:flags]
           @parameters = spec[:parameters]
           @script     = spec[:script]
 
@@ -30,7 +34,7 @@ module VagrantPlugins
           script = script.call if script.is_a?(Proc)
 
           opts = {}
-          opts = parse_argv(argv) if @parameters
+          opts = parse_argv(argv) if @flags || @parameters
 
           (script % opts).strip
         end
@@ -38,7 +42,7 @@ module VagrantPlugins
         private
 
         def escape_option_values(options)
-          @parameters.each do |key, conf|
+          (@parameters || {}).each do |key, conf|
             next if conf[:escape].nil?
 
             conf[:escape].each do |char, with|
@@ -53,7 +57,7 @@ module VagrantPlugins
         def options_with_defaults
           options = {}
 
-          @parameters.each do |key, conf|
+          (@parameters || {}).each do |key, conf|
             options[key] = '' if conf[:optional]
             options[key] = conf[:default] unless conf[:default].nil?
           end
@@ -61,11 +65,20 @@ module VagrantPlugins
           options
         end
 
+        # rubocop:disable Metrics/MethodLength
         def parse_argv(argv)
           options = options_with_defaults
 
           OptionParser.new do |opts|
-            @parameters.each do |key, _conf|
+            (@flags || {}).each do |key, _conf|
+              options[key] = ''
+
+              opts.on("--#{key}", "Flag: #{key}") do
+                options[key] = "--#{key}"
+              end
+            end
+
+            (@parameters || {}).each do |key, _conf|
               opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
                 options[key] = o
               end
@@ -76,7 +89,7 @@ module VagrantPlugins
         end
 
         def wrap_option_values(options)
-          @parameters.each do |key, conf|
+          (@parameters || {}).each do |key, conf|
             next if conf[:wrap].nil?
             next if options[key].nil? && conf[:default].nil?
 

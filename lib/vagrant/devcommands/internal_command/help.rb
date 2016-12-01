@@ -25,9 +25,29 @@ module VagrantPlugins
         private
 
         def command_help(command)
+          model = @registry.commands[command]
+
           command_help_header(command)
-          command_help_parameters(command)
-          command_help_body(@registry.commands[command].help)
+          command_help_arguments(model.parameters, 'Parameters')
+          command_help_arguments(model.flags, 'Flags')
+          command_help_body(model.help)
+        end
+
+        def command_help_arguments(arguments, title)
+          return if arguments.nil?
+
+          @env.ui.info ''
+          @env.ui.info "#{title}:"
+
+          command_help_arguments_body(arguments)
+        end
+
+        def command_help_arguments_body(arguments)
+          pad_to = UTIL.pad_to(arguments)
+
+          arguments.sort.each do |name, options|
+            @env.ui.info UTIL.padded_columns(pad_to, name, options[:desc])
+          end
         end
 
         def command_help_body(help)
@@ -49,24 +69,6 @@ module VagrantPlugins
           end
 
           @env.ui.info "Usage: #{usage}"
-        end
-
-        def command_help_parameters(command)
-          return if @registry.commands[command].parameters.nil?
-
-          @env.ui.info ''
-          @env.ui.info 'Parameters:'
-
-          command_help_parameters_body(command)
-        end
-
-        def command_help_parameters_body(command)
-          params = @registry.commands[command].parameters
-          pad_to = UTIL.pad_to(params)
-
-          params.sort.each do |name, options|
-            @env.ui.info UTIL.padded_columns(pad_to, name, options[:desc])
-          end
         end
 
         def internal_commands
@@ -128,12 +130,11 @@ module VagrantPlugins
         end
 
         def usage_params(usage, command)
-          return usage if command.parameters.nil?
-
           [
             usage,
-            UTIL.collect_mandatory_params(command.parameters),
-            UTIL.collect_optional_params(command.parameters)
+            UTIL.collect_mandatory_params(command.parameters || {}),
+            UTIL.collect_optional_params(command.parameters || {}),
+            UTIL.collect_flags(command.flags || {})
           ].flatten.compact.join(' ').strip
         end
       end

@@ -99,6 +99,29 @@ Escaping rules are defined as `{ "char_to_escape": "char_to_use_as_escape" }`.
 These are applied prior to interpolation into the command. Regular ruby escaping
 rules apply.
 
+#### Commands with Flags
+
+Every command can be associated with (by definition optional) flags available
+for later command interpolation:
+
+```ruby
+command 'with_flags',
+  flags: {
+    f_standard: { desc: "standard flag" }
+  },
+  script: 'echo "flags: %{f_standard}"'
+```
+
+This definition allows the following executions:
+
+```shell
+# will execute 'echo "flags: "'
+vagrant run with_flags
+
+# will execute 'echo "flags: --f_standard"'
+vagrant run with_flags --f_standard
+```
+
 #### Commands defined by Lambda/Proc
 
 You can (more or less) dynamically generate your scripts by defining the

@@ -11,6 +11,12 @@ module VagrantPlugins
         command
       end
 
+      def self.collect_flags(flags)
+        flags.collect do |key, _opts|
+          "[--#{key}]"
+        end
+      end
+
       def self.collect_mandatory_params(params)
         params.collect do |key, opts|
           "--#{key}=<#{key}>" unless opts[:optional]

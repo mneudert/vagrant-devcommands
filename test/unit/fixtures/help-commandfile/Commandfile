@@ -1,15 +1,24 @@
 command 'bar', 'no-help'
 
+command 'described',
+  script: 'described',
+  flags: {
+    f_dscrbd: { desc: "flag with description" }
+  },
+  parameters: {
+    p_dscrbd: { desc: "mandatory with description" }
+  }
+
+command 'fmp',
+  script: 'fmp',
+  flags: {
+    flagged: {}
+  }
+
 command 'foo',
   script: 'foo',
   usage: 'vagrant run foo',
   help: 'help message for foo'
-
-command 'described',
-  script: 'described',
-  parameters: {
-    dscrbd: { desc: "mandatory with description" }
-  }
 
 command 'znk',
   script: 'znk',
@@ -20,6 +29,9 @@ command 'znk',
 
 command 'unordered',
   script: 'unordered',
+  flags: {
+    flg: {}
+  },
   parameters: {
     frst: { optional: true },
     scnd: {}

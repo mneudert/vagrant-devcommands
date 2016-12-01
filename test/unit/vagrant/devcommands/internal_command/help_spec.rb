@@ -73,6 +73,16 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
+    it 'lists flags if defined' do
+      @env.ui.messages = []
+
+      command.new(%w(help fmp), @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/fmp \[--flagged\]/i)
+      )
+    end
+
     it 'lists parameters if defined' do
       @env.ui.messages = []
 
@@ -83,13 +93,23 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
-    it 'lists mandatory params before optional params' do
+    it 'uses correct order for param/flag listing' do
       @env.ui.messages = []
 
       command.new(%w(help unordered), @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
-        match(/unordered --scnd=<scnd> \[--frst=<frst>\]/i)
+        match(/unordered --scnd=<scnd> \[--frst=<frst>\] \[--flg\]/i)
+      )
+    end
+
+    it 'lists flags with optional descriptions' do
+      @env.ui.messages = []
+
+      command.new(%w(help described), @env).execute
+
+      expect(@env.ui.messages[6][:message]).to(
+        match(/f_dscrbd\s+flag with description/i)
       )
     end
 
@@ -99,7 +119,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       command.new(%w(help described), @env).execute
 
       expect(@env.ui.messages[3][:message]).to(
-        match(/dscrbd\s+mandatory with description/i)
+        match(/p_dscrbd\s+mandatory with description/i)
       )
     end
 
