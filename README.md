@@ -107,7 +107,8 @@ for later command interpolation:
 ```ruby
 command 'with_flags',
   flags: {
-    f_standard: { desc: "standard flag" }
+    f_standard: { desc: "standard flag" },
+    f_valued:   { value: "--f_modified" }
   },
   script: 'echo "flags: %{f_standard}"'
 ```
@@ -120,7 +121,13 @@ vagrant run with_flags
 
 # will execute 'echo "flags: --f_standard"'
 vagrant run with_flags --f_standard
+
+# will execute 'echo "flags: --f_modified"'
+vagrant run with_flags --f_valued
 ```
+
+By default a flag gets interpolated as "--#{flagname}". If a value is defined
+this value will be interpolated unmodified.
 
 #### Commands defined by Lambda/Proc
 

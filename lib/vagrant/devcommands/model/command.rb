@@ -70,11 +70,11 @@ module VagrantPlugins
           options = options_with_defaults
 
           OptionParser.new do |opts|
-            (@flags || {}).each do |key, _conf|
+            (@flags || {}).each do |key, conf|
               options[key] = ''
 
               opts.on("--#{key}", "Flag: #{key}") do
-                options[key] = "--#{key}"
+                options[key] = conf[:value] || "--#{key}"
               end
             end
 

@@ -44,6 +44,18 @@ describe VagrantPlugins::DevCommands::Model::Command do
       expect(cmd.run_script(['--dflt'])).to eq('echo "--dflt"')
     end
 
+    it 'allows flags with values' do
+      flags = {
+        dflt: { value: '--custom' }
+      }
+
+      cmd = described_class.new(name:   'foo',
+                                flags:  flags,
+                                script: 'echo "%{dflt}"')
+
+      expect(cmd.run_script(['--dflt'])).to eq('echo "--custom"')
+    end
+
     it 'allows escaping option values' do
       param = { escape: { 'z' => 'y', 'y' => 'x' } }
       cmd   = described_class.new(name:       'foo',
