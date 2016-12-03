@@ -4,6 +4,10 @@ module VagrantPlugins
   module DevCommands
     # Provides access to messages used by the plugin
     class Messages
+      def self.missing_commandfile(&out)
+        out.call 'Missing Commandfile'
+      end
+
       def self.no_help(&out)
         out.call 'No detailed help for this command available.'
       end

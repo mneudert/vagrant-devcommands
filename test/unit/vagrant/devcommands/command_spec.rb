@@ -15,12 +15,13 @@ describe VagrantPlugins::DevCommands::Command do
       )
     end
 
-    it 'displays warning' do
+    it 'displays warning and usage information' do
       described_class
         .new([], @env)
         .execute
 
       expect(@env.ui.messages[0][:message]).to match(/missing.+Commandfile/i)
+      expect(@env.ui.messages[2][:message]).to match(/README\.md/i)
     end
 
     after :context do

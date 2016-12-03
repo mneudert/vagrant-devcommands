@@ -2,6 +2,8 @@ module VagrantPlugins
   module DevCommands
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
+      MESSAGES = VagrantPlugins::DevCommands::Messages
+
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS
 
@@ -58,7 +60,8 @@ module VagrantPlugins
         commandfile = CommandFile.new(@env)
 
         unless commandfile.exist?
-          @env.ui.error 'Missing Commandfile'
+          MESSAGES.missing_commandfile(&@env.ui.method(:error))
+          MESSAGES.plugin_usage_info(&@env.ui.method(:info))
 
           return false
         end
