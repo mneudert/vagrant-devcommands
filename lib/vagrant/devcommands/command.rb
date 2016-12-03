@@ -61,7 +61,7 @@ module VagrantPlugins
 
         unless commandfile.exist?
           MESSAGES.missing_commandfile(&@env.ui.method(:error))
-          MESSAGES.plugin_usage_info(&@env.ui.method(:info))
+          MESSAGES.pre_ln(:plugin_usage_info, &@env.ui.method(:info))
 
           return false
         end

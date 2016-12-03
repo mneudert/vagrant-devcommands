@@ -25,12 +25,17 @@ module VagrantPlugins
         curdir = File.expand_path(File.dirname(__FILE__))
         readme = File.expand_path(File.join(curdir, '../../../README.md'))
 
-        out.call ''
         out.call 'For detailed plugin usage information please read'
         out.call 'the README.md at the original source location:'
         out.call '>>> https://github.com/mneudert/vagrant-devcommands'
         out.call 'A copy of this file should be locally available at:'
         out.call ">>> #{readme}"
+      end
+
+      def self.pre_ln(msg, &out)
+        out.call ''
+
+        public_send(msg, &out)
       end
     end
   end

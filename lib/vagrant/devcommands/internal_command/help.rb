@@ -51,13 +51,10 @@ module VagrantPlugins
         end
 
         def command_help_body(help)
-          @env.ui.info ''
+          return message(:no_help, true) if help.nil?
 
-          if help.nil?
-            message(:no_help)
-          else
-            @env.ui.info help.strip
-          end
+          @env.ui.info ''
+          @env.ui.info help.strip
         end
 
         def command_help_header(command)
@@ -89,8 +86,12 @@ module VagrantPlugins
           @env.ui.info "Usage: #{usage}"
         end
 
-        def message(msg)
-          MESSAGES.public_send(msg, &@env.ui.method(:info))
+        def message(msg, pre_ln = false)
+          if pre_ln
+            MESSAGES.pre_ln(msg, &@env.ui.method(:info))
+          else
+            MESSAGES.public_send(msg, &@env.ui.method(:info))
+          end
         end
 
         def plugin_help(command)
@@ -104,7 +105,7 @@ module VagrantPlugins
           plugin_help_commands('Internal', internal_commands, pad_to)
           plugin_help_chains(@registry.chains, pad_to)
 
-          message(:plugin_usage_info) unless '--commands' == command
+          message(:plugin_usage_info, true) unless '--commands' == command
         end
 
         def plugin_help_chains(chains, pad_to)
