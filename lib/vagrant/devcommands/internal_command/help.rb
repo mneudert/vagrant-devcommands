@@ -36,9 +36,7 @@ module VagrantPlugins
         def command_help_arguments(arguments, title)
           return if arguments.nil?
 
-          @env.ui.info ''
-          @env.ui.info "#{title}:"
-
+          info("#{title}:", true)
           command_help_arguments_body(arguments)
         end
 
@@ -46,15 +44,14 @@ module VagrantPlugins
           pad_to = UTIL.pad_to(arguments)
 
           arguments.sort.each do |name, options|
-            @env.ui.info UTIL.padded_columns(pad_to, name, options[:desc])
+            info(UTIL.padded_columns(pad_to, name, options[:desc]))
           end
         end
 
         def command_help_body(help)
           return message(:no_help, true) if help.nil?
 
-          @env.ui.info ''
-          @env.ui.info help.strip
+          info(help.strip, true)
         end
 
         def command_help_header(command)
@@ -65,7 +62,12 @@ module VagrantPlugins
             usage = @registry.commands[command].usage % { command: command }
           end
 
-          @env.ui.info "Usage: #{usage}"
+          info("Usage: #{usage}")
+        end
+
+        def info(msg, pre_ln = false)
+          @env.ui.info '' if pre_ln
+          @env.ui.info msg
         end
 
         def internal_commands
@@ -74,16 +76,14 @@ module VagrantPlugins
 
         def internal_help(command)
           internal_help_header(command)
-
-          @env.ui.info ''
-          @env.ui.info internal_commands[command].help.strip
+          info(internal_commands[command].help.strip, true)
         end
 
         def internal_help_header(command)
           spec  = internal_commands[command]
           usage = spec.usage % { command: command }
 
-          @env.ui.info "Usage: #{usage}"
+          info("Usage: #{usage}")
         end
 
         def message(msg, pre_ln = false)
@@ -111,22 +111,20 @@ module VagrantPlugins
         def plugin_help_chains(chains, pad_to)
           return if chains.empty?
 
-          @env.ui.info ''
-          @env.ui.info 'Command chains:'
+          info('Command chains:', true)
 
           chains.sort.each do |name, chain|
-            @env.ui.info UTIL.padded_columns(pad_to, name, chain.desc)
+            info(UTIL.padded_columns(pad_to, name, chain.desc))
           end
         end
 
         def plugin_help_commands(type, commands, pad_to)
           return if commands.empty?
 
-          @env.ui.info ''
-          @env.ui.info "#{type} commands:"
+          info("#{type} commands:", true)
 
           commands.sort.each do |name, command|
-            @env.ui.info UTIL.padded_columns(pad_to, name, command.desc)
+            info(UTIL.padded_columns(pad_to, name, command.desc))
           end
         end
 
