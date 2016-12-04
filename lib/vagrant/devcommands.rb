@@ -13,6 +13,7 @@ require 'vagrant/devcommands/util'
 require 'vagrant/devcommands/model/chain'
 require 'vagrant/devcommands/model/command'
 
+require 'vagrant/devcommands/help_printer/command'
 require 'vagrant/devcommands/internal_command/help'
 require 'vagrant/devcommands/internal_command/version'
 

@@ -5,6 +5,7 @@ module VagrantPlugins
       class Help
         UTIL     = VagrantPlugins::DevCommands::Util
         MESSAGES = VagrantPlugins::DevCommands::Messages
+        PRINTER  = VagrantPlugins::DevCommands::HelpPrinter
 
         def initialize(env, registry)
           @env      = env
@@ -19,48 +20,10 @@ module VagrantPlugins
           return plugin_help(command) unless @registry.valid_command?(command)
           return internal_help(command) if @registry.reserved_command?(command)
 
-          command_help(command)
+          PRINTER::Command.new(@env).output(@registry.commands[command])
         end
 
         private
-
-        def command_help(command)
-          model = @registry.commands[command]
-
-          command_help_header(model)
-          command_help_arguments(model.parameters, 'Parameters')
-          command_help_arguments(model.flags, 'Flags')
-          command_help_body(model.help)
-        end
-
-        def command_help_arguments(arguments, title)
-          return if arguments.nil?
-
-          info("#{title}:", true)
-          command_help_arguments_body(arguments)
-        end
-
-        def command_help_arguments_body(arguments)
-          pad_to = UTIL.pad_to(arguments)
-
-          arguments.sort.each do |name, options|
-            info(UTIL.padded_columns(pad_to, name, options[:desc]))
-          end
-        end
-
-        def command_help_body(help)
-          return message(:no_help, true) if help.nil?
-
-          info(help.strip, true)
-        end
-
-        def command_help_header(command)
-          usage = "vagrant run [box] #{command.name}"
-          usage = usage_params(usage, command)
-          usage = command.usage % { command: command } unless command.usage.nil?
-
-          info("Usage: #{usage}")
-        end
 
         def info(msg, pre_ln = false)
           @env.ui.info '' if pre_ln
@@ -123,15 +86,6 @@ module VagrantPlugins
           commands.sort.each do |name, command|
             info(UTIL.padded_columns(pad_to, name, command.desc))
           end
-        end
-
-        def usage_params(usage, command)
-          [
-            usage,
-            UTIL.collect_mandatory_params(command.parameters || {}),
-            UTIL.collect_optional_params(command.parameters || {}),
-            UTIL.collect_flags(command.flags || {})
-          ].flatten.compact.join(' ').strip
         end
       end
     end
