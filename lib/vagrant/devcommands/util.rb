@@ -42,10 +42,12 @@ module VagrantPlugins
       end
 
       def self.pad_to(items)
-        items.keys.map(&:length).max
+        items = items.keys unless items.is_a?(Array)
+
+        items.map(&:length).max
       end
 
-      def self.padded_columns(pad_to, left, right)
+      def self.padded_columns(pad_to, left, right = nil)
         left  = left.to_s  unless left.is_a?(String)
         right = right.to_s unless right.is_a?(String)
 

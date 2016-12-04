@@ -128,6 +128,34 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     end
   end
 
+  describe 'running help for a chain' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../../fixtures/help-commandfile')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'lists commands for chains (in order)' do
+      @env.ui.messages = []
+
+      command.new(%w(help chained), @env).execute
+
+      expect(@env.ui.messages[3][:message]).to match(/foo/i)
+      expect(@env.ui.messages[4][:message]).to match(/bar/i)
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'running help for an unknown command (or without command)' do
     it 'display chain list' do
       chain_foo    = chain_model.new(name: 'foo', commands: ['bar'])

@@ -17,13 +17,21 @@ module VagrantPlugins
 
           command = argv[0]
 
-          return plugin_help(command) unless @registry.valid_command?(command)
+          return plugin_help(command) unless @registry.available?(command)
           return internal_help(command) if @registry.reserved_command?(command)
 
-          PRINTER::Command.new(@env).output(@registry.commands[command])
+          help(command)
         end
 
         private
+
+        def help(command)
+          if @registry.valid_chain?(command)
+            PRINTER::Chain.new(@env).output(@registry.chains[command])
+          else
+            PRINTER::Command.new(@env).output(@registry.commands[command])
+          end
+        end
 
         def info(msg, pre_ln = false)
           @env.ui.info '' if pre_ln
