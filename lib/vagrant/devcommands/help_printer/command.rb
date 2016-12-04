@@ -35,7 +35,7 @@ module VagrantPlugins
         end
 
         def body(help)
-          return message(:no_help) if help.nil?
+          return message(:command_no_help) if help.nil?
 
           info(help.strip, true)
         end

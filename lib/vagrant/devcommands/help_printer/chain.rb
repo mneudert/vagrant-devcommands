@@ -3,7 +3,8 @@ module VagrantPlugins
     module HelpPrinter
       # Prints help for a command chain
       class Chain
-        UTIL = VagrantPlugins::DevCommands::Util
+        UTIL     = VagrantPlugins::DevCommands::Util
+        MESSAGES = VagrantPlugins::DevCommands::Messages
 
         def initialize(env)
           @env = env
@@ -12,9 +13,16 @@ module VagrantPlugins
         def output(chain)
           header(chain)
           commands(chain)
+          body(chain.help)
         end
 
         private
+
+        def body(help)
+          return message(:chain_no_help) if help.nil?
+
+          info(help.strip, true)
+        end
 
         def commands(chain)
           info('Chained commands (in order):', true)
@@ -33,6 +41,10 @@ module VagrantPlugins
         def info(msg, pre_ln = false)
           @env.ui.info '' if pre_ln
           @env.ui.info msg
+        end
+
+        def message(msg)
+          MESSAGES.public_send(msg, &@env.ui.method(:info))
         end
       end
     end

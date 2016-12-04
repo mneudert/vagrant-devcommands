@@ -190,7 +190,14 @@ You can define command chains to execute multiple commands in order:
 chain 'my_chain',
     break_on_error: false,
     commands:       [ 'first', 'second', 'third' ],
-    desc:           'Command chain for three commands.'
+    desc:           'Command chain for three commands.',
+    help: <<-eoh
+I am the help message for the chain "my_chain".
+I get displayed when running "vagrant run help my_chain".
+
+The usage printed above the help can interpolate the name
+of the command name using %{command}.
+eoh
 ```
 
 The configured commands will be executed in the order defined.

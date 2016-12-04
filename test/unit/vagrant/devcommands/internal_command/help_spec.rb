@@ -151,6 +151,26 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       expect(@env.ui.messages[4][:message]).to match(/bar/i)
     end
 
+    it 'displays its help message if defined' do
+      @env.ui.messages = []
+
+      command.new(%w(help chainhelp), @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/help message for chainhelp/)
+    end
+
+    it 'displays an error if undefined' do
+      @env.ui.messages = []
+
+      command.new(%w(help chained), @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/no detailed help/i)
+    end
+
     after :context do
       Dir.chdir(@olddir)
     end

@@ -8,7 +8,11 @@ module VagrantPlugins
         out.call 'Missing Commandfile'
       end
 
-      def self.no_help(&out)
+      def self.chain_no_help(&out)
+        out.call 'No detailed help for this chain available.'
+      end
+
+      def self.command_no_help(&out)
         out.call 'No detailed help for this command available.'
       end
 

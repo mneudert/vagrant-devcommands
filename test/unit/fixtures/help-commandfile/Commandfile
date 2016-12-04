@@ -39,3 +39,6 @@ command 'unordered',
 
 
 chain 'chained', commands: [ 'foo', 'bar' ]
+chain 'chainhelp',
+  commands: [ 'foo' ],
+  help: 'help message for chainhelp'
