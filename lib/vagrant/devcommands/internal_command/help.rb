@@ -27,7 +27,7 @@ module VagrantPlugins
         def command_help(command)
           model = @registry.commands[command]
 
-          command_help_header(command)
+          command_help_header(model)
           command_help_arguments(model.parameters, 'Parameters')
           command_help_arguments(model.flags, 'Flags')
           command_help_body(model.help)
@@ -55,12 +55,9 @@ module VagrantPlugins
         end
 
         def command_help_header(command)
-          usage = "vagrant run [box] #{command}"
-          usage = usage_params(usage, @registry.commands[command])
-
-          unless @registry.commands[command].usage.nil?
-            usage = @registry.commands[command].usage % { command: command }
-          end
+          usage = "vagrant run [box] #{command.name}"
+          usage = usage_params(usage, command)
+          usage = command.usage % { command: command } unless command.usage.nil?
 
           info("Usage: #{usage}")
         end
