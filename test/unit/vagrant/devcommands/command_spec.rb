@@ -21,7 +21,7 @@ describe VagrantPlugins::DevCommands::Command do
         .execute
 
       expect(@env.ui.messages[0][:message]).to match(/missing.+Commandfile/i)
-      expect(@env.ui.messages[3][:message]).to match(/README\.md/i)
+      expect(@env.ui.messages[2][:message]).to match(/README\.md/i)
     end
 
     after :context do
