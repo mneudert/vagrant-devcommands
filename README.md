@@ -186,7 +186,7 @@ evaluating a local one.
 
 You can define command chains to execute multiple commands in order:
 
-```
+```ruby
 chain 'my_chain',
     break_on_error: false,
     commands:       [ 'first', 'second', 'third' ],
