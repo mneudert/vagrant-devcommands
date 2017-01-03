@@ -12,6 +12,8 @@ require 'vagrant/devcommands/util'
 
 require 'vagrant/devcommands/model/chain'
 require 'vagrant/devcommands/model/command'
+require 'vagrant/devcommands/runner/chain'
+require 'vagrant/devcommands/runner/command'
 
 require 'vagrant/devcommands/help_printer/chain'
 require 'vagrant/devcommands/help_printer/command'

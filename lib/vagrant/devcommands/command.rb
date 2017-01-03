@@ -2,7 +2,8 @@ module VagrantPlugins
   module DevCommands
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
-      MESSAGES = VagrantPlugins::DevCommands::Messages
+      NAMESPACE_RUNNER = VagrantPlugins::DevCommands::Runner
+      MESSAGES         = VagrantPlugins::DevCommands::Messages
 
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS
@@ -72,39 +73,15 @@ module VagrantPlugins
       end
 
       def run(command)
-        unless @registry.valid_command?(command)
-          return run_chain(@registry.chains[command])
-        end
+        runner   = runner_for(command)
+        runnable = runnable_for(command)
 
-        run_command(@registry.commands[command])
-      end
+        runner.run(runnable)
+      rescue RuntimeError => e
+        display_error(e.message)
+        run_internal('help', [runnable])
 
-      def run_chain(chain)
-        retval = 0
-
-        chain.commands.each do |command|
-          retval = run_command(@registry.commands[command])
-
-          break if retval.nonzero? && chain.break_on_error?
-        end
-
-        retval
-      end
-
-      def run_command(command)
-        argv   = run_argv
-        box    = run_box(command)
-        script = run_script(command, argv)
-
-        return 2 unless script
-
-        with_target_vms(box, single_target: true) do |vm|
-          env = vm.action(:ssh_run,
-                          ssh_opts: { extra_args: ['-q'] },
-                          ssh_run_command: script)
-
-          return env[:ssh_run_exit_status] || 0
-        end
+        nil
       end
 
       def run_argv
@@ -115,32 +92,24 @@ module VagrantPlugins
         argv
       end
 
-      def run_box(cmd)
-        return cmd.box.to_s if cmd.box
-        return @argv[0].to_s if @env.machine_index.include?(@argv[0].to_s)
-
-        nil
-      end
-
       def run_internal(command, args = nil)
         Internal.new(@env, @registry).run(command, args || run_argv)
       end
 
-      def run_script(command, argv)
-        command.run_script(argv)
-      rescue KeyError => e
-        param = e.message.match(/{(.+)}/).captures.first
-
-        run_script_error(command.name, "missing parameter '#{param}'")
-      rescue OptionParser::InvalidOption => e
-        run_script_error(command.name, "invalid parameter '#{e.args.first}'")
+      def runnable_for(command)
+        if @registry.valid_command?(command)
+          @registry.commands[command]
+        else
+          @registry.chains[command]
+        end
       end
 
-      def run_script_error(command, error)
-        display_error("Could not execute #{command}: #{error}!")
-        run_internal('help', [command])
-
-        nil
+      def runner_for(command)
+        if @registry.valid_command?(command)
+          NAMESPACE_RUNNER::Command.new(@argv, @env, @registry)
+        else
+          NAMESPACE_RUNNER::Chain.new(@argv, @env, @registry)
+        end
       end
     end
   end
