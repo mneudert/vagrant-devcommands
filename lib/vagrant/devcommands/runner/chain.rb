@@ -11,9 +11,9 @@ module VagrantPlugins
 
         def run(chain)
           retval = 0
-          runner = Command.new(@argv, @env, @registry)
 
           chain.commands.each do |command|
+            runner = Command.new(@argv, @env, @registry)
             retval = runner.run(@registry.commands[command])
 
             break if retval.nonzero? && chain.break_on_error?
