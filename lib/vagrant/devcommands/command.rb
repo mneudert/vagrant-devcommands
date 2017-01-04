@@ -84,16 +84,10 @@ module VagrantPlugins
         nil
       end
 
-      def run_argv
-        argv = @argv.dup
-
-        argv.shift if @env.machine_index.include?(argv[0].to_s)
-        argv.shift
-        argv
-      end
-
       def run_internal(command, args = nil)
-        Internal.new(@env, @registry).run(command, args || run_argv)
+        runner = NAMESPACE_RUNNER::InternalCommand.new(@argv, @env, @registry)
+
+        runner.run(command, args)
       end
 
       def runnable_for(command)

@@ -39,7 +39,7 @@ module VagrantPlugins
         end
 
         def internal_commands
-          VagrantPlugins::DevCommands::Internal::COMMANDS
+          VagrantPlugins::DevCommands::Runner::InternalCommand::COMMANDS
         end
 
         def internal_help(command)
