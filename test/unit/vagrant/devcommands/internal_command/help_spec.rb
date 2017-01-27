@@ -178,8 +178,10 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
   describe 'running help for an unknown command (or without command)' do
     it 'display chain list' do
-      chain_foo    = chain_model.new(name: 'foo', commands: ['bar'])
-      cmd_bar      = command_model.new(name: 'bar', script: 'bar')
+      chain_commands = [{ command: 'bar' }]
+      chain_foo      = chain_model.new(name: 'foo', commands: chain_commands)
+      cmd_bar        = command_model.new(name: 'bar', script: 'bar')
+
       env          = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg          = registry.new(nil)
       reg.chains   = { 'foo' => chain_foo }

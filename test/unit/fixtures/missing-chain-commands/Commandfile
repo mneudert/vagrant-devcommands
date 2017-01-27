@@ -1,1 +1,4 @@
-chain 'missing-commands', commands: [ 'foo', 'bar' ]
+chain 'missing-commands', commands: [
+  { command: 'foo' },
+  { command: 'bar' }
+]

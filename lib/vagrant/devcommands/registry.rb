@@ -118,10 +118,11 @@ module VagrantPlugins
 
       def validate_chains
         @chains.all? do |chain, chain_def|
-          chain_def.commands.each do |command|
-            next if valid_command?(command)
+          chain_def.commands.each do |element|
+            next unless element.is_a?(Hash)
+            next if valid_command?(element[:command])
 
-            missing_chain_command_warning(chain, command)
+            missing_chain_command_warning(chain, element)
 
             @chains.delete(chain)
 

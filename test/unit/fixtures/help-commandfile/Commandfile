@@ -38,7 +38,11 @@ command 'unordered',
   }
 
 
-chain 'chained', commands: [ 'foo', 'bar' ]
+chain 'chained', commands: [
+  { command: 'foo' },
+  { command: 'bar' }
+]
+
 chain 'chainhelp',
-  commands: [ 'foo' ],
+  commands: [{ command: 'foo' }],
   help: 'help message for chainhelp'

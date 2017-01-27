@@ -150,8 +150,12 @@ You can define command chains to execute multiple commands in order:
 ```ruby
 chain 'my_chain',
   break_on_error: false,
-  commands:       [ 'first', 'second', 'third' ],
-  desc:           'Command chain for three commands.',
+  commands: [
+    { command: 'first' },
+    { command: 'second' },
+    { command: 'third' }
+  ],
+  desc: 'Command chain for three commands.',
   help: <<-eoh
 I am the help message for the chain "my_chain".
 I get displayed when running "vagrant run help my_chain".

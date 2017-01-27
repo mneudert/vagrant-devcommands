@@ -27,10 +27,11 @@ module VagrantPlugins
         def commands(chain)
           info('Chained commands (in order):', true)
 
-          pad_to = UTIL.pad_to(chain.commands)
+          command_list = chain.commands.each { |cmd| cmd[:command] }
+          pad_to       = UTIL.pad_to(command_list)
 
-          chain.commands.each do |name, _options|
-            info(UTIL.padded_columns(pad_to, name))
+          chain.commands.each do |cmd, _options|
+            info(UTIL.padded_columns(pad_to, cmd[:command]))
           end
         end
 

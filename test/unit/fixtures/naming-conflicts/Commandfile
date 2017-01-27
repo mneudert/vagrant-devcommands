@@ -1,4 +1,8 @@
 command 'bar', 'bar'
 command 'foo', script: 'foo'
 
-chain 'foo', commands: [ 'conflicts', 'with', 'command' ]
+chain 'foo', commands: [
+  { command: 'conflicts' },
+  { command: 'with' },
+  { command: 'command' }
+]
