@@ -32,11 +32,11 @@ Add to a `Commandfile` besides your `Vagrantfile`:
 command 'basic', 'hostname'
 
 command 'with_options',
-    box: :my_box,
-    desc: 'executes "hostname" on the box "my_box"',
-    script: 'hostname',
-    usage: 'vagrant run %{command}',
-    help: <<-eoh
+  box: :my_box,
+  desc: 'executes "hostname" on the box "my_box"',
+  script: 'hostname',
+  usage: 'vagrant run %{command}',
+  help: <<-eoh
 I am the help message for the command "with_options".
 I get displayed when running "vagrant run help with_options".
 
@@ -188,10 +188,10 @@ You can define command chains to execute multiple commands in order:
 
 ```ruby
 chain 'my_chain',
-    break_on_error: false,
-    commands:       [ 'first', 'second', 'third' ],
-    desc:           'Command chain for three commands.',
-    help: <<-eoh
+  break_on_error: false,
+  commands:       [ 'first', 'second', 'third' ],
+  desc:           'Command chain for three commands.',
+  help: <<-eoh
 I am the help message for the chain "my_chain".
 I get displayed when running "vagrant run help my_chain".
 
@@ -205,9 +205,9 @@ The configured commands will be executed in the order defined.
 If one or more of your commands requires parameters all of them have to be
 passed to the chain execution.
 
-By default a chain breaks upon the first non-zero return value of any configured
-command. To deactivate this behaviour you can set `:break_on_error` to `false`.
-Any value other than `false` will stick to the default.
+By default a chain breaks upon the first non-zero return value of any
+configured command. To deactivate this behaviour you can set `:break_on_error`
+to `false`. Any value other than `false` will stick to the default.
 
 
 ## Notes for Windows Users
@@ -225,10 +225,10 @@ a sigil notation like the following:
 
 ```ruby
 command 'long_running_task',
-    script: %(cd /path/to/somewhere \
-                  && echo "starting long running task" \
-                  && ./long_running_task.sh \
-                  && echo "finished long running task")
+  script: %(cd /path/to/somewhere \
+                && echo "starting long running task" \
+                && ./long_running_task.sh \
+                && echo "finished long running task")
 ```
 
 Using a quote delimited command definition might otherwise result in not that
