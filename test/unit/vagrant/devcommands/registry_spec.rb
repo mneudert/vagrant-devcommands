@@ -210,7 +210,7 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
-  describe 'defining chaing with name of existing command' do
+  describe 'defining chain with name of existing command' do
     before :context do
       @olddir = Dir.pwd
       @newdir = File.join(File.dirname(__FILE__),
