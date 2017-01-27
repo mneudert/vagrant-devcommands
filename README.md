@@ -143,6 +143,32 @@ These will be evaluated when running the command.
 
 Every rule from regular scripts (parameters, escaping "%", ...) still apply.
 
+### Experimental: Chain definition
+
+You can define command chains to execute multiple commands in order:
+
+```ruby
+chain 'my_chain',
+  break_on_error: false,
+  commands:       [ 'first', 'second', 'third' ],
+  desc:           'Command chain for three commands.',
+  help: <<-eoh
+I am the help message for the chain "my_chain".
+I get displayed when running "vagrant run help my_chain".
+
+The usage printed above the help can interpolate the name
+of the command name using %{command}.
+eoh
+```
+
+The configured commands will be executed in the order defined.
+
+If one or more of your commands requires parameters all of them have to be
+passed to the chain execution.
+
+By default a chain breaks upon the first non-zero return value of any
+configured command. To deactivate this behaviour you can set `:break_on_error`
+to `false`. Any value other than `false` will stick to the default.
 
 ### Experimental: global command definitions
 
@@ -181,33 +207,6 @@ installed plugin has a version below `1.3.3.7`.
 
 Please be aware that returning from a global commandfile completely skips
 evaluating a local one.
-
-### Chain definition
-
-You can define command chains to execute multiple commands in order:
-
-```ruby
-chain 'my_chain',
-  break_on_error: false,
-  commands:       [ 'first', 'second', 'third' ],
-  desc:           'Command chain for three commands.',
-  help: <<-eoh
-I am the help message for the chain "my_chain".
-I get displayed when running "vagrant run help my_chain".
-
-The usage printed above the help can interpolate the name
-of the command name using %{command}.
-eoh
-```
-
-The configured commands will be executed in the order defined.
-
-If one or more of your commands requires parameters all of them have to be
-passed to the chain execution.
-
-By default a chain breaks upon the first non-zero return value of any
-configured command. To deactivate this behaviour you can set `:break_on_error`
-to `false`. Any value other than `false` will stick to the default.
 
 
 ## Notes for Windows Users
