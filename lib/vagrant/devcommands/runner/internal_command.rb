@@ -12,7 +12,8 @@ module VagrantPlugins
           'version' => NAMESPACE_MODEL::Command.new(NAMESPACE_SPEC::VERSION)
         }.freeze
 
-        def initialize(argv, env, registry)
+        def initialize(plugin, argv, env, registry)
+          @plugin   = plugin
           @argv     = argv
           @env      = env
           @registry = registry

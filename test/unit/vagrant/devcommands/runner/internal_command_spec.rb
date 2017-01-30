@@ -11,7 +11,7 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
       reg          = registry.new(nil)
       reg.commands = { 'foo' => cmd_foo }
 
-      described_class.new([], env, reg).run('help', [])
+      described_class.new(nil, [], env, reg).run('help', [])
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
@@ -25,7 +25,7 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
       env = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg = registry.new(nil)
 
-      described_class.new([], env, reg).run('help', [])
+      described_class.new(nil, [], env, reg).run('help', [])
 
       expect(env.ui.messages[0][:message]).to match(/no commands/i)
     end
@@ -37,7 +37,7 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
       reg          = registry.new(nil)
       reg.commands = { 'bar' => cmd_bar, 'foo' => cmd_foo }
 
-      described_class.new([], env, reg).run('help', [])
+      described_class.new(nil, [], env, reg).run('help', [])
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
@@ -53,7 +53,7 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
       reg          = registry.new(nil)
       reg.commands = { 'bar' => cmd_bar, 'foo' => cmd_foo }
 
-      described_class.new([], env, reg).run('help', [])
+      described_class.new(nil, [], env, reg).run('help', [])
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
@@ -65,7 +65,7 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
     it 'displays the plugin version' do
       env      = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
       reg      = registry.new(nil)
-      internal = described_class.new([], env, reg)
+      internal = described_class.new(nil, [], env, reg)
       version  = VagrantPlugins::DevCommands::VERSION
 
       internal.run('version', [])

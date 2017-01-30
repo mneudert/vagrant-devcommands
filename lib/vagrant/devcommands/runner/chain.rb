@@ -3,7 +3,8 @@ module VagrantPlugins
     module Runner
       # Chain runner
       class Chain
-        def initialize(argv, env, registry)
+        def initialize(plugin, argv, env, registry)
+          @plugin   = plugin
           @argv     = argv
           @env      = env
           @registry = registry
@@ -16,7 +17,7 @@ module VagrantPlugins
             runnable      = runnable_for(command_def)
             runnable_argv = argv_for(command_def)
 
-            runner = Command.new(runnable_argv, @env, @registry)
+            runner = Command.new(@plugin, runnable_argv, @env, @registry)
             retval = runner.run(runnable)
 
             break if retval.nonzero? && chain.break_on_error?

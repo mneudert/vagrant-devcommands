@@ -3,7 +3,8 @@ module VagrantPlugins
     module Runner
       # Command runner
       class Command
-        def initialize(argv, env, registry)
+        def initialize(plugin, argv, env, registry)
+          @plugin   = plugin
           @argv     = argv
           @env      = env
           @registry = registry
@@ -16,7 +17,7 @@ module VagrantPlugins
 
           return 2 unless script
 
-          with_target_vms(box, single_target: true) do |vm|
+          @plugin.proxy_with_target_vms(box, single_target: true) do |vm|
             env = vm.action(:ssh_run,
                             ssh_opts: { extra_args: ['-q'] },
                             ssh_run_command: script)

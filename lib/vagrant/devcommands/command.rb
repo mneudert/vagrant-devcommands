@@ -30,6 +30,11 @@ module VagrantPlugins
         run command
       end
 
+      def proxy_with_target_vms(names = nil, options = nil, &block)
+        # allows public access to protected method with_target_vms
+        with_target_vms(names, options, &block)
+      end
+
       private
 
       attr_accessor :registry
@@ -85,7 +90,9 @@ module VagrantPlugins
       end
 
       def run_internal(command, args = nil)
-        runner = NAMESPACE_RUNNER::InternalCommand.new(@argv, @env, @registry)
+        runner = NAMESPACE_RUNNER::InternalCommand.new(
+          self, @argv, @env, @registry
+        )
 
         runner.run(command, args)
       end
@@ -100,9 +107,9 @@ module VagrantPlugins
 
       def runner_for(command)
         if @registry.valid_command?(command)
-          NAMESPACE_RUNNER::Command.new(@argv, @env, @registry)
+          NAMESPACE_RUNNER::Command.new(self, @argv, @env, @registry)
         else
-          NAMESPACE_RUNNER::Chain.new(@argv, @env, @registry)
+          NAMESPACE_RUNNER::Chain.new(self, @argv, @env, @registry)
         end
       end
     end
