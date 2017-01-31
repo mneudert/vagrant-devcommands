@@ -19,19 +19,18 @@ module VagrantPlugins
         private
 
         def body(help)
+          info ''
+
           return message(:chain_no_help) if help.nil?
 
-          info(help.strip, true)
+          info help.strip
         end
 
         def commands(chain)
           info('Chained commands (in order):', true)
 
-          command_list = chain.commands.each { |cmd| cmd[:command] }
-          pad_to       = UTIL.pad_to(command_list)
-
           chain.commands.each do |cmd, _options|
-            info(UTIL.padded_columns(pad_to, cmd[:command]))
+            info(UTIL.padded_columns(0, cmd[:command]))
           end
         end
 
