@@ -48,9 +48,9 @@ module VagrantPlugins
         @registry.available?(command)
       end
 
-      def display_error(msg)
+      def display_error(msg, post_ln = false)
         @env.ui.error msg
-        @env.ui.error ''
+        @env.ui.error '' if post_ln
       end
 
       def non_empty?(command)
@@ -83,7 +83,7 @@ module VagrantPlugins
 
         runner.run(runnable)
       rescue RuntimeError => e
-        display_error(e.message)
+        display_error(e.message, true)
         run_internal('help', [runnable])
 
         nil
