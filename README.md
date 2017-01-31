@@ -174,6 +174,34 @@ By default a chain breaks upon the first non-zero return value of any
 configured command. To deactivate this behaviour you can set `:break_on_error`
 to `false`. Any value other than `false` will stick to the default.
 
+#### Chain definitions with pre-defined parameters
+
+If required you can modify the arguments given to each chain element by setting
+additional/custom argv values for a single chain element:
+
+```ruby
+command 'chainecho',
+  parameters: { what: {} },
+  script: 'echo %{what}'
+
+chain 'my_customized_chain',
+  commands: [
+    { command: 'chainecho', argv: '--what="first"' },
+    { command: 'chainecho' },
+    { command: 'chainecho', argv: '--what="second"' },
+  ]
+```
+
+Running the chain will execute the following commands:
+
+```shell
+> vagrant run my_customized_chain --what="before"
+
+vagrant run chainecho --what="first"
+vagrant run chainecho --what="before"
+vagrant run chainecho --what="second"
+```
+
 ### Experimental: global command definitions
 
 To have commands available even wihout a `Commandfile` you can define the

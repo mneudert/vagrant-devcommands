@@ -26,11 +26,17 @@ module VagrantPlugins
           info help.strip
         end
 
+        def chain_help_line(cmd)
+          return cmd[:command] unless cmd.key?(:argv)
+
+          "#{cmd[:command]} #{cmd[:argv]}"
+        end
+
         def commands(chain)
           info('Chained commands (in order):', true)
 
           chain.commands.each do |cmd, _options|
-            info(UTIL.padded_columns(0, cmd[:command]))
+            info(UTIL.padded_columns(0, chain_help_line(cmd)))
           end
         end
 

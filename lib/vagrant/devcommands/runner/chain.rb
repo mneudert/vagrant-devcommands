@@ -28,12 +28,14 @@ module VagrantPlugins
 
         private
 
-        def argv_for(_command_def)
-          @argv
+        def argv_for(command_def)
+          return @argv unless command_def.key?(:argv)
+
+          @argv + command_def[:argv].split
         end
 
         def runnable_for(command_def)
-          @registry.commands[command_def]
+          @registry.commands[command_def[:command]]
         end
       end
     end
