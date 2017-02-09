@@ -49,7 +49,7 @@ module VagrantPlugins
 
         def internal_help_header(command)
           spec  = internal_commands[command]
-          usage = spec.usage % { command: command }
+          usage = format(spec.usage, command: command)
 
           info("Usage: #{usage}")
         end
