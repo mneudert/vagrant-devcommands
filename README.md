@@ -157,7 +157,7 @@ ruby -e "require 'pathname'; puts Pathname.new(Dir.home).join('.vagrant.devcomma
 
 Any commands defined there will silently be overwritten by a local definition.
 
-### Experimental: Chain definition
+### Experimental: Chain Definitions
 
 You can define command chains to execute multiple commands in order:
 
@@ -188,7 +188,7 @@ By default a chain breaks upon the first non-zero return value of any
 configured command. To deactivate this behaviour you can set `:break_on_error`
 to `false`. Any value other than `false` will stick to the default.
 
-#### Chain definitions with pre-defined parameters
+#### Chain Definitions with Pre-Defined Parameters
 
 If required you can modify the arguments given to each chain element by setting
 additional/custom argv values for a single chain element:
@@ -216,7 +216,7 @@ vagrant run chainecho --what="before"
 vagrant run chainecho --what="second"
 ```
 
-### Abort parsing inside Commandfile
+### Abort Parsing inside Commandfile
 
 If you, for whatever reasons, want to abort further parsing of a `Commandfile`
 you can simple return from it:
