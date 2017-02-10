@@ -48,13 +48,17 @@ module VagrantPlugins
         rescue KeyError => e
           param = e.message.match(/{(.+)}/).captures.first
 
-          script_error(command.name, "missing parameter '#{param}'")
+          script_error(command.name, 'missing_parameter', param)
         rescue OptionParser::InvalidOption => e
-          script_error(command.name, "invalid parameter '#{e.args.first}'")
+          script_error(command.name, 'invalid_parameter', e.args.first)
         end
 
-        def script_error(command, error)
-          raise "Could not execute #{command}: #{error}!"
+        def script_error(command, type, detail)
+          error = I18n.t("vagrant_devcommands.runner.#{type}", detail: detail)
+
+          raise I18n.t('vagrant_devcommands.runner.script_error',
+                       command: command,
+                       error:   error)
         end
       end
     end

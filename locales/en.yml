@@ -35,3 +35,8 @@ en:
       missing_command: "The chain '%{chain}' is using at least one unknown command ('%{command}')."
       no_script:       "The command '%{name}' has no script defined to execute."
       reserved:        "The command name '%{name}' is reserved for internal usage."
+
+    runner:
+      invalid_parameter: "invalid parameter '%{detail}'"
+      missing_parameter: "missing parameter '%{detail}'"
+      script_error:      "Could not execute %{command}: %{error}"
