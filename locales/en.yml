@@ -6,6 +6,7 @@ en:
         help: |-
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
+        usage: "Usage: %{what}"
 
       version:
         desc: "display currently used the plugin version"

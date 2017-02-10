@@ -48,7 +48,7 @@ module VagrantPlugins
             usage = format(command.usage, command: command)
           end
 
-          info("Usage: #{usage}")
+          info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
         end
 
         def info(msg, pre_ln = false)
