@@ -26,8 +26,6 @@ module VagrantPlugins
 
       private
 
-      attr_accessor :env
-
       def find_commandfile
         return nil unless @env.root_path
 

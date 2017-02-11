@@ -37,8 +37,6 @@ module VagrantPlugins
 
       private
 
-      attr_accessor :registry
-
       def available?(command)
         unless @registry.available?(command)
           display_error("Invalid command \"#{command}\"!")
