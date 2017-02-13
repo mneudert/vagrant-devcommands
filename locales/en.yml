@@ -2,15 +2,15 @@ en:
   vagrant_devcommands:
     internal:
       help:
-        desc: "display this help message"
+        desc: "get some plugin help"
         help: |-
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
         usage: "Usage: %{what}"
 
       version:
-        desc: "display currently used the plugin version"
-        help: "Displays the currently installed version the plugin you are using right now."
+        desc: "get currently installed plugin version"
+        help: "Displays the currently installed version of the plugin you are using right now."
 
     message:
       chain_no_help: "No detailed help for this chain available."
