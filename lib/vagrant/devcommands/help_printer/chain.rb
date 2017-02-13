@@ -19,11 +19,9 @@ module VagrantPlugins
         private
 
         def body(help)
-          info ''
+          return message(:chain_no_help, true) if help.nil?
 
-          return message(:chain_no_help) if help.nil?
-
-          info help.strip
+          info(help.strip, true)
         end
 
         def chain_help_line(cmd)
@@ -51,8 +49,12 @@ module VagrantPlugins
           @env.ui.info msg
         end
 
-        def message(msg)
-          MESSAGES.public_send(msg, &@env.ui.method(:info))
+        def message(msg, pre_ln = false)
+          if pre_ln
+            MESSAGES.pre_ln(msg, &@env.ui.method(:info))
+          else
+            MESSAGES.public_send(msg, &@env.ui.method(:info))
+          end
         end
       end
     end

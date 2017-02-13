@@ -35,7 +35,7 @@ module VagrantPlugins
         end
 
         def body(help)
-          return message(:command_no_help) if help.nil?
+          return message(:command_no_help, true) if help.nil?
 
           info(help.strip, true)
         end
@@ -56,8 +56,12 @@ module VagrantPlugins
           @env.ui.info msg
         end
 
-        def message(msg)
-          MESSAGES.public_send(msg, &@env.ui.method(:info))
+        def message(msg, pre_ln = false)
+          if pre_ln
+            MESSAGES.pre_ln(msg, &@env.ui.method(:info))
+          else
+            MESSAGES.public_send(msg, &@env.ui.method(:info))
+          end
         end
 
         def usage_params(usage, command)
