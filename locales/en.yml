@@ -17,15 +17,15 @@ en:
       command_no_help: "No detailed help for this command available."
       missing_commandfile: "Missing Commandfile"
       no_commands: "No commands defined!"
-      plugin_usage: |-
-        Usage: vagrant run [box] <command>
-        Help:  vagrant run help <command>
-      plugin_usage_info: |-
+      plugin_readme: |-
         For detailed plugin usage information please read
         the README.md at the original source location:
         >>> https://github.com/mneudert/vagrant-devcommands
         A copy of this file should be locally available at:
         >>> %{readme}
+      plugin_usage: |-
+        Usage: vagrant run [box] <command>
+        Help:  vagrant run help <command>
 
     registry:
       chain_ignored:   "Your chain definition will be ignored in favor of the command"

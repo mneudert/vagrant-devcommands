@@ -22,15 +22,15 @@ module VagrantPlugins
         out.call I18n.t("#{I18N_KEY}.no_commands")
       end
 
-      def self.plugin_usage(&out)
-        out.call I18n.t("#{I18N_KEY}.plugin_usage")
-      end
-
-      def self.plugin_usage_info(&out)
+      def self.plugin_readme(&out)
         curdir = File.expand_path(File.dirname(__FILE__))
         readme = File.expand_path(File.join(curdir, '../../../README.md'))
 
-        out.call I18n.t("#{I18N_KEY}.plugin_usage_info", readme: readme)
+        out.call I18n.t("#{I18N_KEY}.plugin_readme", readme: readme)
+      end
+
+      def self.plugin_usage(&out)
+        out.call I18n.t("#{I18N_KEY}.plugin_usage")
       end
 
       def self.pre_ln(msg, &out)
