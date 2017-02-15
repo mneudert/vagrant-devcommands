@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.1.dev
+
+- Bug fixes
+  - Wrapping of optional parameters should now properly be done only if
+    at least an empty string is defined as a default value
+
 ## v0.7.0 (2016-09-26)
 
 - Enhancements

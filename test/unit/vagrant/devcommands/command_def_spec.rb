@@ -61,10 +61,11 @@ describe VagrantPlugins::DevCommands::CommandDef do
 
     it 'does not wrap unpassed optional parameters' do
       cmd = described_class.new(name:       'foo',
-                                parameters: { wrppd: { wrap: '--opt %s' } },
+                                parameters: { wrppd: { optional: true,
+                                                       wrap:     '--opt %s' } },
                                 script:     'script %{wrppd}')
 
-      expect { cmd.run_script([]) }.to raise_error(KeyError)
+      expect(cmd.run_script([])).to eq('script')
     end
 
     it 'does wrap unpassed optional parameters with empty default' do
