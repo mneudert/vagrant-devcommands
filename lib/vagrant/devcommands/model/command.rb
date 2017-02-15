@@ -91,7 +91,10 @@ module VagrantPlugins
         def wrap_option_values(options)
           (@parameters || {}).each do |key, conf|
             next if conf[:wrap].nil?
-            next if options[key].nil? && conf[:default].nil?
+
+            if conf[:default].nil?
+              next if options[key].nil? || options[key].empty?
+            end
 
             options[key] = conf[:wrap] % options[key]
           end

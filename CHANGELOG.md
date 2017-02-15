@@ -6,6 +6,12 @@
   - Chains can be defined to execute multiple commands in order
   - Commands can define flags (always optional!) for script interpolation
 
+## v0.7.1 (2017-02-15)
+
+- Bug fixes
+  - Wrapping of optional parameters should now properly be done only if
+    at least an empty string is defined as a default value
+
 ## v0.7.0 (2016-09-26)
 
 - Enhancements
