@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.7.1.dev
+## v0.7.1 (2017-02-15)
 
 - Bug fixes
   - Wrapping of optional parameters should now properly be done only if
