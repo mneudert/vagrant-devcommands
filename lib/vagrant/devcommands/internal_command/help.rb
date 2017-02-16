@@ -45,6 +45,8 @@ module VagrantPlugins
         def internal_help(command)
           internal_help_header(command)
           info(internal_commands[command].help.strip, true)
+
+          message(:plugin_readme, true) if 'help' == command
         end
 
         def internal_help_header(command)
