@@ -72,8 +72,6 @@ module VagrantPlugins
           plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_commands('Internal', internal_commands, pad_to)
           plugin_help_chains(@registry.chains, pad_to)
-
-          message(:plugin_readme, true) unless '--commands' == command
         end
 
         def plugin_help_chains(chains, pad_to)
