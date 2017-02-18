@@ -72,8 +72,8 @@ module VagrantPlugins
                                  @registry.chains])
 
           plugin_help_commands('Available', @registry.commands, pad_to)
-          plugin_help_commands('Internal', internal_commands, pad_to)
           plugin_help_chains(@registry.chains, pad_to)
+          plugin_help_commands('Internal', internal_commands, pad_to)
         end
 
         def plugin_help_chains(chains, pad_to)
