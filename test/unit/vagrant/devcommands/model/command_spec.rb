@@ -1,4 +1,4 @@
-require_relative '../../../spec_helper'
+require_relative '../../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Model::Command do
   describe 'with configured parameters' do

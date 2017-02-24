@@ -1,4 +1,4 @@
-require_relative '../../../spec_helper'
+require_relative '../../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Model::Chain do
   describe 'break_on_error configuration' do

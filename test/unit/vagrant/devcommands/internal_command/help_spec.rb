@@ -1,4 +1,4 @@
-require_relative '../../../spec_helper'
+require_relative '../../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::InternalCommand::Help do
   chain_model   = VagrantPlugins::DevCommands::Model::Chain
