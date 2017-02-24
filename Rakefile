@@ -19,12 +19,25 @@ namespace :style do
 end
 
 namespace :test do
-  desc 'Run tests'
-
+  desc 'Run unit tests'
   RSpec::Core::RakeTask.new(:unit) do |t|
     t.pattern = 'test/unit/**/*_spec.rb'
   end
+
+  desc 'Run integration tests'
+  RSpec::Core::RakeTask.new(:integration) do |t|
+    t.pattern = 'test/integration/**/*_spec.rb'
+  end
 end
 
-task default: ['style:ruby', 'test:unit']
-task travis: ['test:unit']
+namespace :test do
+  # travis testing task
+  RSpec::Core::RakeTask.new(:travis) do |t|
+    t.pattern = 'test/**/*_spec.rb'
+  end
+
+  Rake::Task['test:travis'].clear_comments
+end
+
+task default: ['style:ruby', 'test:unit', 'test:integration']
+task travis: ['test:travis']
