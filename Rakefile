@@ -40,4 +40,4 @@ namespace :test do
 end
 
 task default: ['style:ruby', 'test:unit', 'test:integration']
-task travis: ['test:travis']
+task travis: ['style:ruby', 'test:travis']
