@@ -6,4 +6,4 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'vagrant/devcommands'
 
-require_relative './helpers/ui'
+require_relative '../helpers/ui'
