@@ -20,10 +20,8 @@ describe VagrantPlugins::DevCommands::Registry do
 
       registry.read_commandfile(file)
 
-      expect(registry.chains['xyz'].commands).to eq([
-        { command: 'bar' },
-        { command: 'foo' }
-      ])
+      expect(registry.chains['xyz'].commands).to eq([{ command: 'bar' },
+                                                     { command: 'foo' }])
     end
 
     it 'detects invalid chains' do
