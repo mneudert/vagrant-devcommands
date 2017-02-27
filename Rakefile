@@ -7,15 +7,7 @@ Coveralls::RakeTask.new
 
 namespace :style do
   desc 'Run ruby style checks'
-
-  RuboCop::RakeTask.new(:ruby) do |task|
-    task.patterns = [
-      'lib/**/*.rb',
-      '*.gemspec',
-      'Gemfile',
-      'Rakefile'
-    ]
-  end
+  RuboCop::RakeTask.new(:ruby)
 end
 
 namespace :test do
