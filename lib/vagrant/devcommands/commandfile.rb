@@ -3,7 +3,7 @@ require 'pathname'
 module VagrantPlugins
   module DevCommands
     # Loads and handles the Commandfile
-    class CommandFile
+    class Commandfile
       def initialize(env)
         @env = env
       end

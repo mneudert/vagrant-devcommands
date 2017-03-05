@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Registry do
-  commandfile = VagrantPlugins::DevCommands::CommandFile
+  commandfile = VagrantPlugins::DevCommands::Commandfile
 
   describe 'chain definition' do
     before :context do
