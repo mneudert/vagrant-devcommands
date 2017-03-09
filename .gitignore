@@ -1,4 +1,6 @@
+/.bundle/
 /coverage/
 /pkg/
+/vendor/
 /Gemfile.lock
 /vagrant-devcommands-*.gem
