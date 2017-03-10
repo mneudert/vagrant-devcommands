@@ -5,7 +5,7 @@ rvm:
 env:
   matrix:
     - VER_VAGRANT=1.8.7 VER_BUNDLER=1.12.5
-    - VER_VAGRANT=1.9.2
+    - VER_VAGRANT=1.9.2 TRAVIS_COVERAGE=true
     - VER_VAGRANT=master
 
 before_install: |
