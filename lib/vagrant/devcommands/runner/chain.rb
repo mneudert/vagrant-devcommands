@@ -31,7 +31,7 @@ module VagrantPlugins
         def argv_for(command_def)
           return @argv unless command_def.key?(:argv)
 
-          if command_def[:argv].is_a? String
+          if command_def[:argv].is_a?(String)
             @argv + command_def[:argv].split
           else
             @argv + command_def[:argv]
