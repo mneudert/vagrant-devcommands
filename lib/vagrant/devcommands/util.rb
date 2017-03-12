@@ -2,6 +2,10 @@ module VagrantPlugins
   module DevCommands
     # Utility module
     class Util
+      def self.machine_name?(name, machine_index)
+        machine_index.any? { |machine| name == machine.name }
+      end
+
       def self.pad_to(items)
         items.keys.map(&:length).max
       end

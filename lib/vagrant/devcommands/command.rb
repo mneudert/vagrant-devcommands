@@ -2,6 +2,8 @@ module VagrantPlugins
   module DevCommands
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
+      UTIL = VagrantPlugins::DevCommands::Util
+
       def self.synopsis
         'runs vagrant commands from a Commandfile'
       end
@@ -48,7 +50,8 @@ module VagrantPlugins
         return nil if @argv.empty?
 
         command = @argv[0].to_s
-        command = @argv[1].to_s if @env.machine_index.include?(command)
+        command = @argv[1].to_s if UTIL.machine_name?(@argv[1].to_s,
+                                                      @env.machine_index)
 
         command
       end
@@ -91,16 +94,17 @@ module VagrantPlugins
       def run_argv
         argv = @argv.dup
 
-        argv.shift if @env.machine_index.include?(argv[0].to_s)
+        argv.shift if UTIL.machine_name?(argv[0].to_s, @env.machine_index)
         argv.shift
         argv
       end
 
       def run_box(cmd)
-        return cmd.box.to_s if cmd.box
-        return @argv[0].to_s if @env.machine_index.include?(@argv[0].to_s)
+        box = nil
+        box = cmd.box.to_s if cmd.box
+        box = @argv[0] if UTIL.machine_name?(@argv[0].to_s, @env.machine_index)
 
-        nil
+        box
       end
 
       def run_internal(command, args = nil)

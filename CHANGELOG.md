@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.2.dev
+
+- Bug fixes
+  - Machine names passed via argv are properly detected and used
+    ([#1](https://github.com/mneudert/vagrant-devcommands/pull/1))
+
 ## v0.7.1 (2017-02-15)
 
 - Bug fixes
