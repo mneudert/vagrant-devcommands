@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.7.2.dev
+## v0.7.2 (2017-03-12)
 
 - Bug fixes
   - Machine names passed via argv are properly detected and used
