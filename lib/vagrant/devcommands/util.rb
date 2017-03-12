@@ -6,9 +6,13 @@ module VagrantPlugins
         return nil if argv.empty?
 
         command = argv[0].to_s
-        command = argv[1].to_s if env.machine_index.include?(command)
+        command = argv[1].to_s if box_name?(env, command)
 
         command
+      end
+
+      def self.box_name?(env, box_name)
+        env.machine_index.any? { |machine| machine.name == box_name }
       end
 
       def self.collect_flags(flags)

@@ -35,9 +35,13 @@ module VagrantPlugins
         def run_argv
           argv = @argv.dup
 
-          argv.shift if @env.machine_index.include?(argv[0].to_s)
+          argv.shift if argv_has_box_name?
           argv.shift
           argv
+        end
+
+        def argv_has_box_name?
+          VagrantPlugins::DevCommands::Util.box_name?(@env, @argv[0].to_s)
         end
       end
     end

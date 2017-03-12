@@ -31,16 +31,20 @@ module VagrantPlugins
         def run_argv
           argv = @argv.dup
 
-          argv.shift if @env.machine_index.include?(argv[0].to_s)
+          argv.shift if argv_has_box_name?
           argv.shift
           argv
         end
 
         def run_box(cmd)
           return cmd.box.to_s if cmd.box
-          return @argv[0].to_s if @env.machine_index.include?(@argv[0].to_s)
+          return @argv[0].to_s if argv_has_box_name?
 
           nil
+        end
+
+        def argv_has_box_name?
+          VagrantPlugins::DevCommands::Util.box_name?(@env, @argv[0].to_s)
         end
 
         def run_script(command, argv)
