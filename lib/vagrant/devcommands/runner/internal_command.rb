@@ -6,6 +6,7 @@ module VagrantPlugins
         NAMESPACE_CMD   = VagrantPlugins::DevCommands::InternalCommand
         NAMESPACE_MODEL = VagrantPlugins::DevCommands::Model
         NAMESPACE_SPEC  = VagrantPlugins::DevCommands::InternalSpec
+        UTIL            = VagrantPlugins::DevCommands::Util
 
         COMMANDS = {
           'help'    => NAMESPACE_MODEL::Command.new(NAMESPACE_SPEC::HELP),
@@ -35,7 +36,7 @@ module VagrantPlugins
         def run_argv
           argv = @argv.dup
 
-          argv.shift if @env.machine_index.include?(argv[0].to_s)
+          argv.shift if UTIL.machine_name?(argv[0].to_s, @env.machine_index)
           argv.shift
           argv
         end

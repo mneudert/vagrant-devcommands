@@ -6,7 +6,7 @@ module VagrantPlugins
         return nil if argv.empty?
 
         command = argv[0].to_s
-        command = argv[1].to_s if env.machine_index.include?(command)
+        command = argv[1].to_s if machine_name?(command, env.machine_index)
 
         command
       end
@@ -27,6 +27,10 @@ module VagrantPlugins
         params.collect do |key, opts|
           "[--#{key}=<#{key}>]" if opts[:optional]
         end
+      end
+
+      def self.machine_name?(name, machine_index)
+        machine_index.any? { |machine| name == machine.name }
       end
 
       def self.max_pad(items_list)
