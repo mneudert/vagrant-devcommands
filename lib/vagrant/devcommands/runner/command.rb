@@ -3,6 +3,8 @@ module VagrantPlugins
     module Runner
       # Command runner
       class Command
+        UTIL = VagrantPlugins::DevCommands::Util
+
         def initialize(plugin, argv, env, registry)
           @plugin   = plugin
           @argv     = argv
@@ -31,20 +33,18 @@ module VagrantPlugins
         def run_argv
           argv = @argv.dup
 
-          argv.shift if argv_has_box_name?
+          argv.shift if UTIL.machine_name?(argv[0].to_s, @env.machine_index)
           argv.shift
           argv
         end
 
         def run_box(cmd)
-          return cmd.box.to_s if cmd.box
-          return @argv[0].to_s if argv_has_box_name?
+          box = nil
+          box = cmd.box.to_s if cmd.box
+          box = @argv[0] if UTIL.machine_name?(@argv[0].to_s,
+                                               @env.machine_index)
 
-          nil
-        end
-
-        def argv_has_box_name?
-          VagrantPlugins::DevCommands::Util.box_name?(@env, @argv[0].to_s)
+          box
         end
 
         def run_script(command, argv)
