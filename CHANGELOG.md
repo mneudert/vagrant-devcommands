@@ -6,6 +6,12 @@
   - Chains can be defined to execute multiple commands in order
   - Commands can define flags (always optional!) for script interpolation
 
+## v0.7.2 (2017-03-12)
+
+- Bug fixes
+  - Machine names passed via argv are properly detected and used
+    ([#1](https://github.com/mneudert/vagrant-devcommands/pull/1))
+
 ## v0.7.1 (2017-02-15)
 
 - Bug fixes
