@@ -1,0 +1,21 @@
+Vagrant.configure('2') do |config|
+  config.vm.define 'primary' do |primary|
+    primary.vm.hostname  = 'primary.vagrant.devcommands'
+    primary.ssh.username = 'root'
+
+    primary.vm.provider 'docker' do |d|
+      d.image   = 'nineseconds/docker-vagrant'
+      d.has_ssh = true
+    end
+  end
+
+  config.vm.define 'secondary' do |secondary|
+    secondary.vm.hostname  = 'secondary.vagrant.devcommands'
+    secondary.ssh.username = 'root'
+
+    secondary.vm.provider 'docker' do |d|
+      d.image   = 'nineseconds/docker-vagrant'
+      d.has_ssh = true
+    end
+  end
+end

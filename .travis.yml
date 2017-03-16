@@ -18,4 +18,6 @@ before_install: |
     gem install bundler -v "${VER_BUNDLER}"
   fi
 
-script: bundle exec rake travis
+script:
+  - bundle exec rake travis
+  - ./test/acceptance/test.sh

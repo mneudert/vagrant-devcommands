@@ -4,3 +4,4 @@
 /vendor/
 /Gemfile.lock
 /vagrant-devcommands-*.gem
+/test/acceptance/.vagrant/
