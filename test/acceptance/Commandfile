@@ -1,1 +1,3 @@
-command 'hostname', script: 'hostname'
+command 'hostname',
+  box:    'primary',
+  script: 'hostname'
