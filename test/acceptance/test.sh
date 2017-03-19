@@ -8,18 +8,28 @@ export BUNDLE_GEMFILE='../../Gemfile'
 export VAGRANT_I_KNOW_WHAT_IM_DOING_PLEASE_BE_QUIET='true'
 
 # utility functions
+setup() {
+  echo 'Installing dependencies...'
+  bundle install > /dev/null
+
+  echo 'Starting containers...'
+  bundle exec vagrant up > /dev/null
+
+  trap teardown EXIT
+}
+
+teardown() {
+  echo 'Destroying containers...'
+  bundle exec vagrant destroy -f > /dev/null
+}
+
 trim() {
   sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< $1
 }
 
-# prepare tests
-echo 'Installing dependencies...'
-bundle install > /dev/null
-
-echo 'Starting containers...'
-bundle exec vagrant up > /dev/null
-
 # run tests
+setup
+
 echo 'Running tests...'
 
 result=$(trim "$(bundle exec vagrant run hostname)")
