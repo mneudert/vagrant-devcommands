@@ -1,3 +1,16 @@
 command 'hostname',
   box:    'primary',
   script: 'hostname'
+
+command 'doubleecho',
+  box:        'primary',
+  parameters: { first: {}, second: {} },
+  script:     'echo "[$(hostname) %{first} %{second}]"'
+
+
+chain 'chainecho',
+  commands: [
+    { command: 'doubleecho', argv: ['--first="param"'] },
+    { command: 'doubleecho' },
+    { command: 'doubleecho', argv: ['--first="param"', '--second="param"'] },
+  ]

@@ -32,6 +32,7 @@ setup
 
 echo 'Running tests...'
 
+## COMMANDS
 result=$(trim "$(bundle exec vagrant run hostname)")
 
 [[ 'primary.vagrant.devcommands' == "${result}" ]] || {
@@ -50,8 +51,20 @@ result=$(trim "$(bundle exec vagrant run primary hostname)")
 
 result=$(trim "$(bundle exec vagrant run secondary hostname)")
 
-[[ 'secondary.vagrant.devcommands' == $result ]] || {
+[[ 'secondary.vagrant.devcommands' == "${result}" ]] || {
   echo 'Box passed using argv not taking precedence over configuration...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+## CHAINS
+result=$(trim "$(bundle exec vagrant run chainecho --first="initial" --second="initial" | tr -d '\r\n')")
+expect_1='[primary.vagrant.devcommands param initial]'
+expect_2='[primary.vagrant.devcommands initial initial]'
+expect_3='[primary.vagrant.devcommands param param]'
+
+[[ "${expect_1}${expect_2}${expect_3}" == "${result}" ]] || {
+  echo 'Chain argv configuration did not take precedence over argv...'
   echo "Got result: '${result}'"
   exit 1
 }

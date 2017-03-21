@@ -195,25 +195,25 @@ additional/custom argv values for a single chain element:
 
 ```ruby
 command 'chainecho',
-  parameters: { what: {} },
-  script: 'echo %{what}'
+  parameters: { first: {}, second: {} },
+  script: 'echo %{first} %{second}'
 
 chain 'my_customized_chain',
   commands: [
-    { command: 'chainecho', argv: '--what="first"' },
+    { command: 'chainecho', argv: ['--first="param"'] },
     { command: 'chainecho' },
-    { command: 'chainecho', argv: '--what="second"' },
+    { command: 'chainecho', argv: ['--first="param"', '--second="param"'] },
   ]
 ```
 
 Running the chain will execute the following commands:
 
 ```shell
-> vagrant run my_customized_chain --what="before"
+> vagrant run my_customized_chain --first="initial" --second="initial"
 
-vagrant run chainecho --what="first"
-vagrant run chainecho --what="before"
-vagrant run chainecho --what="second"
+vagrant run chainecho --first="param" --second="initial"
+vagrant run chainecho --first="initial" --second="initial"
+vagrant run chainecho --first="param" --second="param"
 ```
 
 ### Abort Parsing inside Commandfile
