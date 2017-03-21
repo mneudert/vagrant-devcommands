@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # change cwd to current script dir
-cd ${0%/*}
+cd "${0%/*}" || exit 127
 
 # setup global configuration
 export BUNDLE_GEMFILE='../../Gemfile'
@@ -24,7 +24,7 @@ teardown() {
 }
 
 trim() {
-  sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< $1
+  sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< "${1}"
 }
 
 # run tests
@@ -34,7 +34,7 @@ echo 'Running tests...'
 
 result=$(trim "$(bundle exec vagrant run hostname)")
 
-[[ 'primary.vagrant.devcommands' == $result ]] || {
+[[ 'primary.vagrant.devcommands' == "${result}" ]] || {
   echo 'Default box not used...'
   echo "Got result: '${result}'"
   exit 1
@@ -42,7 +42,7 @@ result=$(trim "$(bundle exec vagrant run hostname)")
 
 result=$(trim "$(bundle exec vagrant run primary hostname)")
 
-[[ 'primary.vagrant.devcommands' == $result ]] || {
+[[ 'primary.vagrant.devcommands' == "${result}" ]] || {
   echo 'Passing default box as argv not working...'
   echo "Got result: '${result}'"
   exit 1
