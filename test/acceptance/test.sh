@@ -69,4 +69,15 @@ expect_3='[primary.vagrant.devcommands param param]'
   exit 1
 }
 
+result=$(trim "$(bundle exec vagrant run secondary chainecho --first="initial" --second="initial")")
+expect_1='[secondary.vagrant.devcommands param initial]'
+expect_2='[secondary.vagrant.devcommands initial initial]'
+expect_3='[secondary.vagrant.devcommands param param]'
+
+[[ "${result}" == *"${expect_1}"*"${expect_2}"*"${expect_3}"* ]] || {
+  echo 'Box passed using argv not taking precedence over configuration...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
 echo 'Success!'

@@ -216,6 +216,10 @@ vagrant run chainecho --first="initial" --second="initial"
 vagrant run chainecho --first="param" --second="param"
 ```
 
+By default every command will be executed using the box defined by the command
+itself or the only one available. You can, however, run the complete chain
+against a specific box using `vagrant run your_box your_chain`.
+
 ### Abort Parsing inside Commandfile
 
 If you, for whatever reasons, want to abort further parsing of a `Commandfile`
