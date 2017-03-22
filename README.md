@@ -202,7 +202,7 @@ chain 'my_customized_chain',
   commands: [
     { command: 'chainecho', argv: ['--first="param"'] },
     { command: 'chainecho' },
-    { command: 'chainecho', argv: ['--first="param"', '--second="param"'] },
+    { command: 'chainecho', argv: ['--first="param"', '--second="param"'] }
   ]
 ```
 
