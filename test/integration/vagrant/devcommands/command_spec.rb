@@ -197,12 +197,22 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays an error' do
-      described_class
-        .new(['paramecho'], @env)
-        .execute
+      @env.ui.messages = []
+
+      described_class.new(['paramecho'], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
         match(/paramecho.+missing.+what/i)
+      )
+    end
+
+    it 'displays command usage help' do
+      @env.ui.messages = []
+
+      described_class.new(['paramecho'], @env).execute
+
+      expect(@env.ui.messages[2][:message]).to(
+        match(/vagrant run.+paramecho/i)
       )
     end
 
@@ -226,12 +236,22 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays an error' do
-      described_class
-        .new(['paramecho', '--will=raise'], @env)
-        .execute
+      @env.ui.messages = []
+
+      described_class.new(['paramecho', '--will=raise'], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
         match(/paramecho.+invalid.+--will/i)
+      )
+    end
+
+    it 'displays command usage help' do
+      @env.ui.messages = []
+
+      described_class.new(['paramecho', '--will=raise'], @env).execute
+
+      expect(@env.ui.messages[2][:message]).to(
+        match(/vagrant run.+paramecho/i)
       )
     end
 

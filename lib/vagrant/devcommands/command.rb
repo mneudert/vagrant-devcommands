@@ -82,7 +82,7 @@ module VagrantPlugins
         runner.run(runnable)
       rescue RuntimeError => e
         display_error(e.message, true)
-        run_internal('help', [runnable])
+        run_internal('help', [command])
 
         nil
       end
