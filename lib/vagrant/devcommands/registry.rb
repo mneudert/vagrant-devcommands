@@ -5,7 +5,7 @@ module VagrantPlugins
       I18N_KEY        = 'vagrant_devcommands.registry'.freeze
       NAMESPACE_MODEL = VagrantPlugins::DevCommands::Model
 
-      RESERVED_COMMANDS = %w(help version).freeze
+      RESERVED_COMMANDS = %w[help version].freeze
 
       attr_accessor :chains
       attr_accessor :commands

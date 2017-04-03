@@ -10,7 +10,7 @@ module Helpers
         @messages = []
       end
 
-      [:detail, :warn, :error, :info, :output, :success].each do |method|
+      %i[detail warn error info output success].each do |method|
         define_method(method) do |message, *opts|
           @messages << {
             method:  method,

@@ -29,7 +29,7 @@ module VagrantPlugins
       def find_commandfile
         return nil unless @env.root_path
 
-        %w(Commandfile commandfile).each do |commandfile|
+        %w[Commandfile commandfile].each do |commandfile|
           current_path = @env.root_path.join(commandfile)
 
           return current_path if current_path.file?

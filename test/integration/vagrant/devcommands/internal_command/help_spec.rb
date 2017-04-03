@@ -20,7 +20,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'displays its help message if defined' do
       @env.ui.messages = []
 
-      command.new(%w(help foo), @env).execute
+      command.new(%w[help foo], @env).execute
 
       messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 
@@ -30,7 +30,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'displays an error if undefined' do
       @env.ui.messages = []
 
-      command.new(%w(help bar), @env).execute
+      command.new(%w[help bar], @env).execute
 
       messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 
@@ -40,7 +40,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'displays its custom usage string if defined' do
       @env.ui.messages = []
 
-      command.new(%w(help foo), @env).execute
+      command.new(%w[help foo], @env).execute
 
       expect(@env.ui.messages[0][:message]).to match(/usage: vagrant run foo/i)
     end
@@ -48,7 +48,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'displays a default usage string if non defined' do
       @env.ui.messages = []
 
-      command.new(%w(help bar), @env).execute
+      command.new(%w[help bar], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
         match(/usage: vagrant run \[box\] bar/i)
@@ -58,7 +58,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'lists flags if defined' do
       @env.ui.messages = []
 
-      command.new(%w(help fmp), @env).execute
+      command.new(%w[help fmp], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
         match(/fmp \[--flagged\]/i)
@@ -68,7 +68,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'lists parameters if defined' do
       @env.ui.messages = []
 
-      command.new(%w(help znk), @env).execute
+      command.new(%w[help znk], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
         match(/znk --frst=<frst> \[--scnd=<scnd>\]/i)
@@ -78,7 +78,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'uses correct order for param/flag listing' do
       @env.ui.messages = []
 
-      command.new(%w(help unordered), @env).execute
+      command.new(%w[help unordered], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
         match(/unordered --scnd=<scnd> \[--frst=<frst>\] \[--flg\]/i)
@@ -88,7 +88,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'lists flags with optional descriptions' do
       @env.ui.messages = []
 
-      command.new(%w(help described), @env).execute
+      command.new(%w[help described], @env).execute
 
       expect(@env.ui.messages[6][:message]).to(
         match(/f_dscrbd\s+flag with description/i)
@@ -98,7 +98,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'lists parameters with optional descriptions' do
       @env.ui.messages = []
 
-      command.new(%w(help described), @env).execute
+      command.new(%w[help described], @env).execute
 
       expect(@env.ui.messages[3][:message]).to(
         match(/p_dscrbd\s+mandatory with description/i)
@@ -127,7 +127,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'lists commands for chains (in order)' do
       @env.ui.messages = []
 
-      command.new(%w(help chained), @env).execute
+      command.new(%w[help chained], @env).execute
 
       expect(@env.ui.messages[3][:message]).to match(/foo/i)
       expect(@env.ui.messages[4][:message]).to match(/bar/i)
@@ -136,7 +136,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'displays its help message if defined' do
       @env.ui.messages = []
 
-      command.new(%w(help chainhelp), @env).execute
+      command.new(%w[help chainhelp], @env).execute
 
       messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 
@@ -146,7 +146,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
     it 'displays an error if undefined' do
       @env.ui.messages = []
 
-      command.new(%w(help chained), @env).execute
+      command.new(%w[help chained], @env).execute
 
       messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 

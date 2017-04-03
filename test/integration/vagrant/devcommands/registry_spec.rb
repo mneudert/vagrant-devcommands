@@ -197,7 +197,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
       registry.read_commandfile(file)
 
-      commands = %w(no_params no_script empty_script)
+      commands = %w[no_params no_script empty_script]
       messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
 
       commands.each do |command|
