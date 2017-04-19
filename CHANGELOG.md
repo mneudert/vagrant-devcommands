@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.8.0.dev
+## v0.8.0 (2017-04-19)
 
 - Enhancements
   - Chains can be defined to execute multiple commands in order
