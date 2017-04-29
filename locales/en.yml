@@ -15,6 +15,10 @@ en:
     message:
       chain_no_help: "No detailed help for this chain available."
       command_no_help: "No detailed help for this command available."
+      deprecated_box_config: |-
+        At least one of your commands is configured with the deprecated
+        option ':box'. This option has been renamed to ':machine' and will
+        stop working in a future version. Please update your Commandfile.
       missing_commandfile: "Missing Commandfile"
       no_commands: "No commands defined!"
       plugin_readme: |-

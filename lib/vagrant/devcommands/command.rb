@@ -20,6 +20,8 @@ module VagrantPlugins
       def execute
         return 127 unless read_commandfile
 
+        deprecated_box_config?
+
         command = Util.argv_command(@argv, @env)
 
         return 127 unless non_empty?(command)
@@ -44,6 +46,12 @@ module VagrantPlugins
         end
 
         @registry.available?(command)
+      end
+
+      def deprecated_box_config?
+        return unless @registry.commands.values.any?(&:deprecated_box_config)
+
+        MESSAGES.deprecated_box_config(&@env.ui.method(:warn))
       end
 
       def display_error(msg, post_ln = false)
