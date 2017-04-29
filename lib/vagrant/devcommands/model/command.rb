@@ -87,6 +87,7 @@ module VagrantPlugins
 
           wrap_option_values(escape_option_values(options))
         end
+        # rubocop:enable Metrics/MethodLength
 
         def wrap_option_values(options)
           (@parameters || {}).each do |key, conf|
