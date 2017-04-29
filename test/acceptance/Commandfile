@@ -1,9 +1,9 @@
 command 'hostname',
-  box:    'primary',
-  script: 'hostname'
+  machine: 'primary',
+  script:  'hostname'
 
 command 'doubleecho',
-  box:        'primary',
+  machine:    'primary',
   parameters: { first: {}, second: {} },
   script:     'echo "[$(hostname) %{first} %{second}]"'
 

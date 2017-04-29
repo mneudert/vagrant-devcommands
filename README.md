@@ -15,11 +15,11 @@ vagrant run
 
 ```shell
 # single-vm environment
-# or multi-vm environment with :box option
+# or multi-vm environment with :machine option
 vagrant run your_command
 
 # multi-vm environment
-vagrant run your_box your_command
+vagrant run your_machine your_command
 ```
 
 This runs commands or alternatively a command chain with the passed name.
@@ -32,8 +32,8 @@ Add to a `Commandfile` besides your `Vagrantfile`:
 command 'basic', 'hostname'
 
 command 'with_options',
-  box: :my_box,
-  desc: 'executes "hostname" on the box "my_box"',
+  machine: :my_machine,
+  desc: 'executes "hostname" on the machine "my_machine"',
   script: 'hostname',
   usage: 'vagrant run %{command}',
   help: <<-eoh
@@ -216,9 +216,9 @@ vagrant run chainecho --first="initial" --second="initial"
 vagrant run chainecho --first="param" --second="param"
 ```
 
-By default every command will be executed using the box defined by the command
-itself or the only one available. You can, however, run the complete chain
-against a specific box using `vagrant run your_box your_chain`.
+By default every command will be executed using the machine defined by the
+command itself or the only one available. You can, however, run the complete
+chain against a specific machine using `vagrant run your_machine your_chain`.
 
 ### Abort Parsing inside Commandfile
 
@@ -250,7 +250,7 @@ evaluating a local one.
 ### SSH
 
 If you are using this plugin on a Windows host system, please make sure your
-regular `vagrant ssh [box]` succeeds. In some cases you may need to add the
+regular `vagrant ssh [machine]` succeeds. In some cases you may need to add the
 `ssh.exe` (i.e. from a git installation) manually to your `%PATH%`.
 
 ### Command Definition

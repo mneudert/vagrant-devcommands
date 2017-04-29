@@ -11,7 +11,7 @@ module VagrantPlugins
         attr_reader :parameters
         attr_reader :script
 
-        attr_reader :box
+        attr_reader :machine
         attr_reader :desc
         attr_reader :help
         attr_reader :usage
@@ -23,10 +23,10 @@ module VagrantPlugins
           @parameters = spec[:parameters]
           @script     = spec[:script]
 
-          @box   = spec[:box]
-          @desc  = spec[:desc]
-          @help  = spec[:help]
-          @usage = spec[:usage]
+          @machine = spec[:machine] || spec[:box]
+          @desc    = spec[:desc]
+          @help    = spec[:help]
+          @usage   = spec[:usage]
         end
 
         def run_script(argv)

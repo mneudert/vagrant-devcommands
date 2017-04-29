@@ -13,13 +13,13 @@ module VagrantPlugins
         end
 
         def run(command)
-          argv   = run_argv
-          box    = run_box(command)
-          script = run_script(command, argv)
+          argv    = run_argv
+          machine = run_machine(command)
+          script  = run_script(command, argv)
 
           return 2 unless script
 
-          @plugin.proxy_with_target_vms(box, single_target: true) do |vm|
+          @plugin.proxy_with_target_vms(machine, single_target: true) do |vm|
             env = vm.action(:ssh_run,
                             ssh_opts: { extra_args: ['-q'] },
                             ssh_run_command: script)
@@ -38,13 +38,13 @@ module VagrantPlugins
           argv
         end
 
-        def run_box(cmd)
-          box = nil
-          box = cmd.box.to_s if cmd.box
-          box = @argv[0] if UTIL.machine_name?(@argv[0].to_s,
-                                               @env.machine_index)
+        def run_machine(cmd)
+          machine = nil
+          machine = cmd.machine.to_s if cmd.machine
+          machine = @argv[0] if UTIL.machine_name?(@argv[0].to_s,
+                                                   @env.machine_index)
 
-          box
+          machine
         end
 
         def run_script(command, argv)

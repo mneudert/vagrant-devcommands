@@ -36,7 +36,7 @@ echo 'Running tests...'
 result=$(trim "$(bundle exec vagrant run hostname)")
 
 [[ "${result}" == 'primary.vagrant.devcommands' ]] || {
-  echo 'Default box not used...'
+  echo 'Default machine not used...'
   echo "Got result: '${result}'"
   exit 1
 }
@@ -44,7 +44,7 @@ result=$(trim "$(bundle exec vagrant run hostname)")
 result=$(trim "$(bundle exec vagrant run primary hostname)")
 
 [[ "${result}" == 'primary.vagrant.devcommands' ]] || {
-  echo 'Passing default box as argv not working...'
+  echo 'Passing default machine as argv not working...'
   echo "Got result: '${result}'"
   exit 1
 }
@@ -52,7 +52,7 @@ result=$(trim "$(bundle exec vagrant run primary hostname)")
 result=$(trim "$(bundle exec vagrant run secondary hostname)")
 
 [[ "${result}" == 'secondary.vagrant.devcommands' ]] || {
-  echo 'Box passed using argv not taking precedence over configuration...'
+  echo 'Machine passed using argv not taking precedence over configuration...'
   echo "Got result: '${result}'"
   exit 1
 }
@@ -75,7 +75,7 @@ expect_2='[secondary.vagrant.devcommands initial initial]'
 expect_3='[secondary.vagrant.devcommands param param]'
 
 [[ "${result}" == *"${expect_1}"*"${expect_2}"*"${expect_3}"* ]] || {
-  echo 'Box passed using argv not taking precedence over configuration...'
+  echo 'Machine passed using argv not taking precedence over configuration...'
   echo "Got result: '${result}'"
   exit 1
 }

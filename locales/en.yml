@@ -24,7 +24,7 @@ en:
         A copy of this file should be locally available at:
         >>> %{readme}
       plugin_usage: |-
-        Usage: vagrant run [box] <command>
+        Usage: vagrant run [machine] <command>
         Help:  vagrant run help <command>
 
     registry:

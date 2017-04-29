@@ -41,7 +41,7 @@ module VagrantPlugins
         end
 
         def header(command)
-          usage = "vagrant run [box] #{command.name}"
+          usage = "vagrant run [machine] #{command.name}"
           usage = usage_params(usage, command)
 
           unless command.usage.nil?

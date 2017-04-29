@@ -51,7 +51,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       command.new(%w[help bar], @env).execute
 
       expect(@env.ui.messages[0][:message]).to(
-        match(/usage: vagrant run \[box\] bar/i)
+        match(/usage: vagrant run \[machine\] bar/i)
       )
     end
 
