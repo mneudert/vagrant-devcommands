@@ -14,3 +14,9 @@ chain 'chainecho',
     { command: 'doubleecho' },
     { command: 'doubleecho', argv: ['--first="param"', '--second="param"'] },
   ]
+
+chain 'chainmachine',
+  commands: [
+    { command: 'hostname', machine: 'primary' },
+    { command: 'hostname', machine: 'secondary' }
+  ]

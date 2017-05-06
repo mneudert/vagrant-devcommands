@@ -220,6 +220,34 @@ By default every command will be executed using the machine defined by the
 command itself or the only one available. You can, however, run the complete
 chain against a specific machine using `vagrant run your_machine your_chain`.
 
+#### Chain Definitions with Specific Machines
+
+If required you can modify the machine a box is run on:
+
+```ruby
+command 'chainhost',
+  script: 'hostname'
+
+chain 'customized_chain_machine',
+  commands: [
+    { command: 'chainhost' },
+    { command: 'chainecho', machine: 'secondary' },
+    { command: 'chainecho', machine: 'tertiary' }
+  ]
+
+Running the chain will execute the following commands:
+
+```shell
+> vagrant run customized_chain_machine
+
+vagrant run chainhost
+vagrant run secondary chainhost
+vagrant run tertiary chainhost
+```
+
+This configuration can itself be modified by passing a machine name to run
+all chain commands on using  using `vagrant run your_machine your_chain`.
+
 ### Abort Parsing inside Commandfile
 
 If you, for whatever reasons, want to abort further parsing of a `Commandfile`

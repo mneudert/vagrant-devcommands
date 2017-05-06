@@ -2,6 +2,9 @@
 
 ## v0.9.0.dev
 
+- Enhancements
+  - Every command in a chain can specify the machine to be used
+
 - Deprecations
   - The configuration parameter `:box` has been renamed to `:machine` to
     match the vagrant naming. Support for the old configuration will be
