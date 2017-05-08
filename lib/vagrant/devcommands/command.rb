@@ -4,6 +4,7 @@ module VagrantPlugins
     class Command < Vagrant.plugin(2, :command)
       NAMESPACE_RUNNER = VagrantPlugins::DevCommands::Runner
       MESSAGES         = VagrantPlugins::DevCommands::Messages
+      UTIL             = VagrantPlugins::DevCommands::Util
 
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS
@@ -42,6 +43,7 @@ module VagrantPlugins
       def available?(command)
         unless @registry.available?(command)
           display_error("Invalid command \"#{command}\"!")
+          did_you_mean(command)
           run_internal('help', ['--commands'])
         end
 
@@ -54,7 +56,14 @@ module VagrantPlugins
         MESSAGES.deprecated_box_config(&@env.ui.method(:warn))
       end
 
-      def display_error(msg, post_ln = false)
+      def did_you_mean(command)
+        alternative, score = Util.did_you_mean(command, @registry)
+
+        display_error("Did you mean #{alternative}?", true) if 0.8 < score
+      end
+
+      def display_error(msg, pre_ln = false, post_ln = false)
+        @env.ui.error '' if pre_ln
         @env.ui.error msg
         @env.ui.error '' if post_ln
       end
@@ -89,7 +98,7 @@ module VagrantPlugins
 
         runner.run(runnable)
       rescue RuntimeError => e
-        display_error(e.message, true)
+        display_error(e.message, false, true)
         run_internal('help', [command])
 
         nil

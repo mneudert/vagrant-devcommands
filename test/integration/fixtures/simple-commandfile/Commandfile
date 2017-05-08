@@ -1,2 +1,6 @@
 command 'bar', 'bar'
 command 'foo', script: 'foo'
+
+command 'dwayne',
+  desc: 'used for "did you mean?" test',
+  script: 'echo "dwayne"'

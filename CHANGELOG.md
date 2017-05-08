@@ -4,6 +4,9 @@
 
 - Enhancements
   - Every command in a chain can specify the machine to be used
+  - If an unknown command is requested a possible alternative
+    is suggested based on the calculated
+    [Jaro-Winkler distance](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance)
 
 - Deprecations
   - The configuration parameter `:box` has been renamed to `:machine` to

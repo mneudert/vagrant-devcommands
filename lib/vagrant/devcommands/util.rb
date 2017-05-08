@@ -2,6 +2,8 @@ module VagrantPlugins
   module DevCommands
     # Utility module
     class Util
+      JARO_WINKLER = VagrantPlugins::DevCommands::Util::JaroWinkler
+
       def self.argv_command(argv, env)
         return nil if argv.empty?
 
@@ -27,6 +29,18 @@ module VagrantPlugins
         params.collect do |key, opts|
           "[--#{key}=<#{key}>]" if opts[:optional]
         end
+      end
+
+      def self.did_you_mean(command, registry)
+        alternatives = registry.commands.keys + registry.chains.keys
+        distances    = {}
+
+        alternatives.each do |alternative|
+          calculator             = JARO_WINKLER.new(command, alternative)
+          distances[alternative] = calculator.distance
+        end
+
+        distances.max_by { |_k, v| v }
       end
 
       def self.machine_name?(name, machine_index)

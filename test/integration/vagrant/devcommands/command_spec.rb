@@ -143,11 +143,23 @@ describe VagrantPlugins::DevCommands::Command do
     end
 
     it 'displays message' do
+      @env.ui.messages = []
+
       described_class
         .new(['xxx'], @env)
         .execute
 
       expect(@env.ui.messages[0][:message]).to match(/invalid command/i)
+    end
+
+    it 'suggests an alternative' do
+      @env.ui.messages = []
+
+      described_class
+        .new(['duane'], @env)
+        .execute
+
+      expect(@env.ui.messages[2][:message]).to match(/dwayne/i)
     end
 
     after :context do
