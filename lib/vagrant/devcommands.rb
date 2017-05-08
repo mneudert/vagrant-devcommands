@@ -8,6 +8,7 @@ require 'vagrant/devcommands/version'
 
 require 'vagrant/devcommands/internal_spec'
 require 'vagrant/devcommands/messages'
+require 'vagrant/devcommands/util/jaro_winkler'
 require 'vagrant/devcommands/util'
 
 require 'vagrant/devcommands/model/chain'
