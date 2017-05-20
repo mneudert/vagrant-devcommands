@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.9.0.dev
+## v0.9.0 (2017-05-20)
 
 - Enhancements
   - Every command in a chain can specify the machine to be used
