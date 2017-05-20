@@ -7,7 +7,7 @@ module VagrantPlugins
           @env = env
         end
 
-        def execute(_args)
+        def execute(_argv)
           @env.ui.info "vagrant-devcommands, version #{VERSION}"
         end
       end

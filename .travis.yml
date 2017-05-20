@@ -11,13 +11,13 @@ env:
     - VER_VAGRANT=1.9.2 TRAVIS_COVERAGE=true
     - VER_VAGRANT=master
 
-before_install: |
+before_install: |-
   if [ ! -z "${VER_BUNDLER}" ]; then
     gem uninstall bundler -aIxq --force
     gem uninstall -Ixq --force -i /home/travis/.rvm/gems/ruby-2.2.5@global bundler
     gem install bundler -v "${VER_BUNDLER}"
   fi
 
-script:
-  - bundle exec rake travis
-  - ./test/acceptance/test.sh
+script: |-
+  bundle exec rake travis
+  ./test/acceptance/test.sh
