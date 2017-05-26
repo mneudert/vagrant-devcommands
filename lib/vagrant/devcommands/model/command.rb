@@ -45,66 +45,66 @@ module VagrantPlugins
 
         private
 
-        def escape_option_values(options)
+        def escape_parameters(params)
           (@parameters || {}).each do |key, conf|
             next if conf[:escape].nil?
 
             conf[:escape].each do |char, with|
-              char         = char.to_s unless char.is_a?(String)
-              options[key] = options[key].sub(char, "#{with}#{char}")
+              char        = char.to_s unless char.is_a?(String)
+              params[key] = params[key].sub(char, "#{with}#{char}")
             end
           end
 
-          options
+          params
         end
 
-        def options_with_defaults
-          options = {}
+        def parameters_with_defaults
+          params = {}
 
           (@parameters || {}).each do |key, conf|
-            options[key] = '' if conf[:optional]
-            options[key] = conf[:default] unless conf[:default].nil?
+            params[key] = '' if conf[:optional]
+            params[key] = conf[:default] unless conf[:default].nil?
           end
 
-          options
+          params
         end
 
         # rubocop:disable Metrics/MethodLength
         def parse_argv(argv)
-          options = options_with_defaults
+          params = parameters_with_defaults
 
           OptionParser.new do |opts|
             (@flags || {}).each do |key, conf|
-              options[key] = ''
+              params[key] = ''
 
               opts.on("--#{key}", "Flag: #{key}") do
-                options[key] = conf[:value] || "--#{key}"
+                params[key] = conf[:value] || "--#{key}"
               end
             end
 
             (@parameters || {}).each do |key, _conf|
               opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
-                options[key] = o
+                params[key] = o
               end
             end
           end.parse!(argv)
 
-          wrap_option_values(escape_option_values(options))
+          wrap_parameters(escape_parameters(params))
         end
         # rubocop:enable Metrics/MethodLength
 
-        def wrap_option_values(options)
+        def wrap_parameters(params)
           (@parameters || {}).each do |key, conf|
             next if conf[:wrap].nil?
 
             if conf[:default].nil?
-              next if options[key].nil? || options[key].empty?
+              next if params[key].nil? || params[key].empty?
             end
 
-            options[key] = conf[:wrap] % options[key]
+            params[key] = conf[:wrap] % params[key]
           end
 
-          options
+          params
         end
       end
     end

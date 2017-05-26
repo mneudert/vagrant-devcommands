@@ -56,7 +56,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       expect(cmd.run_script(['--dflt'])).to eq('echo "--custom"')
     end
 
-    it 'allows escaping option values' do
+    it 'allows escaping parameter values' do
       param = { escape: { 'z' => 'y', 'y' => 'x' } }
       cmd   = described_class.new(name:       'foo',
                                   parameters: { escaped: param },
@@ -76,7 +76,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       expect(cmd.run_script(['--dflt', 'changed'])).to eq('echo "changed"')
     end
 
-    it 'allows option value wrapping' do
+    it 'allows parameter value wrapping' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { wrppd: { wrap: '--opt %s' } },
                                 script:     'script %{wrppd}')
@@ -112,7 +112,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
   end
 
   describe 'with missing parameters' do
-    it 'displays raises a KeyError' do
+    it 'raises a KeyError' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { what: {} },
                                 script:     'echo "%{what}"')
