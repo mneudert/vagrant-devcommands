@@ -272,6 +272,45 @@ describe VagrantPlugins::DevCommands::Command do
     end
   end
 
+  describe 'with command parameters values not allowed' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/parameters')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'displays an error' do
+      @env.ui.messages = []
+
+      described_class.new(['limitecho', '--what=raise'], @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/limitecho.+not allowed.+--what/i)
+      )
+    end
+
+    it 'displays command usage help' do
+      @env.ui.messages = []
+
+      described_class.new(['limitecho', '--what=raise'], @env).execute
+
+      expect(@env.ui.messages[2][:message]).to(
+        match(/vagrant run.+limitecho/i)
+      )
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'with a proc/lambda as script' do
     before :context do
       @olddir = Dir.pwd

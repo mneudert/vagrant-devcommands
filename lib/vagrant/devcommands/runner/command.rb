@@ -49,6 +49,8 @@ module VagrantPlugins
 
         def run_script(command, argv)
           command.run_script(argv)
+        rescue ArgumentError => e
+          script_error(command.name, 'parameter_not_allowed', e.message)
         rescue KeyError => e
           param = e.message.match(/key[<{](.+)[}>]/).captures.first
 

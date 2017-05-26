@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.10.0.dev
+
+- Enhancements
+  - Parameters can limit the values you are allowed to pass in
+
 ## v0.9.0 (2017-05-20)
 
 - Enhancements

@@ -89,9 +89,20 @@ module VagrantPlugins
             end
           end.parse!(argv)
 
-          wrap_parameters(escape_parameters(params))
+          validate_parameters(wrap_parameters(escape_parameters(params)))
         end
         # rubocop:enable Metrics/MethodLength
+
+        def validate_parameters(params)
+          (@parameters || {}).each do |key, conf|
+            next if conf[:allowed].nil?
+            next if conf[:allowed].include?(params[key])
+
+            raise ArgumentError, "--#{key}=#{params[key]}"
+          end
+
+          params
+        end
 
         def wrap_parameters(params)
           (@parameters || {}).each do |key, conf|

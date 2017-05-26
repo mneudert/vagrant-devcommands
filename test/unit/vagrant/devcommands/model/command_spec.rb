@@ -101,6 +101,14 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       expect(cmd.run_script([])).to eq('script --opt')
     end
+
+    it 'allows limiting parameter values' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { lmtd: { allowed: ['foo'] } },
+                                script:     'script %<lmtd>s')
+
+      expect(cmd.run_script(['--lmtd', 'foo'])).to eq('script foo')
+    end
   end
 
   describe 'with literal percent sign' do
@@ -108,6 +116,16 @@ describe VagrantPlugins::DevCommands::Model::Command do
       cmd = described_class.new(name: 'foo', script: 'foo %%s %%bar')
 
       expect(cmd.run_script([])).to eq('foo %s %bar')
+    end
+  end
+
+  describe 'with invalid parameter values' do
+    it 'raises an Argumenterror' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { lmtd: { allowed: ['foo'] } },
+                                script:     'script %<lmtd>s')
+
+      expect { cmd.run_script(['--lmtd', 'bar']) }.to raise_error(ArgumentError)
     end
   end
 

@@ -70,8 +70,11 @@ command 'with_param',
 
     # wrapped option value
     p_wrapped: { wrap: "--and %s wrapped" }
+
+    # parameters with a limited set of allowed values
+    p_limited: { allowed: ['completely']}
   },
-  script: 'echo %<p_mandatory>s %<p_default>s %<p_escaped>s %<p_optional>s %<p_wrapped>s'
+  script: 'echo %<p_mandatory>s %<p_default>s %<p_escaped>s %<p_optional>s %<p_wrapped>s %<p_limited>s'
 ```
 
 This allows you to execute the following command:
@@ -83,12 +86,13 @@ vagrant run with_param --p_mandatory works
 # will execute 'echo works always like a charm'
 vagrant run with_param --p_mandatory works --p_optional "like a charm"
 
-# will execute 'echo works sometimes like a charm --and is wrapped'
+# will execute 'echo works sometimes like a charm --and is wrapped completely'
 vagrant run with_param \
     --p_mandatory works \
     --p_default sometimes \
     --p_optional "like a charm" \
     --p_wrapped is
+    --p_limited completely
 ```
 
 For now a command expecting one or more parameters will fail if the user does

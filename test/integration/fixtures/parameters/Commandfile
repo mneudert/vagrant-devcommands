@@ -1,3 +1,7 @@
 command 'paramecho',
   parameters: { what: {} },
   script:     'echo "%<what>s"'
+
+command 'limitecho',
+  parameters: { what: { allowed: ['not-everything'] } },
+  script:     'echo "%<what>s"'

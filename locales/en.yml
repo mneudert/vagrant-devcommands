@@ -42,4 +42,5 @@ en:
     runner:
       invalid_parameter: "invalid parameter '%<detail>s'"
       missing_parameter: "missing parameter '%<detail>s'"
-      script_error:      "Could not execute %<command>s: %<error>s"
+      parameter_not_allowed: "parameter value not allowed: '%<detail>s'"
+      script_error: "Could not execute %<command>s: %<error>s"
