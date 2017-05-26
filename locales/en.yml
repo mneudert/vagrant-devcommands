@@ -6,7 +6,7 @@ en:
         help: |-
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
-        usage: "Usage: %{what}"
+        usage: "Usage: %<what>s"
       version:
         desc: "get currently installed plugin version"
         help: "Displays the currently installed version of the plugin you are using right now."
@@ -25,21 +25,21 @@ en:
         the README.md at the original source location:
         >>> https://github.com/mneudert/vagrant-devcommands
         A copy of this file should be locally available at:
-        >>> %{readme}
+        >>> %<readme>s
       plugin_usage: |-
         Usage: vagrant run [machine] <command>
         Help:  vagrant run help <command>
 
     registry:
       chain_ignored:   "Your chain definition will be ignored in favor of the command"
-      conflict:        "The name '%{name}' is used for both a command and a chain."
+      conflict:        "The name '%<name>s' is used for both a command and a chain."
       def_ignored:     "Your definition of it will be ignored."
-      empty_chain:     "The chain '%{name}' has no commands associated."
-      missing_command: "The chain '%{chain}' is using at least one unknown command ('%{command}')."
-      no_script:       "The command '%{name}' has no script defined to execute."
-      reserved:        "The command name '%{name}' is reserved for internal usage."
+      empty_chain:     "The chain '%<name>s' has no commands associated."
+      missing_command: "The chain '%<chain>s' is using at least one unknown command ('%<command>s')."
+      no_script:       "The command '%<name>s' has no script defined to execute."
+      reserved:        "The command name '%<name>s' is reserved for internal usage."
 
     runner:
-      invalid_parameter: "invalid parameter '%{detail}'"
-      missing_parameter: "missing parameter '%{detail}'"
-      script_error:      "Could not execute %{command}: %{error}"
+      invalid_parameter: "invalid parameter '%<detail>s'"
+      missing_parameter: "missing parameter '%<detail>s'"
+      script_error:      "Could not execute %<command>s: %<error>s"

@@ -46,7 +46,7 @@ module VagrantPlugins
           internal_help_header(command)
           info(internal_commands[command].help.strip, true)
 
-          message(:plugin_readme, true) if 'help' == command
+          message(:plugin_readme, true) if command == 'help'
         end
 
         def internal_help_header(command)
@@ -65,7 +65,7 @@ module VagrantPlugins
         end
 
         def plugin_help(command)
-          message(:plugin_usage) unless '--commands' == command
+          message(:plugin_usage) unless command == '--commands'
 
           pad_to = UTIL.max_pad([internal_commands,
                                  @registry.commands,

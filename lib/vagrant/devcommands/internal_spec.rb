@@ -7,14 +7,14 @@ module VagrantPlugins
       HELP = {
         desc:  I18n.t("#{I18N_KEY}.help.desc"),
         name:  'help',
-        usage: 'vagrant run %{command} [command]',
+        usage: 'vagrant run %<command>s [command]',
         help:  I18n.t("#{I18N_KEY}.help.help")
       }.freeze
 
       VERSION = {
         desc:  I18n.t("#{I18N_KEY}.version.desc"),
         name:  'version',
-        usage: 'vagrant run %{command}',
+        usage: 'vagrant run %<command>s',
         help:  I18n.t("#{I18N_KEY}.version.help")
       }.freeze
     end

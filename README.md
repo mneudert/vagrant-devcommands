@@ -35,13 +35,13 @@ command 'with_options',
   machine: :my_machine,
   desc: 'executes "hostname" on the machine "my_machine"',
   script: 'hostname',
-  usage: 'vagrant run %{command}',
+  usage: 'vagrant run %<command>s',
   help: <<-eoh
 I am the help message for the command "with_options".
 I get displayed when running "vagrant run help with_options".
 
 The usage printed above the help can interpolate the name
-of the command name using %{command}.
+of the command name using either %{command} or %<command>s.
 eoh
 ```
 
@@ -71,7 +71,7 @@ command 'with_param',
     # wrapped option value
     p_wrapped: { wrap: "--and %s wrapped" }
   },
-  script: 'echo %{p_mandatory} %{p_default} %{p_escaped} %{p_optional} %{p_wrapped}'
+  script: 'echo %<p_mandatory>s %<p_default>s %<p_escaped>s %<p_optional>s %<p_wrapped>s'
 ```
 
 This allows you to execute the following command:
@@ -110,7 +110,7 @@ command 'with_flags',
     f_standard: { desc: "standard flag" },
     f_valued:   { value: "--f_modified" }
   },
-  script: 'echo "flags: %{f_standard}"'
+  script: 'echo "flags: %<f_standard>s"'
 ```
 
 This definition allows the following executions:
@@ -175,7 +175,7 @@ I am the help message for the chain "my_chain".
 I get displayed when running "vagrant run help my_chain".
 
 The usage printed above the help can interpolate the name
-of the command name using %{command}.
+of the command name using %<command>s.
 eoh
 ```
 
@@ -196,7 +196,7 @@ additional/custom argv values for a single chain element:
 ```ruby
 command 'chainecho',
   parameters: { first: {}, second: {} },
-  script: 'echo %{first} %{second}'
+  script: 'echo %<first>s %<second>s'
 
 chain 'my_customized_chain',
   commands: [

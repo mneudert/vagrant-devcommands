@@ -6,7 +6,7 @@ group :development do
     branch: 'master'
   }
 
-  if ENV.key?('VER_VAGRANT') && 'master' != ENV['VER_VAGRANT']
+  if ENV.key?('VER_VAGRANT') && ENV['VER_VAGRANT'] != 'master'
     vagrant_opts.delete(:branch)
 
     vagrant_opts['tag'] = "v#{ENV['VER_VAGRANT']}"

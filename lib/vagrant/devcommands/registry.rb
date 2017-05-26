@@ -24,9 +24,9 @@ module VagrantPlugins
         global = commandfile.path_global
         local  = commandfile.path
 
-        contents  = ''
-        contents += "\n" + global.read unless nil == global
-        contents += "\n" + local.read unless nil == local
+        contents = ''
+        contents += "\n" + global.read unless global.nil?
+        contents += "\n" + local.read unless local.nil?
 
         instance_eval(contents)
         resolve_naming_conflicts

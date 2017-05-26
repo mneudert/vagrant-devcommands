@@ -50,7 +50,7 @@ module VagrantPlugins
         def run_script(command, argv)
           command.run_script(argv)
         rescue KeyError => e
-          param = e.message.match(/{(.+)}/).captures.first
+          param = e.message.match(/key[<{](.+)[}>]/).captures.first
 
           script_error(command.name, 'missing_parameter', param)
         rescue OptionParser::InvalidOption => e

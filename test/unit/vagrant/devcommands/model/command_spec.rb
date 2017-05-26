@@ -5,7 +5,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
     it 'interpolates values' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { that: {} },
-                                script:     'echo "%{that}"')
+                                script:     'echo "%<that>s"')
 
       expect(cmd.run_script(['--that', 'works'])).to eq('echo "works"')
       expect(cmd.run_script(['--that', 'works also'])).to(
@@ -21,7 +21,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       cmd = described_class.new(name:       'foo',
                                 parameters: parameters,
-                                script:     'echo %{mdtry} %{optnl}')
+                                script:     'echo %<mdtry>s %<optnl>s')
 
       expect(cmd.run_script(['--mdtry', 'mandatory'])).to eq('echo mandatory')
       expect(
@@ -38,7 +38,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       cmd = described_class.new(name:   'foo',
                                 flags:  flags,
-                                script: 'echo "%{dflt}"')
+                                script: 'echo "%<dflt>s"')
 
       expect(cmd.run_script([])).to eq('echo ""')
       expect(cmd.run_script(['--dflt'])).to eq('echo "--dflt"')
@@ -51,7 +51,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       cmd = described_class.new(name:   'foo',
                                 flags:  flags,
-                                script: 'echo "%{dflt}"')
+                                script: 'echo "%<dflt>s"')
 
       expect(cmd.run_script(['--dflt'])).to eq('echo "--custom"')
     end
@@ -60,7 +60,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       param = { escape: { 'z' => 'y', 'y' => 'x' } }
       cmd   = described_class.new(name:       'foo',
                                   parameters: { escaped: param },
-                                  script:     'script %{escaped}')
+                                  script:     'script %<escaped>s')
 
       expect(cmd.run_script(['--escaped', 'foo_z_bar'])).to(
         eq('script foo_xyz_bar')
@@ -70,7 +70,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
     it 'allows parameter defaults' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { dflt: { default: 'dflt' } },
-                                script:     'echo "%{dflt}"')
+                                script:     'echo "%<dflt>s"')
 
       expect(cmd.run_script([])).to eq('echo "dflt"')
       expect(cmd.run_script(['--dflt', 'changed'])).to eq('echo "changed"')
@@ -79,7 +79,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
     it 'allows parameter value wrapping' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { wrppd: { wrap: '--opt %s' } },
-                                script:     'script %{wrppd}')
+                                script:     'script %<wrppd>s')
 
       expect(cmd.run_script(['--wrppd', 'custom'])).to eq('script --opt custom')
     end
@@ -88,7 +88,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       cmd = described_class.new(name:       'foo',
                                 parameters: { wrppd: { optional: true,
                                                        wrap:     '--opt %s' } },
-                                script:     'script %{wrppd}')
+                                script:     'script %<wrppd>s')
 
       expect(cmd.run_script([])).to eq('script')
     end
@@ -97,7 +97,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       cmd = described_class.new(name:       'foo',
                                 parameters: { wrppd: { wrap:    '--opt %s',
                                                        default: '' } },
-                                script:     'script %{wrppd}')
+                                script:     'script %<wrppd>s')
 
       expect(cmd.run_script([])).to eq('script --opt')
     end
@@ -115,7 +115,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
     it 'raises a KeyError' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { what: {} },
-                                script:     'echo "%{what}"')
+                                script:     'echo "%<what>s"')
 
       expect { cmd.run_script([]) }.to raise_error(KeyError)
     end

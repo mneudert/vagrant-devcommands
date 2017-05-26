@@ -16,7 +16,7 @@ module VagrantPlugins
           @desc = spec[:desc]
           @help = spec[:help]
 
-          @break_on_error = false != spec[:break_on_error]
+          @break_on_error = spec[:break_on_error] != false
         end
 
         def break_on_error?

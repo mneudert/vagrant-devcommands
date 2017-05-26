@@ -5,7 +5,7 @@ command 'hostname',
 command 'doubleecho',
   machine:    'primary',
   parameters: { first: {}, second: {} },
-  script:     'echo "[$(hostname) %{first} %{second}]"'
+  script:     'echo "[$(hostname) %<first>s %<second>s]"'
 
 
 chain 'chainecho',

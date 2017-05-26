@@ -59,7 +59,7 @@ module VagrantPlugins
       def did_you_mean(command)
         alternative, score = Util.did_you_mean(command, @registry)
 
-        display_error("Did you mean #{alternative}?", true) if 0.8 < score
+        display_error("Did you mean #{alternative}?", true) if score > 0.8
       end
 
       def display_error(msg, pre_ln = false, post_ln = false)

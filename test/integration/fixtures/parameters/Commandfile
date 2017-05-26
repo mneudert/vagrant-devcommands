@@ -1,3 +1,3 @@
 command 'paramecho',
   parameters: { what: {} },
-  script:     'echo "%{what}"'
+  script:     'echo "%<what>s"'

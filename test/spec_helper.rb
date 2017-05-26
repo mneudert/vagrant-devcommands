@@ -1,4 +1,4 @@
-if ENV.key?('TRAVIS_COVERAGE') && 'true' == ENV['TRAVIS_COVERAGE']
+if ENV.key?('TRAVIS_COVERAGE') && ENV['TRAVIS_COVERAGE'] == 'true'
   require 'coveralls'
   Coveralls.wear!
 end
