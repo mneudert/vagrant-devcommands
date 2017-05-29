@@ -120,7 +120,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
   end
 
   describe 'with invalid parameter values' do
-    it 'raises an Argumenterror' do
+    it 'raises an ArgumentError' do
       cmd = described_class.new(name:       'foo',
                                 parameters: { lmtd: { allowed: ['foo'] } },
                                 script:     'script %<lmtd>s')
