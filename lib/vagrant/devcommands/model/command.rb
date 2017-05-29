@@ -89,7 +89,7 @@ module VagrantPlugins
             end
           end.parse!(argv)
 
-          wrap_parameters(validate_parameters(escape_parameters(params)))
+          wrap_parameters(escape_parameters(validate_parameters(params)))
         end
         # rubocop:enable Metrics/MethodLength
 

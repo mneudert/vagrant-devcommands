@@ -72,7 +72,7 @@ command 'with_param',
     p_wrapped: { wrap: "--and %s wrapped" }
 
     # parameters with a limited set of allowed values
-    # the allowed values are checked prior to wrapping!
+    # the allowed values are checked prior to escaping/wrapping!
     p_limited: { allowed: ['completely'] }
   },
   script: 'echo %<p_mandatory>s %<p_default>s %<p_escaped>s %<p_optional>s %<p_wrapped>s %<p_limited>s'

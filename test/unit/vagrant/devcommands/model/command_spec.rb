@@ -127,6 +127,19 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       expect { cmd.run_script(['--lmtd', 'bar']) }.to raise_error(ArgumentError)
     end
+
+    it 'raises an ArgumentError before escaping' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: {
+                                  lmtd: {
+                                    allowed: ['fump'],
+                                    escape:  { 'm' => 'u' }
+                                  }
+                                },
+                                script:     'script %<lmtd>s')
+
+      expect { cmd.run_script(['--lmtd', 'fmp']) }.to raise_error(ArgumentError)
+    end
   end
 
   describe 'with missing parameters' do
