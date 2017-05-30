@@ -56,12 +56,21 @@ module VagrantPlugins
           return warn_def_ignored('chain_empty', name: name)
         end
 
+        if name.include?(' ')
+          return warn_def_ignored('chain_name_space', name: name)
+        end
+
         @chains[name] = NAMESPACE_MODEL::Chain.new(options)
       end
 
+      # rubocop:disable Metrics/MethodLength
       def command(name, options = nil)
         if reserved_command?(name)
           return warn_def_ignored('command_reserved', name: name)
+        end
+
+        if name.include?(' ')
+          return warn_def_ignored('command_name_space', name: name)
         end
 
         options        = { script: options } unless options.is_a?(Hash)
@@ -73,6 +82,7 @@ module VagrantPlugins
 
         @commands[name] = NAMESPACE_MODEL::Command.new(options)
       end
+      # rubocop:enable Metrics/MethodLength
 
       def resolve_naming_conflicts
         @chains.keys.each do |chain|

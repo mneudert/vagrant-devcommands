@@ -1,0 +1,5 @@
+command 'foo', script: 'foo'
+
+command 'command spaces', script: 'foo'
+
+chain 'chain spaces', commands: [{ command: 'foo' }]

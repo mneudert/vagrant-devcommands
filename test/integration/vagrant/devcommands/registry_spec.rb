@@ -249,4 +249,35 @@ describe VagrantPlugins::DevCommands::Registry do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'definitions with spaces in names' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/naming-spaces')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'ignores names with spaces' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/command 'command spaces'.+ignored/im)
+      expect(messages).to match(/chain 'chain spaces'.+ignored/im)
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end

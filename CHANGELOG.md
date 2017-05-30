@@ -4,6 +4,9 @@
 
 - Enhancements
   - Parameters can limit the values you are allowed to pass in
+  - Spaces in chain/command names are now officially disallowed. Those
+    would have always been broken anyways, but now there is a nice message
+    and the commands are excluded from the various listings
 
 ## v0.9.0 (2017-05-20)
 

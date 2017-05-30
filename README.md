@@ -48,6 +48,9 @@ eoh
 _Note_: If you are defining literal `%` (percent sign) in your commands you
 have to escape them using a second `%`. For example `date "+%%Y-%%m-%%d"`.
 
+_Note_: Spaces in command names are not supported. Definitions with spaces will
+be ignored.
+
 #### Commands with Parameters
 
 Passing additional parameters to a command is (minimally) supported using an
@@ -192,6 +195,9 @@ passed to the chain execution.
 By default a chain breaks upon the first non-zero return value of any
 configured command. To deactivate this behaviour you can set `:break_on_error`
 to `false`. Any value other than `false` will stick to the default.
+
+_Note_: Spaces in command names are not supported. Definitions with spaces will
+be ignored.
 
 #### Chain Definitions with Pre-Defined Parameters
 
