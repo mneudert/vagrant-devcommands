@@ -50,44 +50,28 @@ module VagrantPlugins
       def chain(name, options = nil)
         options            = {} unless options.is_a?(Hash)
         options[:commands] = {} unless options.key?(:commands)
+        options[:name]     = name
 
-        return empty_chain_warning(name) if options[:commands].empty?
-
-        options[:name] = name
+        if options[:commands].empty?
+          return warn_def_ignored('chain_empty', name: name)
+        end
 
         @chains[name] = NAMESPACE_MODEL::Chain.new(options)
       end
 
       def command(name, options = nil)
-        return reserved_warning(name) if reserved_command?(name)
+        if reserved_command?(name)
+          return warn_def_ignored('command_reserved', name: name)
+        end
 
-        options = { script: options } unless options.is_a?(Hash)
-
-        return script_warning(name) unless valid_script?(options[:script])
-
+        options        = { script: options } unless options.is_a?(Hash)
         options[:name] = name
 
+        unless valid_script?(options[:script])
+          return warn_def_ignored('command_no_script', name: name)
+        end
+
         @commands[name] = NAMESPACE_MODEL::Command.new(options)
-      end
-
-      def empty_chain_warning(name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.empty_chain", name: name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
-        @env.ui.warn ''
-      end
-
-      def missing_chain_command_warning(chain, command)
-        i18n_args = { chain: chain, command: command }
-
-        @env.ui.warn I18n.t("#{I18N_KEY}.missing_command", i18n_args)
-        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
-        @env.ui.warn ''
-      end
-
-      def reserved_warning(name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.reserved", name: name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
-        @env.ui.warn ''
       end
 
       def resolve_naming_conflicts
@@ -99,12 +83,6 @@ module VagrantPlugins
 
           @chains.delete(chain)
         end
-      end
-
-      def script_warning(name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.no_script", name: name)
-        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
-        @env.ui.warn ''
       end
 
       def valid_script?(script)
@@ -122,13 +100,20 @@ module VagrantPlugins
             next unless element.is_a?(Hash)
             next if valid_command?(element[:command])
 
-            missing_chain_command_warning(chain, element)
+            warn_def_ignored('chain_missing_command',
+                             chain: chain, command: element)
 
             @chains.delete(chain)
 
             break
           end
         end
+      end
+
+      def warn_def_ignored(message, args)
+        @env.ui.warn I18n.t("#{I18N_KEY}.#{message}", args)
+        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
+        @env.ui.warn ''
       end
     end
   end

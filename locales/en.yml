@@ -31,13 +31,13 @@ en:
         Help:  vagrant run help <command>
 
     registry:
-      chain_ignored:   "Your chain definition will be ignored in favor of the command"
-      conflict:        "The name '%<name>s' is used for both a command and a chain."
-      def_ignored:     "Your definition of it will be ignored."
-      empty_chain:     "The chain '%<name>s' has no commands associated."
-      missing_command: "The chain '%<chain>s' is using at least one unknown command ('%<command>s')."
-      no_script:       "The command '%<name>s' has no script defined to execute."
-      reserved:        "The command name '%<name>s' is reserved for internal usage."
+      chain_empty: "The chain '%<name>s' has no commands associated."
+      chain_ignored: "Your chain definition will be ignored in favor of the command"
+      chain_missing_command: "The chain '%<chain>s' is using at least one unknown command ('%<command>s')."
+      command_no_script: "The command '%<name>s' has no script defined to execute."
+      command_reserved: "The command name '%<name>s' is reserved for internal usage."
+      conflict: "The name '%<name>s' is used for both a command and a chain."
+      def_ignored: "Your definition of it will be ignored."
 
     runner:
       invalid_parameter: "invalid parameter '%<detail>s'"
