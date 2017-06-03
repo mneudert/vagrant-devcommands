@@ -3,6 +3,8 @@
 ## v0.10.0.dev
 
 - Enhancements
+  - Minimal data for shell completion is available via the internal
+    `completion-data` command
   - Parameters can limit the values you are allowed to pass in
   - Spaces in chain/command names are now officially disallowed. Those
     would have always been broken anyways, but now there is a nice message

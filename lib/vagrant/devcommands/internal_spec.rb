@@ -4,6 +4,13 @@ module VagrantPlugins
     class InternalSpec
       I18N_KEY = 'vagrant_devcommands.internal'.freeze
 
+      COMPLETION_DATA = {
+        desc:  I18n.t("#{I18N_KEY}.completion-data.desc"),
+        name:  'completion-data',
+        usage: 'vagrant run %<command>s',
+        help:  I18n.t("#{I18N_KEY}.completion-data.help")
+      }.freeze
+
       HELP = {
         desc:  I18n.t("#{I18N_KEY}.help.desc"),
         name:  'help',

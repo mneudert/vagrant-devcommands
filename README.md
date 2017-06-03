@@ -284,6 +284,14 @@ installed plugin has a version below `1.3.3.7`.
 Please be aware that returning from a global commandfile completely skips
 evaluating a local one.
 
+### Experimental: Shell Completion
+
+Completion data for your shell is available via internal command:
+
+```shell
+vagrant run completion-data
+```
+
 
 ## Notes for Windows Users
 

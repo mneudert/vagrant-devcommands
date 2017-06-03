@@ -1,2 +1,3 @@
+command 'completion-data', 'completion-data'
 command 'help', 'help'
 command 'version', 'version'

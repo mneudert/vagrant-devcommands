@@ -9,8 +9,15 @@ module VagrantPlugins
         UTIL            = VagrantPlugins::DevCommands::Util
 
         COMMANDS = {
-          'help'    => NAMESPACE_MODEL::Command.new(NAMESPACE_SPEC::HELP),
-          'version' => NAMESPACE_MODEL::Command.new(NAMESPACE_SPEC::VERSION)
+          'completion-data' => NAMESPACE_MODEL::Command.new(
+            NAMESPACE_SPEC::COMPLETION_DATA
+          ),
+          'help' => NAMESPACE_MODEL::Command.new(
+            NAMESPACE_SPEC::HELP
+          ),
+          'version' => NAMESPACE_MODEL::Command.new(
+            NAMESPACE_SPEC::VERSION
+          )
         }.freeze
 
         def initialize(plugin, argv, env, registry)
@@ -19,10 +26,7 @@ module VagrantPlugins
           @env      = env
           @registry = registry
 
-          @internal = {
-            'help'    => NAMESPACE_CMD::Help.new(env, registry),
-            'version' => NAMESPACE_CMD::Version.new(env)
-          }
+          @internal = internal_commands
         end
 
         def run(command, args = nil)
@@ -32,6 +36,17 @@ module VagrantPlugins
         end
 
         private
+
+        def internal_commands
+          {
+            'completion-data' => NAMESPACE_CMD::CompletionData.new(
+              @env, @registry
+            ),
+
+            'help'    => NAMESPACE_CMD::Help.new(@env, @registry),
+            'version' => NAMESPACE_CMD::Version.new(@env)
+          }
+        end
 
         def run_argv
           argv = @argv.dup

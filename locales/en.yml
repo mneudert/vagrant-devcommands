@@ -1,6 +1,9 @@
 en:
   vagrant_devcommands:
     internal:
+      completion-data:
+        desc: "provides shell completion data"
+        help: Returns a list of all defined commands separated using spaces.
       help:
         desc: "get some plugin help"
         help: |-

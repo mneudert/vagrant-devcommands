@@ -16,6 +16,7 @@ require 'vagrant/devcommands/model/command'
 
 require 'vagrant/devcommands/help_printer/chain'
 require 'vagrant/devcommands/help_printer/command'
+require 'vagrant/devcommands/internal_command/completion_data'
 require 'vagrant/devcommands/internal_command/help'
 require 'vagrant/devcommands/internal_command/version'
 
