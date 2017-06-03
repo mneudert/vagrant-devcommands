@@ -245,6 +245,7 @@ chain 'customized_chain_machine',
     { command: 'chainecho', machine: 'secondary' },
     { command: 'chainecho', machine: 'tertiary' }
   ]
+```
 
 Running the chain will execute the following commands:
 
