@@ -165,7 +165,7 @@ ruby -e "require 'pathname'; puts Pathname.new(Dir.home).join('.vagrant.devcomma
 
 Any commands defined there will silently be overwritten by a local definition.
 
-### Experimental: Chain Definitions
+### Chain Definitions
 
 You can define command chains to execute multiple commands in order:
 
