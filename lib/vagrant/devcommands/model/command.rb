@@ -95,6 +95,9 @@ module VagrantPlugins
 
         def validate_parameters(params)
           @parameters.each do |key, conf|
+            next if params[key].nil?
+            next if params[key] == '' && conf[:optional]
+
             next if conf[:allowed].nil?
             next if conf[:allowed].include?(params[key])
 

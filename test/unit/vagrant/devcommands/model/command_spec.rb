@@ -109,6 +109,19 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       expect(cmd.run_script(['--lmtd', 'foo'])).to eq('script foo')
     end
+
+    it 'ignores limiting values for missing optional parameters' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: {
+                                  lmtd: {
+                                    allowed:  ['foo'],
+                                    optional: true
+                                  }
+                                },
+                                script:     'missing optional %<lmtd>s')
+
+      expect(cmd.run_script([])).to eq('missing optional')
+    end
   end
 
   describe 'with literal percent sign' do
