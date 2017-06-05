@@ -21,8 +21,8 @@ module VagrantPlugins
         def initialize(spec)
           @name = spec[:name]
 
-          @flags      = spec[:flags]
-          @parameters = spec[:parameters]
+          @flags      = spec[:flags] || {}
+          @parameters = spec[:parameters] || {}
           @script     = spec[:script]
 
           @machine = spec[:machine] || spec[:box]
@@ -38,7 +38,7 @@ module VagrantPlugins
           script = script.call if script.is_a?(Proc)
 
           opts = {}
-          opts = parse_argv(argv) if @flags || @parameters
+          opts = parse_argv(argv) unless @flags.empty? && @parameters.empty?
 
           (script % opts).strip
         end
@@ -46,7 +46,7 @@ module VagrantPlugins
         private
 
         def escape_parameters(params)
-          (@parameters || {}).each do |key, conf|
+          @parameters.each do |key, conf|
             next if conf[:escape].nil?
 
             conf[:escape].each do |char, with|
@@ -61,7 +61,7 @@ module VagrantPlugins
         def parameters_with_defaults
           params = {}
 
-          (@parameters || {}).each do |key, conf|
+          @parameters.each do |key, conf|
             params[key] = '' if conf[:optional]
             params[key] = conf[:default] unless conf[:default].nil?
           end
@@ -74,7 +74,7 @@ module VagrantPlugins
           params = parameters_with_defaults
 
           OptionParser.new do |opts|
-            (@flags || {}).each do |key, conf|
+            @flags.each do |key, conf|
               params[key] = ''
 
               opts.on("--#{key}", "Flag: #{key}") do
@@ -82,7 +82,7 @@ module VagrantPlugins
               end
             end
 
-            (@parameters || {}).each do |key, _conf|
+            @parameters.each do |key, _conf|
               opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
                 params[key] = o
               end
@@ -94,7 +94,7 @@ module VagrantPlugins
         # rubocop:enable Metrics/MethodLength
 
         def validate_parameters(params)
-          (@parameters || {}).each do |key, conf|
+          @parameters.each do |key, conf|
             next if conf[:allowed].nil?
             next if conf[:allowed].include?(params[key])
 
@@ -105,7 +105,7 @@ module VagrantPlugins
         end
 
         def wrap_parameters(params)
-          (@parameters || {}).each do |key, conf|
+          @parameters.each do |key, conf|
             next if conf[:wrap].nil?
 
             if conf[:default].nil?

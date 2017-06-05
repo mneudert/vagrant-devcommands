@@ -20,7 +20,7 @@ module VagrantPlugins
         private
 
         def arguments(arguments, title)
-          return if arguments.nil?
+          return if arguments.nil? || arguments.empty?
 
           info("#{title}:", true)
           arguments_body(arguments)
@@ -67,9 +67,9 @@ module VagrantPlugins
         def usage_params(usage, command)
           [
             usage,
-            UTIL.collect_mandatory_params(command.parameters || {}),
-            UTIL.collect_optional_params(command.parameters || {}),
-            UTIL.collect_flags(command.flags || {})
+            UTIL.collect_mandatory_params(command.parameters),
+            UTIL.collect_optional_params(command.parameters),
+            UTIL.collect_flags(command.flags)
           ].flatten.compact.join(' ').strip
         end
       end
