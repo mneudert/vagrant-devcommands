@@ -2,27 +2,27 @@ en:
   vagrant_devcommands:
     internal:
       completion-data:
-        desc: "provides shell completion data"
+        desc: provides shell completion data
         help: Returns a list of all defined commands separated using spaces.
       help:
-        desc: "get some plugin help"
+        desc: get some plugin help
         help: |-
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
         usage: "Usage: %<what>s"
       version:
-        desc: "get currently installed plugin version"
-        help: "Displays the currently installed version of the plugin you are using right now."
+        desc: get currently installed plugin version
+        help: Displays the currently installed version of the plugin you are using right now.
 
     message:
-      chain_no_help: "No detailed help for this chain available."
-      command_no_help: "No detailed help for this command available."
+      chain_no_help: No detailed help for this chain available.
+      command_no_help: No detailed help for this command available.
       deprecated_box_config: |-
         At least one of your commands is configured with the deprecated
         option ':box'. This option has been renamed to ':machine' and will
         stop working in a future version. Please update your Commandfile.
-      missing_commandfile: "Missing Commandfile"
-      no_commands: "No commands defined!"
+      missing_commandfile: Missing Commandfile
+      no_commands: No commands defined!
       plugin_readme: |-
         For detailed plugin usage information please read
         the README.md at the original source location:
@@ -35,17 +35,17 @@ en:
 
     registry:
       chain_empty: "The chain '%<name>s' has no commands associated."
-      chain_ignored: "Your chain definition will be ignored in favor of the command"
+      chain_ignored: Your chain definition will be ignored in favor of the command.
       chain_missing_command: "The chain '%<chain>s' is using at least one unknown command ('%<command>s')."
       chain_name_space: "The chain '%<name>s' contains spaces in it's name."
       command_name_space: "The command '%<name>s' contains spaces in it's name."
       command_no_script: "The command '%<name>s' has no script defined to execute."
       command_reserved: "The command name '%<name>s' is reserved for internal usage."
       conflict: "The name '%<name>s' is used for both a command and a chain."
-      def_ignored: "Your definition of it will be ignored."
+      def_ignored: Your definition of it will be ignored.
 
     runner:
       invalid_parameter: "invalid parameter '%<detail>s'"
       missing_parameter: "missing parameter '%<detail>s'"
       parameter_not_allowed: "parameter value not allowed: '%<detail>s'"
-      script_error: "Could not execute %<command>s: %<error>s"
+      script_error: "Could not execute '%<command>s': %<error>s"
