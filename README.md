@@ -290,7 +290,11 @@ evaluating a local one.
 Completion data for your shell is available via internal command:
 
 ```shell
+# list commands
 vagrant run completion-data
+
+# list command flags/parameters
+vagrant run completion-data my-command
 ```
 
 

@@ -55,4 +55,39 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
       Dir.chdir(@olddir)
     end
   end
+
+  describe 'fetching completion-data for a specific command' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../../fixtures/help-commandfile')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'returns flags and parameters space-delimited' do
+      @env.ui.messages = []
+
+      command.new(%w[completion-data unordered], @env).execute
+
+      expect(@env.ui.messages[0][:message]).to eq('flg frst scnd')
+    end
+
+    it 'is empty for unknown commands' do
+      @env.ui.messages = []
+
+      command.new(%w[completion-data unknown], @env).execute
+
+      expect(@env.ui.messages[0][:message]).to eq('')
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
 end
