@@ -103,7 +103,7 @@ expect_2='secondary.vagrant.devcommands'
 ## COMPLETION-DATA
 result=$(trim "$(bundle exec vagrant run completion-data | wc -w)")
 
-[[ "${result}" == '4' ]] || {
+[[ "${result}" == '7' ]] || {
   echo 'Completion data contains unexpected number of return values...'
   echo "Got result: '${result}'"
   exit 1

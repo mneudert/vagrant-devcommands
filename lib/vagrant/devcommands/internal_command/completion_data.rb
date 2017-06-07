@@ -12,7 +12,11 @@ module VagrantPlugins
           return if @registry.commands.empty?
 
           @env.ui.info(
-            (@registry.commands.keys + @registry.chains.keys).sort.join(' '),
+            (
+              @registry.chains.keys +
+              @registry.commands.keys +
+              VagrantPlugins::DevCommands::Registry::RESERVED_COMMANDS
+            ).sort.join(' '),
             new_line: false
           )
         end

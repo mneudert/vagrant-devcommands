@@ -46,7 +46,9 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
     it 'is space-delimited' do
       command.new(%w[completion-data], @env).execute
 
-      expect(@env.ui.messages[0][:message]).to eq('bar dwayne foo')
+      expect(@env.ui.messages[0][:message]).to eq(
+        'bar completion-data dwayne foo help version'
+      )
     end
 
     after :context do
