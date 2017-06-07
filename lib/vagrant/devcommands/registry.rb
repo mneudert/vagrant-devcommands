@@ -2,9 +2,7 @@ module VagrantPlugins
   module DevCommands
     # Vagrant command registry
     class Registry
-      I18N_KEY        = 'vagrant_devcommands.registry'.freeze
-      NAMESPACE_MODEL = VagrantPlugins::DevCommands::Model
-
+      I18N_KEY          = 'vagrant_devcommands.registry'.freeze
       RESERVED_COMMANDS = %w[completion-data help version].freeze
 
       attr_accessor :chains
@@ -60,7 +58,7 @@ module VagrantPlugins
           return warn_def_ignored('chain_name_space', name: name)
         end
 
-        @chains[name] = NAMESPACE_MODEL::Chain.new(options)
+        @chains[name] = Model::Chain.new(options)
       end
 
       # rubocop:disable Metrics/MethodLength
@@ -80,7 +78,7 @@ module VagrantPlugins
           return warn_def_ignored('command_no_script', name: name)
         end
 
-        @commands[name] = NAMESPACE_MODEL::Command.new(options)
+        @commands[name] = Model::Command.new(options)
       end
       # rubocop:enable Metrics/MethodLength
 

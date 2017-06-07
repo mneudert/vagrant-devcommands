@@ -2,10 +2,6 @@ module VagrantPlugins
   module DevCommands
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
-      NAMESPACE_RUNNER = VagrantPlugins::DevCommands::Runner
-      MESSAGES         = VagrantPlugins::DevCommands::Messages
-      UTIL             = VagrantPlugins::DevCommands::Util
-
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS
 
@@ -53,7 +49,7 @@ module VagrantPlugins
       def deprecated_box_config?
         return unless @registry.commands.values.any?(&:deprecated_box_config)
 
-        MESSAGES.deprecated_box_config(&@env.ui.method(:warn))
+        Messages.deprecated_box_config(&@env.ui.method(:warn))
       end
 
       def did_you_mean(command)
@@ -81,8 +77,8 @@ module VagrantPlugins
         commandfile = Commandfile.new(@env)
 
         unless commandfile.exist?
-          MESSAGES.missing_commandfile(&@env.ui.method(:error))
-          MESSAGES.pre_ln(:plugin_readme, &@env.ui.method(:info))
+          Messages.missing_commandfile(&@env.ui.method(:error))
+          Messages.pre_ln(:plugin_readme, &@env.ui.method(:info))
 
           return false
         end
@@ -105,7 +101,7 @@ module VagrantPlugins
       end
 
       def run_internal(command, args = nil)
-        runner = NAMESPACE_RUNNER::InternalCommand.new(
+        runner = Runner::InternalCommand.new(
           self, @argv, @env, @registry
         )
 
@@ -122,9 +118,9 @@ module VagrantPlugins
 
       def runner_for(command)
         if @registry.valid_command?(command)
-          NAMESPACE_RUNNER::Command.new(self, @argv, @env, @registry)
+          Runner::Command.new(self, @argv, @env, @registry)
         else
-          NAMESPACE_RUNNER::Chain.new(self, @argv, @env, @registry)
+          Runner::Chain.new(self, @argv, @env, @registry)
         end
       end
     end

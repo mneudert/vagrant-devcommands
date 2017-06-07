@@ -2,8 +2,6 @@ module VagrantPlugins
   module DevCommands
     # Utility module
     class Util
-      JARO_WINKLER = VagrantPlugins::DevCommands::Util::JaroWinkler
-
       def self.argv_command(argv, env)
         return nil if argv.empty?
 
@@ -36,7 +34,7 @@ module VagrantPlugins
         distances    = {}
 
         alternatives.each do |alternative|
-          calculator             = JARO_WINKLER.new(command, alternative)
+          calculator             = Util::JaroWinkler.new(command, alternative)
           distances[alternative] = calculator.distance
         end
 
