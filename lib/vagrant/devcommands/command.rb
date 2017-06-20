@@ -38,9 +38,11 @@ module VagrantPlugins
 
       def available?(command)
         unless @registry.available?(command)
+          alternative, score = Util.did_you_mean(command, @registry)
+
           display_error("Invalid command \"#{command}\"!")
-          did_you_mean(command)
-          run_internal('help', ['--commands'])
+          display_error("Did you mean #{alternative}?", true) if score > 0.8
+          run_internal('help', ['--commands']) unless score > 0.9
         end
 
         @registry.available?(command)
@@ -50,12 +52,6 @@ module VagrantPlugins
         return unless @registry.commands.values.any?(&:deprecated_box_config)
 
         Messages.deprecated_box_config(&@env.ui.method(:warn))
-      end
-
-      def did_you_mean(command)
-        alternative, score = Util.did_you_mean(command, @registry)
-
-        display_error("Did you mean #{alternative}?", true) if score > 0.8
       end
 
       def display_error(msg, pre_ln = false, post_ln = false)

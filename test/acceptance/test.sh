@@ -100,6 +100,23 @@ expect_2='secondary.vagrant.devcommands'
   exit 1
 }
 
+## DID YOU MEAN?
+result=$(trim "$(bundle exec vagrant run dubble 2>&1)")
+
+[[ "${result}" == *'doubleecho'*'Available commands'* ]] || {
+  echo 'Did-you-mean failed to list all commands...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run double 2>&1)")
+
+[[ "${result}" == *'doubleecho'* && "${result}" != *'Available commands'* ]] || {
+  echo 'Did-you-mean listed all commands despite it should not...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
 ## COMPLETION-DATA
 result=$(trim "$(bundle exec vagrant run completion-data | wc -w)")
 
