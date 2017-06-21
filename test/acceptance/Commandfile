@@ -20,3 +20,9 @@ chain 'chainmachine',
     { command: 'hostname', machine: 'primary' },
     { command: 'hostname', machine: 'secondary' }
   ]
+
+
+command 'primary',
+  desc:    'used to validate commands and host can have the same name',
+  machine: 'primary',
+  script:  'hostname'

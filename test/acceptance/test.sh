@@ -57,6 +57,31 @@ result=$(trim "$(bundle exec vagrant run secondary hostname)")
   exit 1
 }
 
+## COMMAND-BOX-NAME-CLASH
+result=$(trim "$(bundle exec vagrant run primary)")
+
+[[ "${result}" == 'primary.vagrant.devcommands' ]] || {
+  echo 'Configured machine for "command == machine" not used...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run primary primary)")
+
+[[ "${result}" == 'primary.vagrant.devcommands' ]] || {
+  echo 'Name passed using argv not used for "command == machine"...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run secondary primary)")
+
+[[ "${result}" == 'secondary.vagrant.devcommands' ]] || {
+  echo 'Machine passed using argv not used for "command == machine"...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
 ## CHAINS
 result=$(trim "$(bundle exec vagrant run chainecho --first="initial" --second="initial")")
 expect_1='[primary.vagrant.devcommands param initial]'
@@ -120,7 +145,7 @@ result=$(trim "$(bundle exec vagrant run double 2>&1)")
 ## COMPLETION-DATA
 result=$(trim "$(bundle exec vagrant run completion-data | wc -w)")
 
-[[ "${result}" == '7' ]] || {
+[[ "${result}" == '8' ]] || {
   echo 'Completion data contains unexpected number of return values...'
   echo "Got result: '${result}'"
   exit 1

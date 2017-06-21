@@ -5,10 +5,11 @@ module VagrantPlugins
       def self.argv_command(argv, env)
         return nil if argv.empty?
 
-        command = argv[0].to_s
-        command = argv[1].to_s if machine_name?(command, env.machine_index)
-
-        command
+        if machine_name?(argv[0].to_s, env.machine_index) && argv.length > 1
+          argv[1].to_s
+        else
+          argv[0].to_s
+        end
       end
 
       def self.collect_flags(flags)
