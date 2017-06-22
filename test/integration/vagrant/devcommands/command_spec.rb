@@ -159,7 +159,7 @@ describe VagrantPlugins::DevCommands::Command do
         .new(['duane'], @env)
         .execute
 
-      expect(@env.ui.messages[2][:message]).to match(/dwayne/i)
+      expect(@env.ui.messages[3][:message]).to match(/dwayne/i)
     end
 
     after :context do

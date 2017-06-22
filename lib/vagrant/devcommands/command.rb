@@ -41,7 +41,12 @@ module VagrantPlugins
           alternative, score = Util.did_you_mean(command, @registry)
 
           display_error("Invalid command \"#{command}\"!")
-          display_error("Did you mean #{alternative}?", true) if score > 0.8
+
+          if score > 0.8
+            display_error('Did you mean this?', true)
+            display_error("        #{alternative}")
+          end
+
           run_internal('help', ['--commands']) unless score > 0.9
         end
 
