@@ -39,7 +39,7 @@ module VagrantPlugins
           distances[alternative] = calculator.distance
         end
 
-        distances.max_by { |_k, v| v }
+        distances
       end
 
       def self.machine_name?(name, machine_index)

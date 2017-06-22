@@ -128,16 +128,16 @@ expect_2='secondary.vagrant.devcommands'
 ## DID YOU MEAN?
 result=$(trim "$(bundle exec vagrant run dubble 2>&1)")
 
-[[ "${result}" == *'doubleecho'*'Available commands'* ]] || {
-  echo 'Did-you-mean failed to list all commands...'
+[[ "${result}" == *'Did you mean this'*'doubleecho'* ]] || {
+  echo 'Did-you-mean failed to return single alternative...'
   echo "Got result: '${result}'"
   exit 1
 }
 
-result=$(trim "$(bundle exec vagrant run double 2>&1)")
+result=$(trim "$(bundle exec vagrant run multi_alt 2>&1)")
 
-[[ "${result}" == *'doubleecho'* && "${result}" != *'Available commands'* ]] || {
-  echo 'Did-you-mean listed all commands despite it should not...'
+[[ "${result}" == *'Did you mean one of these'*'multi_alternative_1'*'multi_alternative_2'* ]] || {
+  echo 'Did-you-mean failed to return multiple alternatives...'
   echo "Got result: '${result}'"
   exit 1
 }
@@ -145,7 +145,7 @@ result=$(trim "$(bundle exec vagrant run double 2>&1)")
 ## COMPLETION-DATA
 result=$(trim "$(bundle exec vagrant run completion-data | wc -w)")
 
-[[ "${result}" == '8' ]] || {
+[[ "${result}" == '10' ]] || {
   echo 'Completion data contains unexpected number of return values...'
   echo "Got result: '${result}'"
   exit 1

@@ -3,6 +3,8 @@
 ## v0.10.0.dev
 
 - Enhancements
+  - Depending on the internal scoring multiple alternative commands
+    will be presented instead of a full command list (help)
   - Minimal data for shell completion is available via the internal
     `completion-data` command
   - Parameters can limit the values you are allowed to pass in

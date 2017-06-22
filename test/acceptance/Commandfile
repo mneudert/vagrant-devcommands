@@ -26,3 +26,11 @@ command 'primary',
   desc:    'used to validate commands and host can have the same name',
   machine: 'primary',
   script:  'hostname'
+
+command 'multi_alternative_1',
+  desc:   'used to check multi-result-output for "did you mean"',
+  script: 'true'
+
+command 'multi_alternative_2',
+  desc:   'used to check multi-result-output for "did you mean"',
+  script: 'true'
