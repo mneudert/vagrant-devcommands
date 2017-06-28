@@ -31,7 +31,9 @@ module VagrantPlugins
       end
 
       def self.did_you_mean(command, registry)
-        alternatives = registry.commands.keys + registry.chains.keys
+        alternatives = registry.commands.keys +
+                       registry.chains.keys +
+                       Registry::RESERVED_COMMANDS
         distances    = {}
 
         alternatives.each do |alternative|
