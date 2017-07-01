@@ -3,6 +3,8 @@
 ## v0.10.0.dev
 
 - Enhancements
+  - Command alternatives provided by the "did-you-mean" feature no longer
+    display the full command list (help)
   - Depending on the internal scoring multiple alternative commands
     will be presented instead of a full command list (help)
   - Minimal data for shell completion is available via the internal
@@ -11,8 +13,6 @@
   - Spaces in chain/command names are now officially disallowed. Those
     would have always been broken anyways, but now there is a nice message
     and the commands are excluded from the various listings
-  - Command alternatives provided by the "did-you-mean" feature no longer
-    display the full command list (help)
 
 ## v0.9.0 (2017-05-20)
 
