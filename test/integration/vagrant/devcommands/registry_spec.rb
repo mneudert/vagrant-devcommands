@@ -250,6 +250,45 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
+  describe 'defining chain with name of a reserved command' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/naming-conflict-chain-internal')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'displays a message' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(@env.ui.messages.map { |m| m[:message] }.join("\n")).to(
+        match(/help.+internal.+ignored/im)
+      )
+    end
+
+    it 'removes conflicting chains from registry' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(registry.chains.empty?).to be true
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'definitions with spaces in names' do
     before :context do
       @olddir = Dir.pwd

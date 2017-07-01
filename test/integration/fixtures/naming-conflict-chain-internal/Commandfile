@@ -1,0 +1,5 @@
+chain 'help', commands: [
+  { command: 'conflicts' },
+  { command: 'with' },
+  { command: 'command' }
+]

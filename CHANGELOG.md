@@ -14,6 +14,11 @@
     would have always been broken anyways, but now there is a nice message
     and the commands are excluded from the various listings
 
+- Bug fixes
+  - Chain names can no longer conflict with internal commands like `help`
+    or `version`. The respective chain definitions are dropped and a warning
+    is issued
+
 ## v0.9.0 (2017-05-20)
 
 - Enhancements

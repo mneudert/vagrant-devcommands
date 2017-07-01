@@ -84,9 +84,12 @@ module VagrantPlugins
 
       def resolve_naming_conflicts
         @chains.keys.each do |chain|
-          next unless @commands.key?(chain)
+          next unless valid_command?(chain)
 
-          @env.ui.warn I18n.t("#{I18N_KEY}.conflict", name: chain)
+          i18n_msg = 'conflict_command'
+          i18n_msg = 'conflict_internal' if reserved_command?(chain)
+
+          @env.ui.warn I18n.t("#{I18N_KEY}.#{i18n_msg}", name: chain)
           @env.ui.warn I18n.t("#{I18N_KEY}.chain_ignored")
 
           @chains.delete(chain)
