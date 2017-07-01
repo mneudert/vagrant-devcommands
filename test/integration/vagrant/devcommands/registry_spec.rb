@@ -211,11 +211,11 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
-  describe 'defining chain with name of existing command' do
+  describe 'defining chain with name of an existing command' do
     before :context do
       @olddir = Dir.pwd
       @newdir = File.join(File.dirname(__FILE__),
-                          '../../fixtures/naming-conflicts')
+                          '../../fixtures/naming-conflict-chain-command')
 
       Dir.chdir @newdir
 
