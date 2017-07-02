@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.10.0.dev
+## v0.10.0 (2017-07-02)
 
 - Enhancements
   - Command alternatives provided by the "did-you-mean" feature no longer
