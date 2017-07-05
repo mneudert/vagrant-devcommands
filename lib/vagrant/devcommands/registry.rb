@@ -19,9 +19,7 @@ module VagrantPlugins
       end
 
       def read_commandfile(commandfile)
-        Commandfile::Reader.new(commandfile).read.each do |entry|
-          send(entry[:type], entry[:name], entry[:options])
-        end
+        register(Commandfile::Reader.new(commandfile).read)
 
         resolve_naming_conflicts
         validate_chains
@@ -41,35 +39,19 @@ module VagrantPlugins
 
       private
 
-      def chain(name, options)
-        options            = {} unless options.is_a?(Hash)
-        options[:commands] = {} unless options.key?(:commands)
-        options[:name]     = name
+      def register(commandfile_entries)
+        modeler = Commandfile::Modeler.new
 
-        if options[:commands].empty?
-          return warn_def_ignored('chain_empty', name: name)
+        commandfile_entries.each do |entry|
+          begin
+            model = modeler.model(entry)
+
+            @chains[entry[:name]]   = model if model.is_a?(Model::Chain)
+            @commands[entry[:name]] = model if model.is_a?(Model::Command)
+          rescue ArgumentError => e
+            warn_def_ignored(e.message, name: entry[:name])
+          end
         end
-
-        if name.include?(' ')
-          return warn_def_ignored('chain_name_space', name: name)
-        end
-
-        @chains[name] = Model::Chain.new(options)
-      end
-
-      def command(name, options)
-        if name.include?(' ')
-          return warn_def_ignored('command_name_space', name: name)
-        end
-
-        options        = { script: options } unless options.is_a?(Hash)
-        options[:name] = name
-
-        unless valid_script?(options[:script])
-          return warn_def_ignored('command_no_script', name: name)
-        end
-
-        @commands[name] = Model::Command.new(options)
       end
 
       def resolve_chain_naming_conflicts
@@ -99,15 +81,6 @@ module VagrantPlugins
       def resolve_naming_conflicts
         resolve_command_naming_conflicts
         resolve_chain_naming_conflicts
-      end
-
-      def valid_script?(script)
-        return true if script.is_a?(Proc)
-
-        return false unless script.is_a?(String)
-        return false if script.empty?
-
-        true
       end
 
       def validate_chains
