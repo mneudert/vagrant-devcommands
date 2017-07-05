@@ -57,12 +57,7 @@ module VagrantPlugins
         @chains[name] = Model::Chain.new(options)
       end
 
-      # rubocop:disable Metrics/MethodLength
       def command(name, options)
-        if reserved_command?(name)
-          return warn_def_ignored('command_reserved', name: name)
-        end
-
         if name.include?(' ')
           return warn_def_ignored('command_name_space', name: name)
         end
@@ -76,9 +71,8 @@ module VagrantPlugins
 
         @commands[name] = Model::Command.new(options)
       end
-      # rubocop:enable Metrics/MethodLength
 
-      def resolve_naming_conflicts
+      def resolve_chain_naming_conflicts
         @chains.keys.each do |chain|
           next unless valid_command?(chain)
 
@@ -90,6 +84,21 @@ module VagrantPlugins
 
           @chains.delete(chain)
         end
+      end
+
+      def resolve_command_naming_conflicts
+        @commands.keys.each do |command|
+          next unless reserved_command?(command)
+
+          warn_def_ignored('command_reserved', name: command)
+
+          @commands.delete(command)
+        end
+      end
+
+      def resolve_naming_conflicts
+        resolve_command_naming_conflicts
+        resolve_chain_naming_conflicts
       end
 
       def valid_script?(script)
