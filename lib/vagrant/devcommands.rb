@@ -26,5 +26,6 @@ require 'vagrant/devcommands/runner/internal_command'
 
 require 'vagrant/devcommands/command'
 require 'vagrant/devcommands/commandfile'
+require 'vagrant/devcommands/commandfile/reader'
 require 'vagrant/devcommands/plugin'
 require 'vagrant/devcommands/registry'

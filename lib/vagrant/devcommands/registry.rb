@@ -19,14 +19,10 @@ module VagrantPlugins
       end
 
       def read_commandfile(commandfile)
-        global = commandfile.path_global
-        local  = commandfile.path
+        Commandfile::Reader.new(commandfile).read.each do |entry|
+          send(entry[:type], entry[:name], entry[:options])
+        end
 
-        contents = ''
-        contents += "\n" + global.read unless global.nil?
-        contents += "\n" + local.read unless local.nil?
-
-        instance_eval(contents)
         resolve_naming_conflicts
         validate_chains
       end
@@ -45,7 +41,7 @@ module VagrantPlugins
 
       private
 
-      def chain(name, options = nil)
+      def chain(name, options)
         options            = {} unless options.is_a?(Hash)
         options[:commands] = {} unless options.key?(:commands)
         options[:name]     = name
@@ -62,7 +58,7 @@ module VagrantPlugins
       end
 
       # rubocop:disable Metrics/MethodLength
-      def command(name, options = nil)
+      def command(name, options)
         if reserved_command?(name)
           return warn_def_ignored('command_reserved', name: name)
         end
