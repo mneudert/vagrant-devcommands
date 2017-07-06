@@ -85,6 +85,41 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
+  describe 'command alias definition' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/command-alias-commandfile')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(cwd: @newdir)
+    end
+
+    it 'allows defining command aliases' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(registry.command_aliases['bar'].command).to eq('foo')
+    end
+
+    it 'detects invalid commands' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(registry.valid_command_alias?('foo')).to be false
+      expect(registry.valid_command_alias?('bar')).to be true
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'defining reserved commands' do
     before :context do
       @olddir = Dir.pwd

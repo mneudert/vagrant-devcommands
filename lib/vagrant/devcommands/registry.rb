@@ -7,11 +7,14 @@ module VagrantPlugins
 
       attr_accessor :chains
       attr_accessor :commands
+      attr_accessor :command_aliases
 
       def initialize(env)
-        @chains   = {}
-        @commands = {}
-        @env      = env
+        @env = env
+
+        @chains          = {}
+        @commands        = {}
+        @command_aliases = {}
       end
 
       def available?(name)
@@ -37,6 +40,10 @@ module VagrantPlugins
         @commands.include?(command) || reserved_command?(command)
       end
 
+      def valid_command_alias?(name)
+        @command_aliases.include?(name)
+      end
+
       private
 
       def register(commandfile_entries)
@@ -44,14 +51,17 @@ module VagrantPlugins
 
         commandfile_entries.each do |entry|
           begin
-            model = modeler.model(entry)
-
-            @chains[entry[:name]]   = model if model.is_a?(Model::Chain)
-            @commands[entry[:name]] = model if model.is_a?(Model::Command)
+            register_model(modeler.model(entry))
           rescue ArgumentError => e
             warn_def_ignored(e.message, name: entry[:name])
           end
         end
+      end
+
+      def register_model(model)
+        @chains[model.name]          = model if model.is_a?(Model::Chain)
+        @commands[model.name]        = model if model.is_a?(Model::Command)
+        @command_aliases[model.name] = model if model.is_a?(Model::CommandAlias)
       end
 
       def resolve_chain_naming_conflicts
@@ -78,9 +88,27 @@ module VagrantPlugins
         end
       end
 
+      def resolve_command_alias_naming_conflicts
+        @command_aliases.keys.each do |name|
+          next unless valid_command?(name) || valid_chain?(name)
+
+          i18n_key = 'command'
+          i18n_key = 'chain'    if valid_chain?(name)
+          i18n_key = 'internal' if reserved_command?(name)
+
+          i18n_msg = "command_alias_conflict_#{i18n_key}"
+
+          @env.ui.warn I18n.t("#{I18N_KEY}.#{i18n_msg}", name: name)
+          @env.ui.warn I18n.t("#{I18N_KEY}.command_alias_ignored")
+
+          @command_aliases.delete(name)
+        end
+      end
+
       def resolve_naming_conflicts
         resolve_command_naming_conflicts
         resolve_chain_naming_conflicts
+        resolve_command_alias_naming_conflicts
       end
 
       def validate_chains

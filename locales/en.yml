@@ -40,6 +40,9 @@ en:
       chain_ignored: Your chain definition will be ignored in favor of the command.
       chain_missing_command: "The chain '%<chain>s' is using at least one unknown command ('%<command>s')."
       chain_name_space: "The chain '%<name>s' contains spaces in it's name."
+      command_alias_conflict_chain: "The name '%<name>s' is used for both a chain and a command alias."
+      command_alias_conflict_command: "The name '%<name>s' is used for both a command and a command alias."
+      command_alias_conflict_command: "The name '%<name>s' is used for both an internal command and a command alias."
       command_name_space: "The command '%<name>s' contains spaces in it's name."
       command_no_script: "The command '%<name>s' has no script defined to execute."
       command_reserved: "The command name '%<name>s' is reserved for internal usage."

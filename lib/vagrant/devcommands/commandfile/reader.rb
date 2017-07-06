@@ -32,6 +32,10 @@ module VagrantPlugins
         def command(name, options = nil)
           @entries << { type: :command, name: name, options: options }
         end
+
+        def command_alias(name, options = nil)
+          @entries << { type: :command_alias, name: name, options: options }
+        end
       end
     end
   end

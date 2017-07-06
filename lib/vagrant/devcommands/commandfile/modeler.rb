@@ -9,6 +9,8 @@ module VagrantPlugins
             chain(spec[:name], spec[:options])
           when :command
             command(spec[:name], spec[:options])
+          when :command_alias
+            command_alias(spec[:name], spec[:options])
           end
         end
 
@@ -36,6 +38,19 @@ module VagrantPlugins
           end
 
           VagrantPlugins::DevCommands::Model::Command.new(options)
+        end
+
+        def command_alias(name, options)
+          raise ArgumentError, 'command_alias_name_space' if name.include?(' ')
+
+          options        = { command: options } unless options.is_a?(Hash)
+          options[:name] = name
+
+          unless options[:command]
+            raise ArgumentError, 'command_alias_no_command'
+          end
+
+          VagrantPlugins::DevCommands::Model::CommandAlias.new(options)
         end
 
         def valid_script?(script)
