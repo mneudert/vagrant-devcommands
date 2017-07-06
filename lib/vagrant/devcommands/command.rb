@@ -116,19 +116,19 @@ module VagrantPlugins
         runner.run(command, args)
       end
 
-      def runnable_for(command)
-        if @registry.valid_command?(command)
-          @registry.commands[command]
+      def runnable_for(name)
+        if @registry.valid_chain?(name)
+          @registry.chains[name]
         else
-          @registry.chains[command]
+          @registry.commands[name]
         end
       end
 
-      def runner_for(command)
-        if @registry.valid_command?(command)
-          Runner::Command.new(self, @argv, @env, @registry)
-        else
+      def runner_for(name)
+        if @registry.valid_chain?(name)
           Runner::Chain.new(self, @argv, @env, @registry)
+        else
+          Runner::Command.new(self, @argv, @env, @registry)
         end
       end
     end

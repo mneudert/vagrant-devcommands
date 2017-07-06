@@ -15,7 +15,7 @@ module VagrantPlugins
       end
 
       def available?(name)
-        valid_command?(name) || valid_chain?(name)
+        valid_chain?(name) || valid_command?(name)
       end
 
       def read_commandfile(commandfile)
@@ -55,26 +55,26 @@ module VagrantPlugins
       end
 
       def resolve_chain_naming_conflicts
-        @chains.keys.each do |chain|
-          next unless valid_command?(chain)
+        @chains.keys.each do |name|
+          next unless valid_command?(name)
 
-          i18n_msg = 'conflict_command'
-          i18n_msg = 'conflict_internal' if reserved_command?(chain)
+          i18n_msg = 'chain_conflict_command'
+          i18n_msg = 'chain_conflict_internal' if reserved_command?(name)
 
-          @env.ui.warn I18n.t("#{I18N_KEY}.#{i18n_msg}", name: chain)
+          @env.ui.warn I18n.t("#{I18N_KEY}.#{i18n_msg}", name: name)
           @env.ui.warn I18n.t("#{I18N_KEY}.chain_ignored")
 
-          @chains.delete(chain)
+          @chains.delete(name)
         end
       end
 
       def resolve_command_naming_conflicts
-        @commands.keys.each do |command|
-          next unless reserved_command?(command)
+        @commands.keys.each do |name|
+          next unless reserved_command?(name)
 
-          warn_def_ignored('command_reserved', name: command)
+          warn_def_ignored('command_reserved', name: name)
 
-          @commands.delete(command)
+          @commands.delete(name)
         end
       end
 
