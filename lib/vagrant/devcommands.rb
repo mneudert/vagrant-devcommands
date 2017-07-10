@@ -23,6 +23,7 @@ require 'vagrant/devcommands/internal_command/version'
 
 require 'vagrant/devcommands/runner/chain'
 require 'vagrant/devcommands/runner/command'
+require 'vagrant/devcommands/runner/command_alias'
 require 'vagrant/devcommands/runner/internal_command'
 
 require 'vagrant/devcommands/command'

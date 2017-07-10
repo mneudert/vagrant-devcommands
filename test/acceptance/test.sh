@@ -57,6 +57,31 @@ result=$(trim "$(bundle exec vagrant run secondary hostname)")
   exit 1
 }
 
+## COMMAND ALIASES
+result=$(trim "$(bundle exec vagrant run hostname_alias)")
+
+[[ "${result}" == 'primary.vagrant.devcommands' ]] || {
+  echo 'Default machine not used for command alias...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run primary hostname_alias)")
+
+[[ "${result}" == 'primary.vagrant.devcommands' ]] || {
+  echo 'Passing default machine as argv not working for command alias...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run secondary hostname_alias)")
+
+[[ "${result}" == 'secondary.vagrant.devcommands' ]] || {
+  echo 'Machine passed using argv not taking precedence over configuration for command alias...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
 ## COMMAND-BOX-NAME-CLASH
 result=$(trim "$(bundle exec vagrant run primary)")
 

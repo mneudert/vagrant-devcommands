@@ -119,6 +119,8 @@ module VagrantPlugins
       def runnable_for(name)
         if @registry.valid_chain?(name)
           @registry.chains[name]
+        elsif @registry.valid_command_alias?(name)
+          @registry.command_aliases[name]
         else
           @registry.commands[name]
         end
@@ -127,6 +129,8 @@ module VagrantPlugins
       def runner_for(name)
         if @registry.valid_chain?(name)
           Runner::Chain.new(self, @argv, @env, @registry)
+        elsif @registry.valid_command_alias?(name)
+          Runner::CommandAlias.new(self, @argv, @env, @registry)
         else
           Runner::Command.new(self, @argv, @env, @registry)
         end

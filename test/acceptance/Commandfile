@@ -34,3 +34,6 @@ command 'multi_alternative_1',
 command 'multi_alternative_2',
   desc:   'used to check multi-result-output for "did you mean"',
   script: 'true'
+
+
+command_alias 'hostname_alias', 'hostname'

@@ -18,7 +18,7 @@ module VagrantPlugins
       end
 
       def available?(name)
-        valid_chain?(name) || valid_command?(name)
+        valid_chain?(name) || valid_command?(name) || valid_command_alias?(name)
       end
 
       def read_commandfile(commandfile)
