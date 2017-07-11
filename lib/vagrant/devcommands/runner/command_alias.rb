@@ -27,7 +27,10 @@ module VagrantPlugins
           index = 1 if UTIL.machine_name?(argv[0].to_s, @env.machine_index)
 
           argv[index] = command_alias.command
-          argv
+
+          return argv unless command_alias.argv.is_a?(Array)
+
+          argv + command_alias.argv
         end
 
         def runnable_for(command_alias)

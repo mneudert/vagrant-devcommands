@@ -82,6 +82,22 @@ result=$(trim "$(bundle exec vagrant run secondary hostname_alias)")
   exit 1
 }
 
+result=$(trim "$(bundle exec vagrant run doubleecho_alias_full --first="broken" --second="broken")")
+
+[[ "${result}" == '[primary.vagrant.devcommands default_first default_second]' ]] || {
+  echo 'Alias argv configured not taking precedence over regular argv...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run doubleecho_alias_partial --first="broken" --second="passed_second")")
+
+[[ "${result}" == '[primary.vagrant.devcommands default_first passed_second]' ]] || {
+  echo 'Argv passed to alias not passed to command...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
 ## COMMAND-BOX-NAME-CLASH
 result=$(trim "$(bundle exec vagrant run primary)")
 

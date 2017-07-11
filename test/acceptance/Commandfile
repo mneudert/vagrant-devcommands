@@ -37,3 +37,13 @@ command 'multi_alternative_2',
 
 
 command_alias 'hostname_alias', 'hostname'
+
+command_alias 'doubleecho_alias_partial',
+  argv:    ['--first="default_first"'],
+  command: 'doubleecho',
+  machine: 'primary'
+
+command_alias 'doubleecho_alias_full',
+  argv:    ['--first="default_first"', '--second="default_second"'],
+  command: 'doubleecho',
+  machine: 'primary'
