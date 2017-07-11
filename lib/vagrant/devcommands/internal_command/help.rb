@@ -107,8 +107,8 @@ module VagrantPlugins
 
           info('Command Aliases:', true)
 
-          command_aliases.sort.each do |name, _command_alias|
-            info(UTIL.padded_columns(pad_to, name, ''))
+          command_aliases.sort.each do |name, command_alias|
+            info(UTIL.padded_columns(pad_to, name, command_alias.desc))
           end
         end
       end

@@ -9,12 +9,14 @@ module VagrantPlugins
 
         attr_reader :argv
         attr_reader :command
+        attr_reader :desc
 
         def initialize(spec)
           @name = spec[:name]
 
           @argv    = spec[:argv] || []
           @command = spec[:command]
+          @desc    = spec[:desc]
         end
       end
     end

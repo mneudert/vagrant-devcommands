@@ -298,6 +298,7 @@ command 'customecho',
 command_alias 'aliasecho',
   argv:    ['--first="param"', '--second="param"'],
   command: 'customecho',
+  desc:    'modified "customecho" command',
   machine: 'non.default'
 ```
 
