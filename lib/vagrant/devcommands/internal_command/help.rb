@@ -56,6 +56,13 @@ module VagrantPlugins
           info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
         end
 
+        def list_pad_to
+          UTIL.max_pad([internal_commands,
+                        @registry.chains,
+                        @registry.command_aliases,
+                        @registry.commands])
+        end
+
         def message(msg, pre_ln = false)
           if pre_ln
             MESSAGES.pre_ln(msg, &@env.ui.method(:info))
@@ -67,12 +74,11 @@ module VagrantPlugins
         def plugin_help(command)
           message(:plugin_usage) unless command == '--commands'
 
-          pad_to = UTIL.max_pad([internal_commands,
-                                 @registry.commands,
-                                 @registry.chains])
+          pad_to = list_pad_to
 
           plugin_help_commands('Available', @registry.commands, pad_to)
           plugin_help_chains(@registry.chains, pad_to)
+          plugin_help_command_aliases(@registry.command_aliases, pad_to)
           plugin_help_commands('Internal', internal_commands, pad_to)
         end
 
@@ -93,6 +99,16 @@ module VagrantPlugins
 
           commands.sort.each do |name, command|
             info(UTIL.padded_columns(pad_to, name, command.desc))
+          end
+        end
+
+        def plugin_help_command_aliases(command_aliases, pad_to)
+          return if command_aliases.empty?
+
+          info('Command Aliases:', true)
+
+          command_aliases.sort.each do |name, _command_alias|
+            info(UTIL.padded_columns(pad_to, name, ''))
           end
         end
       end
