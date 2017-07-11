@@ -285,6 +285,26 @@ installed plugin has a version below `1.3.3.7`.
 Please be aware that returning from a global commandfile completely skips
 evaluating a local one.
 
+### Experimental: Command Alias Definitions
+
+For commands you want to keep generic but often call with a specific set of
+parameter values you can define an alias:
+
+```ruby
+command 'customecho',
+  parameters: { first: {}, second: {} },
+  script: 'echo %<first>s %<second>s'
+
+command_alias 'aliasecho',
+  argv:    ['--first="param"', '--second="param"'],
+  command: 'customecho',
+  machine: 'non.default'
+```
+
+The setting `command` is required, the other options `argv` and `machine` are
+optional and used for the actual customization. Any argument configured will
+take precedence over the value given to `vagrant run` itself.
+
 ### Experimental: Shell Completion
 
 Completion data for your shell is available via internal command:
