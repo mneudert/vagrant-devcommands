@@ -36,6 +36,7 @@ module VagrantPlugins
           (
             @registry.chains.keys +
             @registry.commands.keys +
+            @registry.command_aliases.keys +
             VagrantPlugins::DevCommands::Registry::RESERVED_COMMANDS
           ).sort.join(' ')
         end

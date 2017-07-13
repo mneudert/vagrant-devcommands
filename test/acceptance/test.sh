@@ -186,7 +186,7 @@ result=$(trim "$(bundle exec vagrant run multi_alt 2>&1)")
 ## COMPLETION-DATA
 result=$(trim "$(bundle exec vagrant run completion-data | wc -w)")
 
-[[ "${result}" == '10' ]] || {
+[[ "${result}" == '13' ]] || {
   echo 'Completion data contains unexpected number of return values...'
   echo "Got result: '${result}'"
   exit 1
