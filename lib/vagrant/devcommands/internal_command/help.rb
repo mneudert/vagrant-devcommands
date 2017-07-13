@@ -105,7 +105,7 @@ module VagrantPlugins
         def plugin_help_command_aliases(command_aliases, pad_to)
           return if command_aliases.empty?
 
-          info('Command Aliases:', true)
+          info('Command aliases:', true)
 
           command_aliases.sort.each do |name, command_alias|
             info(UTIL.padded_columns(pad_to, name, command_alias.desc))
