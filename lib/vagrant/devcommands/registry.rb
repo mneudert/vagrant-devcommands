@@ -1,6 +1,6 @@
 module VagrantPlugins
   module DevCommands
-    # Vagrant command registry
+    # Registry for definitions from the Commandfile
     class Registry
       I18N_KEY          = 'vagrant_devcommands.registry'.freeze
       RESERVED_COMMANDS = %w[completion-data help version].freeze
