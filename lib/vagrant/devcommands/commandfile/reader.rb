@@ -5,9 +5,11 @@ module VagrantPlugins
       class Reader
         attr_reader :entries
 
-        def initialize(commandfile)
+        def initialize(commandfile, env)
           @commandfile = commandfile
-          @entries     = []
+          @env         = env
+
+          @entries = []
         end
 
         def read

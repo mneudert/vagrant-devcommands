@@ -22,7 +22,7 @@ module VagrantPlugins
       end
 
       def read_commandfile(commandfile)
-        register(Commandfile::Reader.new(commandfile).read)
+        register(Commandfile::Reader.new(commandfile, @env).read)
 
         resolve_naming_conflicts
         validate_chains
