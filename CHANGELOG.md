@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.10.1.dev
+
+- Bug fixes
+  - Vagrant introduced a tty flag for ssh command execution in version `1.9.6`.
+    This broke some commands requiring an interactive terminal
+    (like a mysql client). This flag is now permanently active to restore the
+    function of these commands until the next regular release introduces a
+    full per command tty configuration
+
 ## v0.10.0 (2017-07-02)
 
 - Enhancements

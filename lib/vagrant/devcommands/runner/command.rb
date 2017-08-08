@@ -12,6 +12,7 @@ module VagrantPlugins
           @registry = registry
         end
 
+        # rubocop:disable Metrics/MethodLength
         def run(command)
           argv    = run_argv
           machine = run_machine(command)
@@ -21,12 +22,14 @@ module VagrantPlugins
 
           @plugin.proxy_with_target_vms(machine, single_target: true) do |vm|
             env = vm.action(:ssh_run,
-                            ssh_opts: { extra_args: ['-q'] },
-                            ssh_run_command: script)
+                            ssh_run_command: script,
+                            ssh_opts:        { extra_args: ['-q'] },
+                            tty:             true)
 
             return env[:ssh_run_exit_status] || 0
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         private
 
