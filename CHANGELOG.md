@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.10.1.dev
+## v0.10.1 (2017-08-08)
 
 - Bug fixes
   - Vagrant introduced a tty flag for ssh command execution in version `1.9.6`.
