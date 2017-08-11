@@ -35,6 +35,7 @@ command 'with_options',
   machine: :my_machine,
   desc: 'executes "hostname" on the machine "my_machine"',
   script: 'hostname',
+  tty: true,
   usage: 'vagrant run %<command>s',
   help: <<-eoh
 I am the help message for the command "with_options".

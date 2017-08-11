@@ -24,7 +24,7 @@ module VagrantPlugins
             env = vm.action(:ssh_run,
                             ssh_run_command: script,
                             ssh_opts:        { extra_args: ['-q'] },
-                            tty:             true)
+                            tty:             command.tty)
 
             return env[:ssh_run_exit_status] || 0
           end

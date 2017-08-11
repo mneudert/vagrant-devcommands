@@ -10,6 +10,7 @@ module VagrantPlugins
         attr_reader :flags
         attr_reader :parameters
         attr_reader :script
+        attr_reader :tty
 
         attr_reader :machine
         attr_reader :desc
@@ -18,12 +19,14 @@ module VagrantPlugins
 
         attr_reader :deprecated_box_config
 
+        # rubocop:disable Metrics/AbcSize
         def initialize(spec)
           @name = spec[:name]
 
           @flags      = spec[:flags] || {}
           @parameters = spec[:parameters] || {}
           @script     = spec[:script]
+          @tty        = spec[:tty] == true
 
           @machine = spec[:machine] || spec[:box]
           @desc    = spec[:desc]
@@ -32,6 +35,7 @@ module VagrantPlugins
 
           @deprecated_box_config = spec.key?(:box)
         end
+        # rubocop:enable Metrics/AbcSize
 
         def run_script(argv)
           script = @script

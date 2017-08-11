@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.11.0.dev
+
+- Enhancements
+  - Commands can define if they need a tty by using the new `:tty` option
+
+- Backwards incompatible changes
+  - By default a command does not use a tty. This potentially breaks commands
+    requiring one, e.g. a mysql console command
+
 ## v0.10.1 (2017-08-08)
 
 - Bug fixes
