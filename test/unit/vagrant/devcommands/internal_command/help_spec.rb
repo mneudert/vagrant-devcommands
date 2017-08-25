@@ -1,9 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::InternalCommand::Help do
-  chain_model   = VagrantPlugins::DevCommands::Model::Chain
-  command_model = VagrantPlugins::DevCommands::Model::Command
-  registry      = VagrantPlugins::DevCommands::Registry
+  command_alias_model = VagrantPlugins::DevCommands::Model::Command
+  chain_model         = VagrantPlugins::DevCommands::Model::Chain
+  command_model       = VagrantPlugins::DevCommands::Model::Command
+  registry            = VagrantPlugins::DevCommands::Registry
 
   describe 'running help for an internal command' do
     it 'displays command help message' do
@@ -51,6 +52,23 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
       expect(messages).to match(/available commands/i)
+    end
+
+    it 'displays command alias list' do
+      alias_foo = command_alias_model.new(name: 'foo', command: 'bar')
+      cmd_bar   = command_model.new(name: 'bar', script: 'bar')
+
+      env = Vagrant::Environment.new(ui_class: Helpers::UI::Tangible)
+      reg = registry.new(nil)
+
+      reg.command_aliases = { 'foo' => alias_foo }
+      reg.commands        = { 'bar' => cmd_bar }
+
+      described_class.new(env, reg).execute(['i-am-unknown'])
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/command aliases/i)
     end
   end
 end
