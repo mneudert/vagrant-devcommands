@@ -1,0 +1,5 @@
+command 'bar', 'bar'
+
+chain 'foo', commands: [{ command: 'bar' }]
+
+command_alias 'foo', command: 'bar'

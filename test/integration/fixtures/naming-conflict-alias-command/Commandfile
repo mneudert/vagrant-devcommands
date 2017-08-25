@@ -1,0 +1,4 @@
+command 'bar', 'bar'
+command 'foo', script: 'foo'
+
+command_alias 'foo', command: 'bar'
