@@ -182,6 +182,36 @@ describe VagrantPlugins::DevCommands::Registry do
     end
   end
 
+  describe 'defining command alias without commands' do
+    before :context do
+      @olddir = Dir.pwd
+      @newdir = File.join(File.dirname(__FILE__),
+                          '../../fixtures/empty-alias')
+
+      Dir.chdir @newdir
+
+      @env = Vagrant::Environment.new(
+        cwd:      @newdir,
+        ui_class: Helpers::UI::Tangible
+      )
+    end
+
+    it 'displays a message' do
+      file     = commandfile.new(@env)
+      registry = described_class.new(@env)
+
+      registry.read_commandfile(file)
+
+      expect(@env.ui.messages.map { |m| m[:message] }.join("\n")).to(
+        match(/alias.+no command/i)
+      )
+    end
+
+    after :context do
+      Dir.chdir(@olddir)
+    end
+  end
+
   describe 'defining chain with unknown commands' do
     before :context do
       @olddir = Dir.pwd

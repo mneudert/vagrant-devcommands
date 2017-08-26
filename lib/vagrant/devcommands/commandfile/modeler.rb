@@ -46,9 +46,7 @@ module VagrantPlugins
           options        = { command: options } unless options.is_a?(Hash)
           options[:name] = name
 
-          unless options[:command]
-            raise ArgumentError, 'command_alias_no_command'
-          end
+          raise ArgumentError, 'command_alias_empty' unless options[:command]
 
           VagrantPlugins::DevCommands::Model::CommandAlias.new(options)
         end
