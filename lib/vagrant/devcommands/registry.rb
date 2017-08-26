@@ -25,8 +25,7 @@ module VagrantPlugins
         register(Commandfile::Reader.new(commandfile, @env).read)
 
         Registry::Resolver.new(@messager).resolve_naming_conflicts(self)
-
-        validate_chains
+        Registry::Validator.new(@messager).validate_chains(self)
       end
 
       def reserved_command?(command)
@@ -63,22 +62,6 @@ module VagrantPlugins
         @chains[model.name]          = model if model.is_a?(Model::Chain)
         @commands[model.name]        = model if model.is_a?(Model::Command)
         @command_aliases[model.name] = model if model.is_a?(Model::CommandAlias)
-      end
-
-      def validate_chains
-        @chains.all? do |chain, chain_def|
-          chain_def.commands.each do |element|
-            next unless element.is_a?(Hash)
-            next if valid_command?(element[:command])
-
-            msg_args = { chain: chain, command: element }
-
-            @messager.def_ignored('chain_missing_command', msg_args)
-            @chains.delete(chain)
-
-            break
-          end
-        end
       end
     end
   end
