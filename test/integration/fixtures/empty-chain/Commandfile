@@ -1,1 +1,1 @@
-chain :empty
+chain 'empty'
