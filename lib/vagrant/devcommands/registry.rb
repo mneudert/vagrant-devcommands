@@ -2,7 +2,6 @@ module VagrantPlugins
   module DevCommands
     # Registry for definitions from the Commandfile
     class Registry
-      I18N_KEY          = 'vagrant_devcommands.registry'.freeze
       RESERVED_COMMANDS = %w[completion-data help version].freeze
 
       attr_accessor :chains
@@ -10,7 +9,8 @@ module VagrantPlugins
       attr_accessor :command_aliases
 
       def initialize(env)
-        @env = env
+        @env      = env
+        @messager = Registry::Messager.new(@env)
 
         @chains          = {}
         @commands        = {}
@@ -53,7 +53,7 @@ module VagrantPlugins
           begin
             register_model(modeler.model(entry))
           rescue ArgumentError => e
-            warn_def_ignored(e.message, name: entry[:name])
+            @messager.def_ignored(e.message, name: entry[:name])
           end
         end
       end
@@ -71,9 +71,7 @@ module VagrantPlugins
           i18n_msg = 'chain_conflict_command'
           i18n_msg = 'chain_conflict_internal' if reserved_command?(name)
 
-          @env.ui.warn I18n.t("#{I18N_KEY}.#{i18n_msg}", name: name)
-          @env.ui.warn I18n.t("#{I18N_KEY}.chain_ignored")
-
+          @messager.chain_ignored(i18n_msg, name)
           @chains.delete(name)
         end
       end
@@ -82,8 +80,7 @@ module VagrantPlugins
         @commands.keys.each do |name|
           next unless reserved_command?(name)
 
-          warn_def_ignored('command_reserved', name: name)
-
+          @messager.def_ignored('command_reserved', name: name)
           @commands.delete(name)
         end
       end
@@ -98,9 +95,7 @@ module VagrantPlugins
 
           i18n_msg = "command_alias_conflict_#{i18n_key}"
 
-          @env.ui.warn I18n.t("#{I18N_KEY}.#{i18n_msg}", name: name)
-          @env.ui.warn I18n.t("#{I18N_KEY}.command_alias_ignored")
-
+          @messager.command_alias_ignored(i18n_msg, name)
           @command_aliases.delete(name)
         end
       end
@@ -117,20 +112,14 @@ module VagrantPlugins
             next unless element.is_a?(Hash)
             next if valid_command?(element[:command])
 
-            warn_def_ignored('chain_missing_command',
-                             chain: chain, command: element)
+            msg_args = { chain: chain, command: element }
 
+            @messager.def_ignored('chain_missing_command', msg_args)
             @chains.delete(chain)
 
             break
           end
         end
-      end
-
-      def warn_def_ignored(message, args)
-        @env.ui.warn I18n.t("#{I18N_KEY}.#{message}", args)
-        @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
-        @env.ui.warn ''
       end
     end
   end
