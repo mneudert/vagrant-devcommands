@@ -24,7 +24,8 @@ module VagrantPlugins
       def read_commandfile(commandfile)
         register(Commandfile::Reader.new(commandfile, @env).read)
 
-        resolve_naming_conflicts
+        Registry::Resolver.new(@messager).resolve_naming_conflicts(self)
+
         validate_chains
       end
 
@@ -62,48 +63,6 @@ module VagrantPlugins
         @chains[model.name]          = model if model.is_a?(Model::Chain)
         @commands[model.name]        = model if model.is_a?(Model::Command)
         @command_aliases[model.name] = model if model.is_a?(Model::CommandAlias)
-      end
-
-      def resolve_chain_naming_conflicts
-        @chains.keys.each do |name|
-          next unless valid_command?(name)
-
-          i18n_msg = 'chain_conflict_command'
-          i18n_msg = 'chain_conflict_internal' if reserved_command?(name)
-
-          @messager.chain_ignored(i18n_msg, name)
-          @chains.delete(name)
-        end
-      end
-
-      def resolve_command_naming_conflicts
-        @commands.keys.each do |name|
-          next unless reserved_command?(name)
-
-          @messager.def_ignored('command_reserved', name: name)
-          @commands.delete(name)
-        end
-      end
-
-      def resolve_command_alias_naming_conflicts
-        @command_aliases.keys.each do |name|
-          next unless valid_command?(name) || valid_chain?(name)
-
-          i18n_key = 'command'
-          i18n_key = 'chain'    if valid_chain?(name)
-          i18n_key = 'internal' if reserved_command?(name)
-
-          i18n_msg = "command_alias_conflict_#{i18n_key}"
-
-          @messager.command_alias_ignored(i18n_msg, name)
-          @command_aliases.delete(name)
-        end
-      end
-
-      def resolve_naming_conflicts
-        resolve_command_naming_conflicts
-        resolve_chain_naming_conflicts
-        resolve_command_alias_naming_conflicts
       end
 
       def validate_chains
