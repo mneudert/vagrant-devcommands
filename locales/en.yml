@@ -44,6 +44,7 @@ en:
       command_alias_conflict_command: "The name '%<name>s' is used for both a command and a command alias."
       command_alias_conflict_internal: "The name '%<name>s' is used for both an internal command and a command alias."
       command_alias_empty: "The command alias '%<name>s' has no command associated."
+      command_alias_missing_command: "The command alias '%<command_alias>s' is using an unknown command ('%<command>s')."
       command_name_space: "The command '%<name>s' contains spaces in it's name."
       command_no_script: "The command '%<name>s' has no script defined to execute."
       command_reserved: "The command name '%<name>s' is reserved for internal usage."

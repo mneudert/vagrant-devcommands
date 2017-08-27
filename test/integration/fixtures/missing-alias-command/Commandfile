@@ -1,0 +1,1 @@
+command_alias 'missing-command', command: 'foo'

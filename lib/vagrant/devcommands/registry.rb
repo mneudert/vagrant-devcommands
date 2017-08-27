@@ -25,7 +25,7 @@ module VagrantPlugins
         register(Commandfile::Reader.new(commandfile, @env).read)
 
         Registry::Resolver.new(@messager).resolve_naming_conflicts(self)
-        Registry::Validator.new(@messager).validate_chains(self)
+        Registry::Validator.new(@messager).validate_entries(self)
       end
 
       def reserved_command?(command)
