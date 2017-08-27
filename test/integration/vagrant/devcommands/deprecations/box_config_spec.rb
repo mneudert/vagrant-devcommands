@@ -1,32 +1,19 @@
 require_relative '../../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Command do
+  include_context 'commandfile_cwd'
+
   describe 'using the deprecated configuration ":box"' do
-    before :context do
-      @olddir = Dir.pwd
-      @newdir = File.join(File.dirname(__FILE__),
-                          '../../../fixtures/deprecated-box-config')
-
-      Dir.chdir @newdir
-
-      @env = Vagrant::Environment.new(
-        cwd:      @newdir,
-        ui_class: Helpers::UI::Tangible
-      )
-    end
-
     it 'displays warning' do
-      described_class
-        .new([], @env)
-        .execute
+      cwd(File.join(File.dirname(__FILE__),
+                    '../../../fixtures/deprecated-box-config'))
 
-      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+      env = cwd_env
 
-      expect(messages).to match(/deprecated.+box.+machine.+update/im)
-    end
-
-    after :context do
-      Dir.chdir(@olddir)
+      described_class.new([], env).execute
+      expect(
+        env.ui.messages.map { |m| m[:message] }.join("\n")
+      ).to match(/deprecated.+box.+machine.+update/im)
     end
   end
 end
