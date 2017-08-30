@@ -79,7 +79,7 @@
 - Enhancements
   - Command usage now displays the correct parameter syntax
   - Command usage always displays mandatory parameters before optional ones
-  - Error output (i.e. "missing Commandfile") is now printed using
+  - Error output (e.g. "missing Commandfile") is now printed using
     the configured ui class (allows colored output)
   - Global commands can be defined using a file
     named `.vagrant.devcommands` located under `Dir.home()`

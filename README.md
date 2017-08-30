@@ -326,7 +326,7 @@ vagrant run completion-data my-command
 
 If you are using this plugin on a Windows host system, please make sure your
 regular `vagrant ssh [machine]` succeeds. In some cases you may need to add the
-`ssh.exe` (i.e. from a git installation) manually to your `%PATH%`.
+`ssh.exe` (e.g. from a git installation) manually to your `%PATH%`.
 
 ### Command Definition
 
