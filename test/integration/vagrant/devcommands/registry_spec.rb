@@ -7,8 +7,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'chain definition' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/chain-commandfile'))
+      cwd('integration/fixtures/chain-commandfile')
 
       @env = cwd_env
     end
@@ -36,8 +35,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'command definition' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/simple-commandfile'))
+      cwd('integration/fixtures/simple-commandfile')
 
       @env = cwd_env
     end
@@ -75,8 +73,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'command alias definition' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/command-alias-commandfile'))
+      cwd('integration/fixtures/command-alias-commandfile')
 
       @env = cwd_env
     end
@@ -103,8 +100,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining reserved commands' do
     it 'displays a message' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/reserved-commands'))
+      cwd('integration/fixtures/reserved-commands')
 
       env      = cwd_env
       file     = commandfile.new(env)
@@ -122,8 +118,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining chain without commands' do
     it 'displays a message' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/empty-chain'))
+      cwd('integration/fixtures/empty-chain')
 
       env      = cwd_env
       file     = commandfile.new(env)
@@ -139,8 +134,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining command alias without commands' do
     it 'displays a message' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/empty-alias'))
+      cwd('integration/fixtures/empty-alias')
 
       env      = cwd_env
       file     = commandfile.new(env)
@@ -156,8 +150,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining chain with unknown commands' do
     it 'displays a message' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/missing-chain-commands'))
+      cwd('integration/fixtures/missing-chain-commands')
 
       env      = cwd_env
       file     = commandfile.new(env)
@@ -173,8 +166,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining command alias with unknown command' do
     it 'displays a message' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/missing-alias-command'))
+      cwd('integration/fixtures/missing-alias-command')
 
       env      = cwd_env
       file     = commandfile.new(env)
@@ -190,8 +182,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining command without script' do
     it 'displays a message' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/missing-script'))
+      cwd('integration/fixtures/missing-script')
 
       env      = cwd_env
       file     = commandfile.new(env)
@@ -211,8 +202,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining command alias with name of an existing command' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/naming-conflict-alias-command'))
+      cwd('integration/fixtures/naming-conflict-alias-command')
 
       @env = cwd_env
     end
@@ -238,8 +228,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining chain with name of an existing command' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/naming-conflict-chain-command'))
+      cwd('integration/fixtures/naming-conflict-chain-command')
 
       @env = cwd_env
     end
@@ -265,8 +254,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining command alias with name of a reserved command' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/naming-conflict-alias-internal'))
+      cwd('integration/fixtures/naming-conflict-alias-internal')
 
       @env = cwd_env
     end
@@ -292,8 +280,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining chain with name of a reserved command' do
     before :context do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/naming-conflict-chain-internal'))
+      cwd('integration/fixtures/naming-conflict-chain-internal')
 
       @env = cwd_env
     end
@@ -319,8 +306,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'defining command alias with name of an existing chain' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/naming-conflict-alias-chain'))
+      cwd('integration/fixtures/naming-conflict-alias-chain')
 
       @env = cwd_env
     end
@@ -346,8 +332,7 @@ describe VagrantPlugins::DevCommands::Registry do
 
   describe 'definitions with spaces in names' do
     it 'ignores names with spaces' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/naming-spaces'))
+      cwd('integration/fixtures/naming-spaces')
 
       env      = cwd_env
       file     = commandfile.new(env)

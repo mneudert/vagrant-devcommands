@@ -2,7 +2,7 @@ shared_context 'commandfile_cwd' do
   def cwd(dir)
     @initial_dir = Dir.pwd
 
-    Dir.chdir(dir)
+    Dir.chdir(File.join(File.dirname(__FILE__), '..', dir))
   end
 
   def cwd_env

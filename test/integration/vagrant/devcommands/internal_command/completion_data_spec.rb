@@ -7,8 +7,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
 
   describe 'fetching completion-data with an empty commandfile' do
     it 'is empty' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../../fixtures/empty-commandfile'))
+      cwd('integration/fixtures/empty-commandfile')
 
       env = cwd_env
 
@@ -19,8 +18,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
 
   describe 'fetching completion-data' do
     it 'is space-delimited' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../../fixtures/simple-commandfile'))
+      cwd('integration/fixtures/simple-commandfile')
 
       env = cwd_env
 
@@ -33,8 +31,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
 
   describe 'fetching completion-data for a specific command' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../../fixtures/help-commandfile'))
+      cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env
     end

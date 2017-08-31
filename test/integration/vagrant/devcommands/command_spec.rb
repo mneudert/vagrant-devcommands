@@ -5,8 +5,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'without a Commandfile' do
     it 'displays warning and usage information' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/missing-commandfile'))
+      cwd('integration/fixtures/missing-commandfile')
 
       env = cwd_env
 
@@ -18,8 +17,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with an empty Commandfile' do
     it 'displays help' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/empty-commandfile'))
+      cwd('integration/fixtures/empty-commandfile')
 
       allow(Dir).to receive(:home).and_return(
         File.expand_path('../../fixtures/home_empty', File.dirname(__FILE__))
@@ -34,8 +32,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with a Commandfile' do
     it 'displays help' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/simple-commandfile'))
+      cwd('integration/fixtures/simple-commandfile')
 
       env = cwd_env
 
@@ -48,8 +45,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with a global Commandfile' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/simple-commandfile'))
+      cwd('integration/fixtures/simple-commandfile')
 
       @env = cwd_env
     end
@@ -79,8 +75,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with an invalid command' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/simple-commandfile'))
+      cwd('integration/fixtures/simple-commandfile')
 
       @env = cwd_env
     end
@@ -98,8 +93,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with an empty Commandfile but internal command' do
     it 'allows running the command' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/empty-commandfile'))
+      cwd('integration/fixtures/empty-commandfile')
 
       env = cwd_env
 
@@ -112,8 +106,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with missing command parameters' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/parameters'))
+      cwd('integration/fixtures/parameters')
 
       @env = cwd_env
     end
@@ -135,8 +128,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with invalid command parameters' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/parameters'))
+      cwd('integration/fixtures/parameters')
 
       @env = cwd_env
     end
@@ -158,8 +150,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with command parameters values not allowed' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/parameters'))
+      cwd('integration/fixtures/parameters')
 
       @env = cwd_env
     end
@@ -181,8 +172,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'with a proc/lambda as script' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../fixtures/script-proc'))
+      cwd('integration/fixtures/script-proc')
 
       @env = cwd_env
     end

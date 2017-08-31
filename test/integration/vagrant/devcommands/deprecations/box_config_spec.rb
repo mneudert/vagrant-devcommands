@@ -5,8 +5,7 @@ describe VagrantPlugins::DevCommands::Command do
 
   describe 'using the deprecated configuration ":box"' do
     it 'displays warning' do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../../fixtures/deprecated-box-config'))
+      cwd('integration/fixtures/deprecated-box-config')
 
       env = cwd_env
 

@@ -7,8 +7,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
   describe 'running help for a command' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../../fixtures/help-commandfile'))
+      cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env
     end
@@ -86,8 +85,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
   describe 'running help for a chain' do
     before :each do
-      cwd(File.join(File.dirname(__FILE__),
-                    '../../../fixtures/help-commandfile'))
+      cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env
     end
