@@ -183,9 +183,6 @@ chain 'my_chain',
   help: <<-eoh
 I am the help message for the chain "my_chain".
 I get displayed when running "vagrant run help my_chain".
-
-The usage printed above the help can interpolate the name
-of the command name using %<command>s.
 eoh
 ```
 
