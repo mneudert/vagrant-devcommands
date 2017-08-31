@@ -3,6 +3,8 @@
 ## v0.11.0.dev
 
 - Enhancements
+  - Command aliases can be used to provide multiple ways to call a single
+    command including automatically populated arguments
   - Commands can define if they need a tty by using the new `:tty` option
 
 - Backwards incompatible changes
