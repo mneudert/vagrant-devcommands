@@ -46,3 +46,11 @@ chain 'chained', commands: [
 chain 'chainhelp',
   commands: [{ command: 'foo' }],
   help: 'help message for chainhelp'
+
+
+command_alias 'aliased',
+  command: 'bar'
+
+command_alias 'aliashelp',
+  command: 'foo',
+  help: 'help message for aliashelp'

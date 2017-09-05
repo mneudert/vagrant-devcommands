@@ -113,4 +113,28 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       expect(messages).to match(/no detailed help/i)
     end
   end
+
+  describe 'running help for a command alias' do
+    before :each do
+      cwd('integration/fixtures/help-commandfile')
+
+      @env = cwd_env
+    end
+
+    it 'displays its help message if defined' do
+      command.new(%w[help aliashelp], @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/help message for aliashelp/)
+    end
+
+    it 'displays an error if undefined' do
+      command.new(%w[help aliased], @env).execute
+
+      messages = @env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/no detailed help/i)
+    end
+  end
 end

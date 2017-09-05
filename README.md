@@ -297,8 +297,11 @@ command_alias 'aliasecho',
   argv:    ['--first="param"', '--second="param"'],
   command: 'customecho',
   desc:    'modified "customecho" command',
-  machine: 'non.default'
-```
+  machine: 'non.default',
+  help: <<-eoh
+I am the help message for the command alias "aliasecho".
+I get displayed when running "vagrant run help aliasecho".
+eoh```
 
 The setting `command` is required, the other options `argv` and `machine` are
 optional and used for the actual customization. Any argument configured will

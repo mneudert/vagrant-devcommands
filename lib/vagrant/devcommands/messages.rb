@@ -10,6 +10,10 @@ module VagrantPlugins
         out.call I18n.t("#{I18N_KEY}.chain_no_help")
       end
 
+      def self.command_alias_no_help(&out)
+        out.call I18n.t("#{I18N_KEY}.command_alias_no_help")
+      end
+
       def self.command_no_help(&out)
         out.call I18n.t("#{I18N_KEY}.command_no_help")
       end

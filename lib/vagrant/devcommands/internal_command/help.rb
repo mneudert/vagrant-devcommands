@@ -28,6 +28,10 @@ module VagrantPlugins
         def help(command)
           if @registry.valid_chain?(command)
             PRINTER::Chain.new(@env).output(@registry.chains[command])
+          elsif @registry.valid_command_alias?(command)
+            PRINTER::CommandAlias.new(@env).output(
+              @registry.command_aliases[command]
+            )
           else
             PRINTER::Command.new(@env).output(@registry.commands[command])
           end
