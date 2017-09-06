@@ -76,7 +76,7 @@ module VagrantPlugins
         end
 
         def plugin_help(command)
-          message(:plugin_usage) unless command == '--commands'
+          plugin_help_header(command) unless command == '--commands'
 
           pad_to = list_pad_to
 
@@ -113,6 +113,14 @@ module VagrantPlugins
 
           command_aliases.sort.each do |name, command_alias|
             info(UTIL.padded_columns(pad_to, name, command_alias.desc))
+          end
+        end
+
+        def plugin_help_header(command)
+          if command.nil?
+            message(:plugin_usage)
+          else
+            @env.ui.error "Invalid command \"#{command}\"!"
           end
         end
       end
