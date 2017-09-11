@@ -5,7 +5,7 @@ en:
         desc: provides shell completion data
         help: Returns a list of all defined commands separated using spaces.
       help:
-        desc: get some plugin help
+        desc: get some plugin or command help
         help: |-
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
