@@ -8,8 +8,10 @@ jobs:
     - &test
       stage:  test
       rvm:    2.2.5
-      env:    VER_VAGRANT=1.9.8 TRAVIS_COVERAGE=true
+      env:    VER_VAGRANT=2.0.0 TRAVIS_COVERAGE=true
       script: bundle exec rake travis
+    - <<: *test
+      env: VER_VAGRANT=1.9.8
     - <<: *test
       env:            VER_VAGRANT=1.8.7 VER_BUNDLER=1.12.5
       before_install: |-
@@ -21,8 +23,10 @@ jobs:
     - &test_acceptance
       stage:  test (acceptance)
       rvm:    2.2.5
-      env:    VER_VAGRANT=1.9.8
+      env:    VER_VAGRANT=2.0.0
       script: ./test/acceptance/test.sh
+    - <<: *test_acceptance
+      env: VER_VAGRANT=1.9.8
     - <<: *test_acceptance
       env:            VER_VAGRANT=1.8.7 VER_BUNDLER=1.12.5
       before_install: |-
