@@ -45,6 +45,7 @@ chain 'chained', commands: [
 
 chain 'chainhelp',
   commands: [{ command: 'foo' }],
+  usage: 'vagrant run %{chain}',
   help: 'help message for chainhelp'
 
 

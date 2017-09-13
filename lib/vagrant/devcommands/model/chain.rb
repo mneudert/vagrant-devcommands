@@ -8,13 +8,15 @@ module VagrantPlugins
 
         attr_reader :desc
         attr_reader :help
+        attr_reader :usage
 
         def initialize(spec)
           @name     = spec[:name]
           @commands = spec[:commands]
 
-          @desc = spec[:desc]
-          @help = spec[:help]
+          @desc  = spec[:desc]
+          @help  = spec[:help]
+          @usage = spec[:usage]
 
           @break_on_error = spec[:break_on_error] != false
         end

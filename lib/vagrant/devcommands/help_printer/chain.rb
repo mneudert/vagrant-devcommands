@@ -39,7 +39,12 @@ module VagrantPlugins
         end
 
         def header(chain)
-          usage = "vagrant run [machine] #{chain.name}"
+          usage =
+            if chain.usage.nil?
+              "vagrant run [machine] #{chain.name}"
+            else
+              format(chain.usage, chain: chain.name)
+            end
 
           info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
         end
