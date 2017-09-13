@@ -52,6 +52,9 @@ have to escape them using a second `%`. For example `date "+%%Y-%%m-%%d"`.
 _Note_: Spaces in command names are not supported. Definitions with spaces will
 be ignored.
 
+_Note_: Please be aware that setting a custom `usage` hides the original usage
+line from the help output.
+
 #### Commands with Parameters
 
 Passing additional parameters to a command is (minimally) supported using an
