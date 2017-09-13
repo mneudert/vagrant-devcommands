@@ -152,5 +152,21 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
       expect(messages).to match(/no detailed help/i)
     end
+
+    it 'displays its custom usage string if defined' do
+      command.new(%w[help aliashelp], @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/usage: vagrant run aliashelp/i)
+      )
+    end
+
+    it 'displays a default usage string if non defined' do
+      command.new(%w[help aliased], @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/usage: vagrant run \[machine\] aliased/i)
+      )
+    end
   end
 end

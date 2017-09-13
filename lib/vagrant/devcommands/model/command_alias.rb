@@ -11,6 +11,7 @@ module VagrantPlugins
         attr_reader :command
         attr_reader :desc
         attr_reader :help
+        attr_reader :usage
 
         def initialize(spec)
           @name = spec[:name]
@@ -19,6 +20,7 @@ module VagrantPlugins
           @command = spec[:command]
           @desc    = spec[:desc]
           @help    = spec[:help]
+          @usage   = spec[:usage]
         end
       end
     end

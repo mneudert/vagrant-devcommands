@@ -24,7 +24,12 @@ module VagrantPlugins
         end
 
         def header(command_alias)
-          usage = "vagrant run [machine] #{command_alias.name}"
+          usage =
+            if command_alias.usage.nil?
+              "vagrant run [machine] #{command_alias.name}"
+            else
+              format(command_alias.usage, command_alias: command_alias.name)
+            end
 
           info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
         end

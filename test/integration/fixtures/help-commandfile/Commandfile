@@ -54,4 +54,5 @@ command_alias 'aliased',
 
 command_alias 'aliashelp',
   command: 'foo',
+  usage: 'vagrant run %{command_alias}',
   help: 'help message for aliashelp'
