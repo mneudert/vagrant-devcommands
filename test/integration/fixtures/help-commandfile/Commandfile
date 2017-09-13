@@ -17,7 +17,7 @@ command 'fmp',
 
 command 'foo',
   script: 'foo',
-  usage: 'vagrant run foo',
+  usage: 'vagrant run %{command}',
   help: 'help message for foo'
 
 command 'znk',
