@@ -16,7 +16,7 @@ module VagrantPlugins
         private
 
         def resolve_chain_naming_conflicts(registry)
-          registry.chains.keys.each do |name|
+          registry.chains.each_key do |name|
             next unless registry.valid_command?(name)
 
             i18n_msg = 'chain_conflict_command'
@@ -32,7 +32,7 @@ module VagrantPlugins
         end
 
         def resolve_command_naming_conflicts(registry)
-          registry.commands.keys.each do |name|
+          registry.commands.each_key do |name|
             next unless registry.reserved_command?(name)
 
             @messager.def_ignored('command_reserved', name: name)
@@ -43,7 +43,7 @@ module VagrantPlugins
 
         # rubocop:disable Metrics/MethodLength
         def resolve_command_alias_naming_conflicts(registry)
-          registry.command_aliases.keys.each do |name|
+          registry.command_aliases.each_key do |name|
             unless registry.valid_command?(name) || registry.valid_chain?(name)
               next
             end

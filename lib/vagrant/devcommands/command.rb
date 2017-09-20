@@ -63,7 +63,7 @@ module VagrantPlugins
           display_error('Did you mean one of these?', true)
         end
 
-        alternatives.sort.each { |k, _v| display_error("        #{k}") }
+        alternatives.sort.each { |(k, _v)| display_error("        #{k}") }
       end
 
       def display_error(msg, pre_ln = false, post_ln = false)

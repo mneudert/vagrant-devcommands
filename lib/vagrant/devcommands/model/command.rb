@@ -86,7 +86,7 @@ module VagrantPlugins
               end
             end
 
-            @parameters.each do |key, _conf|
+            @parameters.each_key do |key|
               opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
                 params[key] = o
               end

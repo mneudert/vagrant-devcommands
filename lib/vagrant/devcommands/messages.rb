@@ -32,7 +32,7 @@ module VagrantPlugins
       end
 
       def self.plugin_readme(&out)
-        curdir = File.expand_path(File.dirname(__FILE__))
+        curdir = File.expand_path(__dir__)
         readme = File.expand_path(File.join(curdir, '../../../README.md'))
 
         out.call I18n.t("#{I18N_KEY}.plugin_readme", readme: readme)

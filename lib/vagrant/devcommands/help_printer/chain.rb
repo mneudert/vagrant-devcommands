@@ -33,7 +33,7 @@ module VagrantPlugins
         def commands(chain)
           info('Chained commands (in order):', true)
 
-          chain.commands.each do |cmd, _options|
+          chain.commands.each do |cmd|
             info(UTIL.padded_columns(0, chain_help_line(cmd)))
           end
         end
