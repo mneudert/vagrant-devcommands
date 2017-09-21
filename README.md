@@ -304,7 +304,8 @@ command_alias 'aliasecho',
   help: <<-eoh
 I am the help message for the command alias "aliasecho".
 I get displayed when running "vagrant run help aliasecho".
-eoh```
+eoh
+```
 
 The setting `command` is required, the other options `argv` and `machine` are
 optional and used for the actual customization. Any argument configured will
