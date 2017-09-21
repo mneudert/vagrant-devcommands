@@ -235,7 +235,7 @@ chain against a specific machine using `vagrant run your_machine your_chain`.
 
 #### Chain Definitions with Specific Machines
 
-If required you can modify the machine a box is run on:
+If required you can modify the machine a command is run on:
 
 ```ruby
 command 'chainhost',
