@@ -3,6 +3,7 @@ module VagrantPlugins
     module HelpPrinter
       # Prints help for a command alias
       class CommandAlias
+        I18N_KEY = 'vagrant_devcommands.internal.help'.freeze
         UTIL     = VagrantPlugins::DevCommands::Util
         MESSAGES = VagrantPlugins::DevCommands::Messages
 
@@ -31,7 +32,10 @@ module VagrantPlugins
               format(command_alias.usage, command_alias: command_alias.name)
             end
 
-          info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
+          alias_for = [command_alias.command, command_alias.argv].join(' ')
+
+          info(I18n.t("#{I18N_KEY}.usage", what: usage))
+          info(I18n.t("#{I18N_KEY}.alias_for", what: alias_for), true)
         end
 
         def info(msg, pre_ln = false)

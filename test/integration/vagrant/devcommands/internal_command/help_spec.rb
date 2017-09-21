@@ -168,5 +168,13 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
         match(/usage: vagrant run \[machine\] aliased/i)
       )
     end
+
+    it 'displays the aliased vagrant run command' do
+      command.new(%w[help aliased], @env).execute
+
+      expect(@env.ui.messages[2][:message]).to(
+        match(/alias for: vagrant run \[machine\] bar --some="param"/i)
+      )
+    end
   end
 end

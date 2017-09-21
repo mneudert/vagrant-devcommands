@@ -50,7 +50,8 @@ chain 'chainhelp',
 
 
 command_alias 'aliased',
-  command: 'bar'
+  command: 'bar',
+  argv:    ['--some="param"']
 
 command_alias 'aliashelp',
   command: 'foo',
