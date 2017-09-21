@@ -9,3 +9,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'test/**/*.rb'
+
+Naming/FileName:
+  Exclude:
+    - 'test/integration/fixtures/**/Vagrantfile'
