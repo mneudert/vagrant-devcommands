@@ -2,6 +2,8 @@ module VagrantPlugins
   module DevCommands
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
+      I18N_KEY = 'vagrant_devcommands.'.freeze
+
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS
 
@@ -58,9 +60,9 @@ module VagrantPlugins
         return false if alternatives.empty?
 
         if alternatives.length == 1
-          display_error('Did you mean this?', true)
+          display_error(I18n.t("#{I18N_KEY}.did_you_mean_single"), true)
         else
-          display_error('Did you mean one of these?', true)
+          display_error(I18n.t("#{I18N_KEY}.did_you_mean_multi"), true)
         end
 
         alternatives.sort.each { |(k, _v)| display_error("        #{k}") }

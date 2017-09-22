@@ -1,5 +1,8 @@
 en:
   vagrant_devcommands:
+    did_you_mean_multi: Did you mean one of these?
+    did_you_mean_single: Did you mean this?
+
     internal:
       completion-data:
         desc: provides shell completion data
