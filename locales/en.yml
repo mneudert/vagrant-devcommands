@@ -10,6 +10,12 @@ en:
         help: |-
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
+        invalid_command: "Invalid command '%<what>s'!"
+        list:
+          chains: "Command chains:"
+          command_aliases: "Command aliases:"
+          commands_available: "Available commands:"
+          commands_internal: "Internal commands:"
         usage: "Usage: %<what>s"
         usage_default: "vagrant run [machine] %<what>s"
       version:

@@ -3,6 +3,7 @@ module VagrantPlugins
     module InternalCommand
       # Internal "help" command
       class Help
+        I18N_KEY = 'vagrant_devcommands.internal.help'.freeze
         UTIL     = VagrantPlugins::DevCommands::Util
         MESSAGES = VagrantPlugins::DevCommands::Messages
         PRINTER  = VagrantPlugins::DevCommands::HelpPrinter
@@ -57,7 +58,7 @@ module VagrantPlugins
           spec  = internal_commands[command]
           usage = format(spec.usage, command: command)
 
-          info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
+          info(I18n.t("#{I18N_KEY}.usage", what: usage))
         end
 
         def list_pad_to
@@ -80,16 +81,16 @@ module VagrantPlugins
 
           pad_to = list_pad_to
 
-          plugin_help_commands('Available', @registry.commands, pad_to)
+          plugin_help_commands('available', @registry.commands, pad_to)
           plugin_help_chains(@registry.chains, pad_to)
           plugin_help_command_aliases(@registry.command_aliases, pad_to)
-          plugin_help_commands('Internal', internal_commands, pad_to)
+          plugin_help_commands('internal', internal_commands, pad_to)
         end
 
         def plugin_help_chains(chains, pad_to)
           return if chains.empty?
 
-          info('Command chains:', true)
+          info(I18n.t("#{I18N_KEY}.list.chains", true))
 
           chains.sort.each do |name, chain|
             info(UTIL.padded_columns(pad_to, name, chain.desc))
@@ -99,7 +100,7 @@ module VagrantPlugins
         def plugin_help_commands(type, commands, pad_to)
           return if commands.empty?
 
-          info("#{type} commands:", true)
+          info(I18n.t("#{I18N_KEY}.list.commands_#{type}", true))
 
           commands.sort.each do |name, command|
             info(UTIL.padded_columns(pad_to, name, command.desc))
@@ -109,7 +110,7 @@ module VagrantPlugins
         def plugin_help_command_aliases(command_aliases, pad_to)
           return if command_aliases.empty?
 
-          info('Command aliases:', true)
+          info(I18n.t("#{I18N_KEY}.list.command_aliases", true))
 
           command_aliases.sort.each do |name, command_alias|
             info(UTIL.padded_columns(pad_to, name, command_alias.desc))
@@ -120,7 +121,7 @@ module VagrantPlugins
           if command.nil?
             message(:plugin_usage)
           else
-            @env.ui.error "Invalid command \"#{command}\"!"
+            @env.ui.error I18n.t("#{I18N_KEY}.invalid_command", what: command)
           end
         end
       end
