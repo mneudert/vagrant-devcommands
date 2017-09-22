@@ -11,6 +11,7 @@ en:
           Display the help of the command given as the first argument if defined.
           Just like this help for the help command!
         usage: "Usage: %<what>s"
+        usage_default: "vagrant run [machine] %<what>s"
       version:
         desc: get currently installed plugin version
         help: Displays the currently installed version of the plugin you are using right now.

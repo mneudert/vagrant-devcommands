@@ -3,6 +3,7 @@ module VagrantPlugins
     module HelpPrinter
       # Prints help for a command
       class Command
+        I18N_KEY = 'vagrant_devcommands.internal.help'.freeze
         UTIL     = VagrantPlugins::DevCommands::Util
         MESSAGES = VagrantPlugins::DevCommands::Messages
 
@@ -43,12 +44,15 @@ module VagrantPlugins
         def header(command)
           usage =
             if command.usage.nil?
-              usage_params("vagrant run [machine] #{command.name}", command)
+              usage_params(
+                I18n.t("#{I18N_KEY}.usage_default", what: command.name),
+                command
+              )
             else
               format(command.usage, command: command.name)
             end
 
-          info(I18n.t('vagrant_devcommands.internal.help.usage', what: usage))
+          info(I18n.t("#{I18N_KEY}.usage", what: usage))
         end
 
         def info(msg, pre_ln = false)

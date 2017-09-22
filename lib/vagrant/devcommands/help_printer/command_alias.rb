@@ -27,7 +27,7 @@ module VagrantPlugins
         def header(command_alias)
           usage =
             if command_alias.usage.nil?
-              "vagrant run [machine] #{command_alias.name}"
+              I18n.t("#{I18N_KEY}.usage_default", what: command_alias.name)
             else
               format(command_alias.usage, command_alias: command_alias.name)
             end
