@@ -90,7 +90,7 @@ module VagrantPlugins
         def plugin_help_chains(chains, pad_to)
           return if chains.empty?
 
-          info(I18n.t("#{I18N_KEY}.list.chains", true))
+          info(I18n.t("#{I18N_KEY}.list.chains"), true)
 
           chains.sort.each do |name, chain|
             info(UTIL.padded_columns(pad_to, name, chain.desc))
@@ -100,7 +100,7 @@ module VagrantPlugins
         def plugin_help_commands(type, commands, pad_to)
           return if commands.empty?
 
-          info(I18n.t("#{I18N_KEY}.list.commands_#{type}", true))
+          info(I18n.t("#{I18N_KEY}.list.commands_#{type}"), true)
 
           commands.sort.each do |name, command|
             info(UTIL.padded_columns(pad_to, name, command.desc))
@@ -110,7 +110,7 @@ module VagrantPlugins
         def plugin_help_command_aliases(command_aliases, pad_to)
           return if command_aliases.empty?
 
-          info(I18n.t("#{I18N_KEY}.list.command_aliases", true))
+          info(I18n.t("#{I18N_KEY}.list.command_aliases"), true)
 
           command_aliases.sort.each do |name, command_alias|
             info(UTIL.padded_columns(pad_to, name, command_alias.desc))
