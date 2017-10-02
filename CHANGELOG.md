@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.11.0.dev
+## v0.11.0 (2017-10-02)
 
 - Enhancements
   - Command aliases can be used to provide multiple ways to call a single
