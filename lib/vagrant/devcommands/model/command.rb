@@ -25,7 +25,7 @@ module VagrantPlugins
           @script     = spec[:script]
           @tty        = spec[:tty] == true
 
-          @machine = spec[:machine] || spec[:box]
+          @machine = spec[:machine]
           @desc    = spec[:desc]
           @help    = spec[:help]
           @usage   = spec[:usage]
