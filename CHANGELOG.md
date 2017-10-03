@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.12.0-dev
+
+- Backwards incompatible changes
+  - Support for the already deprecated configuration parameter `:box` has
+    been removed
+
 ## v0.11.0 (2017-10-02)
 
 - Enhancements

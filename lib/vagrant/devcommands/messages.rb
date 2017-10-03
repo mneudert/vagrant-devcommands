@@ -18,11 +18,6 @@ module VagrantPlugins
         out.call I18n.t("#{I18N_KEY}.command_no_help")
       end
 
-      def self.deprecated_box_config(&out)
-        out.call I18n.t("#{I18N_KEY}.deprecated_box_config")
-        out.call ''
-      end
-
       def self.missing_commandfile(&out)
         out.call I18n.t("#{I18N_KEY}.missing_commandfile")
       end

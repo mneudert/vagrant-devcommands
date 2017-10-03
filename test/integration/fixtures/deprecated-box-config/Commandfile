@@ -1,6 +1,0 @@
-command 'bar', script: 'bar'
-command 'foo', script: 'foo'
-
-command 'deprecation-warning',
-  box:    'option-deprecated',
-  script: 'echo "warning"'

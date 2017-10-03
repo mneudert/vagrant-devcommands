@@ -17,9 +17,6 @@ module VagrantPlugins
         attr_reader :help
         attr_reader :usage
 
-        attr_reader :deprecated_box_config
-
-        # rubocop:disable Metrics/AbcSize
         def initialize(spec)
           @name = spec[:name]
 
@@ -32,10 +29,7 @@ module VagrantPlugins
           @desc    = spec[:desc]
           @help    = spec[:help]
           @usage   = spec[:usage]
-
-          @deprecated_box_config = spec.key?(:box)
         end
-        # rubocop:enable Metrics/AbcSize
 
         def run_script(argv)
           script = @script
