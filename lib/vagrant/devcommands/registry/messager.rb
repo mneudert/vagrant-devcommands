@@ -19,6 +19,11 @@ module VagrantPlugins
           @env.ui.warn I18n.t("#{I18N_KEY}.command_alias_ignored")
         end
 
+        def def_duplicate(args)
+          @env.ui.warn I18n.t("#{I18N_KEY}.def_duplicate", args)
+          @env.ui.warn ''
+        end
+
         def def_ignored(message, args)
           @env.ui.warn I18n.t("#{I18N_KEY}.#{message}", args)
           @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")

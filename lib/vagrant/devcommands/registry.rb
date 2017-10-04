@@ -46,6 +46,28 @@ module VagrantPlugins
 
       private
 
+      def model_attr(model)
+        case model
+        when Model::Chain
+          'chains'
+        when Model::Command
+          'commands'
+        when Model::CommandAlias
+          'command_aliases'
+        end
+      end
+
+      def model_name(model)
+        case model
+        when Model::Chain
+          'chain'
+        when Model::Command
+          'command'
+        when Model::CommandAlias
+          'command alias'
+        end
+      end
+
       def register(commandfile_entries)
         modeler = Commandfile::Modeler.new
 
@@ -59,9 +81,17 @@ module VagrantPlugins
       end
 
       def register_model(model)
-        @chains[model.name]          = model if model.is_a?(Model::Chain)
-        @commands[model.name]        = model if model.is_a?(Model::Command)
-        @command_aliases[model.name] = model if model.is_a?(Model::CommandAlias)
+        type         = model_attr(model)
+        type_attr    = "@#{type}"
+        type_entries = instance_variable_get(type_attr)
+
+        if type_entries[model.name]
+          @messager.def_duplicate(what: model_name(model), name: model.name)
+        end
+
+        type_entries[model.name] = model
+
+        instance_variable_set(type_attr, type_entries)
       end
     end
   end

@@ -2,6 +2,10 @@
 
 ## v0.12.0-dev
 
+- Enhancements
+  - Commandfile entries with duplicate names will now issue a warning while
+    still discarding all previous definitions
+
 - Backwards incompatible changes
   - Support for the already deprecated configuration parameter `:box` has
     been removed

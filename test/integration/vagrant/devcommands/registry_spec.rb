@@ -346,4 +346,50 @@ describe VagrantPlugins::DevCommands::Registry do
       expect(messages).to match(/chain 'chain spaces'.+ignored/im)
     end
   end
+
+  describe 'reusing a name for an already existing entry' do
+    it 'warns for chains' do
+      cwd('integration/fixtures/duplicate-chain')
+
+      env      = cwd_env
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
+
+      registry.read_commandfile(file)
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/chain.+'trigger_duplicate'.+more than once/i)
+    end
+
+    it 'warns for commands' do
+      cwd('integration/fixtures/duplicate-command')
+
+      env      = cwd_env
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
+
+      registry.read_commandfile(file)
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/command.+'trigger_duplicate'.+more than once/i)
+    end
+
+    it 'warns for command aliases' do
+      cwd('integration/fixtures/duplicate-alias')
+
+      env      = cwd_env
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
+
+      registry.read_commandfile(file)
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to(
+        match(/command alias.+'trigger_duplicate'.+more than once/i)
+      )
+    end
+  end
 end
