@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.11.1.dev
+## v0.11.1 (2017-10-04)
 
 - Bug fixes
   - The machine of a command alias definition is now correctly preferred over
