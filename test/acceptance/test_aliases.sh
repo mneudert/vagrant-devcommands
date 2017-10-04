@@ -17,7 +17,23 @@ result=$(trim "$(bundle exec vagrant run primary hostname_alias)")
 result=$(trim "$(bundle exec vagrant run secondary hostname_alias)")
 
 [[ "${result}" == 'secondary.vagrant.devcommands' ]] || {
-  echo 'Machine passed using argv not taking precedence over configuration for command alias...'
+  echo 'Machine passed using argv not taking precedence over configuration (command machine)...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run hostname_alias_machine)")
+
+[[ "${result}" == 'secondary.vagrant.devcommands' ]] || {
+  echo 'Alias machine configured not taking precedence over command machine...'
+  echo "Got result: '${result}'"
+  exit 1
+}
+
+result=$(trim "$(bundle exec vagrant run primary hostname_alias_machine)")
+
+[[ "${result}" == 'primary.vagrant.devcommands' ]] || {
+  echo 'Machine passed using argv not taking precedence over configuration (command alias machine)...'
   echo "Got result: '${result}'"
   exit 1
 }

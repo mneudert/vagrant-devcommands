@@ -9,6 +9,8 @@ module VagrantPlugins
 
         attr_reader :argv
         attr_reader :command
+
+        attr_reader :machine
         attr_reader :desc
         attr_reader :help
         attr_reader :usage
@@ -18,6 +20,8 @@ module VagrantPlugins
 
           @argv    = spec[:argv] || []
           @command = spec[:command]
+
+          @machine = spec[:machine]
           @desc    = spec[:desc]
           @help    = spec[:help]
           @usage   = spec[:usage]
