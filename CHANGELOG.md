@@ -10,6 +10,12 @@
   - Support for the already deprecated configuration parameter `:box` has
     been removed
 
+## v0.11.1 (2017-10-04)
+
+- Bug fixes
+  - The machine of a command alias definition is now correctly preferred over
+    the machine of the command definition
+
 ## v0.11.0 (2017-10-02)
 
 - Enhancements
