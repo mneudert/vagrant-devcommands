@@ -58,6 +58,7 @@ en:
       command_reserved: "The command name '%<name>s' is reserved for internal usage."
       def_ignored: Your definition of it will be ignored.
       def_duplicate: "The %<what>s name '%<name>s' is used more than once. Only the last definition will be available."
+      unknown_options: "The %<what>s '%<name>s' is defined with at least one unknown option."
 
     runner:
       invalid_parameter: "invalid parameter '%<detail>s'"

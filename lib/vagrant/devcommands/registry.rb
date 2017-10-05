@@ -73,7 +73,10 @@ module VagrantPlugins
 
         commandfile_entries.each do |entry|
           begin
-            register_model(modeler.model(entry))
+            model = modeler.model(entry)
+
+            speccheck_model(model, entry)
+            register_model(model)
           rescue ArgumentError => e
             @messager.def_ignored(e.message, name: entry[:name])
           end
@@ -92,6 +95,17 @@ module VagrantPlugins
         type_entries[model.name] = model
 
         instance_variable_set(type_attr, type_entries)
+      end
+
+      def speccheck_model(model, spec)
+        return unless spec[:options].is_a?(Hash)
+
+        model_attrs = model.instance_variables
+        spec_attrs  = spec[:options].keys.map { |k| :"@#{k}" }
+
+        return if (spec_attrs - model_attrs).empty?
+
+        @messager.unknown_options(what: model_name(model), name: model.name)
       end
     end
   end

@@ -392,4 +392,48 @@ describe VagrantPlugins::DevCommands::Registry do
       )
     end
   end
+
+  describe 'using unknown options in a definition' do
+    it 'warns for chains' do
+      cwd('integration/fixtures/unknown-chain-options')
+
+      env      = cwd_env
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
+
+      registry.read_commandfile(file)
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/chain.+'trigger_unknown'.+option/i)
+    end
+
+    it 'warns for commands' do
+      cwd('integration/fixtures/unknown-command-options')
+
+      env      = cwd_env
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
+
+      registry.read_commandfile(file)
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/command.+'trigger_unknown'.+option/i)
+    end
+
+    it 'warns for command aliases' do
+      cwd('integration/fixtures/unknown-alias-options')
+
+      env      = cwd_env
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
+
+      registry.read_commandfile(file)
+
+      messages = env.ui.messages.map { |m| m[:message] }.join("\n")
+
+      expect(messages).to match(/command alias.+'trigger_unknown'.+option/i)
+    end
+  end
 end

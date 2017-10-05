@@ -1,0 +1,5 @@
+command 'foo', script: 'ignore'
+
+command_alias 'trigger_unknown',
+  command: 'foo',
+  foo:     'bar'

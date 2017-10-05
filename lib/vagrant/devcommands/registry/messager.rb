@@ -29,6 +29,11 @@ module VagrantPlugins
           @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
           @env.ui.warn ''
         end
+
+        def unknown_options(args)
+          @env.ui.warn I18n.t("#{I18N_KEY}.unknown_options", args)
+          @env.ui.warn ''
+        end
       end
     end
   end

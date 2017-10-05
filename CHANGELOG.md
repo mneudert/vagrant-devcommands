@@ -5,6 +5,7 @@
 - Enhancements
   - Commandfile entries with duplicate names will now issue a warning while
     still discarding all previous definitions
+  - Commandfile entries with unknown options will issue a warning
 
 - Backwards incompatible changes
   - Support for the already deprecated configuration parameter `:box` has
