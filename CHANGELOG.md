@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.12.0-dev
+## v0.12.0.dev
 
 - Enhancements
   - Commandfile entries with duplicate names will now issue a warning while
