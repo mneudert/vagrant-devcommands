@@ -10,6 +10,11 @@ Metrics/BlockLength:
   Exclude:
     - 'test/**/*.rb'
 
+Metrics/LineLength:
+  Exclude:
+    - 'test/acceptance/Vagrantfile'
+
 Naming/FileName:
   Exclude:
+    - 'test/acceptance/Vagrantfile'
     - 'test/integration/fixtures/**/Vagrantfile'
