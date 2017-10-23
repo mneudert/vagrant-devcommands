@@ -47,7 +47,7 @@ eoh
 ```
 
 _Note_: If you are defining literal `%` (percent sign) in your commands you
-have to escape them using a second `%`. For example `date "+%%Y-%%m-%%d"`.
+have to escape them using a second `%`. For example `date '+%%Y-%%m-%%d'`.
 
 _Note_: Spaces in command names are not supported. Definitions with spaces will
 be ignored.
@@ -64,10 +64,10 @@ sprintf syntax:
 command 'with_param',
   parameters: {
     # mandatory parameter with a description
-    p_mandatory: { desc: "mandatory parameter to do... stuff!" },
+    p_mandatory: { desc: 'mandatory parameter to do... stuff!' },
 
     # parameter with default (implies optional)
-    p_default: { default: "always" },
+    p_default: { default: 'always' },
 
     # parameter with escaping rule
     p_escaped: { escape: { '*' => '\\' }},
@@ -76,7 +76,7 @@ command 'with_param',
     p_optional: { optional: true },
 
     # wrapped option value
-    p_wrapped: { wrap: "--and %s wrapped" },
+    p_wrapped: { wrap: '--and %s wrapped' },
 
     # parameters with a limited set of allowed values
     # the allowed values are checked prior to escaping/wrapping!
@@ -89,17 +89,17 @@ command 'with_param',
 This allows you to execute the following command:
 
 ```shell
-# will execute 'echo works always'
+# will execute 'echo "works always"'
 vagrant run with_param --p_mandatory works
 
-# will execute 'echo works always like a charm'
-vagrant run with_param --p_mandatory works --p_optional "like a charm"
+# will execute 'echo "works always like a charm"'
+vagrant run with_param --p_mandatory works --p_optional 'like a charm'
 
-# will execute 'echo works sometimes like a charm --and is wrapped completely'
+# will execute 'echo "works sometimes like a charm --and is wrapped completely"'
 vagrant run with_param \
     --p_mandatory works \
     --p_default sometimes \
-    --p_optional "like a charm" \
+    --p_optional 'like a charm' \
     --p_wrapped is
     --p_limited completely
 ```
@@ -108,7 +108,7 @@ For now a command expecting one or more parameters will fail if the user does
 not provide them. Any arguments exceeding the number used are silently
 discarded.
 
-Escaping rules are defined as `{ "char_to_escape": "char_to_use_as_escape" }`.
+Escaping rules are defined as `{ 'char_to_escape' => 'char_to_use_as_escape' }`.
 These are applied prior to interpolation into the command. Regular ruby escaping
 rules apply.
 
@@ -120,8 +120,8 @@ for later command interpolation:
 ```ruby
 command 'with_flags',
   flags: {
-    f_standard: { desc: "standard flag" },
-    f_valued:   { value: "--f_modified" }
+    f_standard: { desc: 'standard flag' },
+    f_valued:   { value: '--f_modified' }
   },
   script: 'echo "flags: %<f_standard>s"'
 ```
@@ -139,7 +139,7 @@ vagrant run with_flags --f_standard
 vagrant run with_flags --f_valued
 ```
 
-By default a flag gets interpolated as "--#{flagname}". If a value is defined
+By default a flag gets interpolated as `--#{flagname}`. If a value is defined
 this value will be interpolated unmodified.
 
 #### Commands defined by Lambda/Proc
@@ -154,7 +154,7 @@ command 'from_proc', script: proc { 'echo "proc works"' }
 
 These will be evaluated when running the command.
 
-Every rule from regular scripts (parameters, escaping "%", ...) still apply.
+Every rule from regular scripts (parameters, escaping `%`, ...) still apply.
 
 ### Global Command Definitions
 
@@ -222,11 +222,11 @@ chain 'my_customized_chain',
 Running the chain will execute the following commands:
 
 ```shell
-> vagrant run my_customized_chain --first="initial" --second="initial"
+> vagrant run my_customized_chain --first='initial' --second='initial'
 
-vagrant run chainecho --first="param" --second="initial"
-vagrant run chainecho --first="initial" --second="initial"
-vagrant run chainecho --first="param" --second="param"
+vagrant run chainecho --first='param' --second='initial'
+vagrant run chainecho --first='initial' --second='initial'
+vagrant run chainecho --first='param' --second='param'
 ```
 
 By default every command will be executed using the machine defined by the
@@ -340,9 +340,9 @@ a sigil notation like the following:
 ```ruby
 command 'long_running_task',
   script: %(cd /path/to/somewhere \
-                && echo "starting long running task" \
+                && echo 'starting long running task' \
                 && ./long_running_task.sh \
-                && echo "finished long running task")
+                && echo 'finished long running task')
 ```
 
 Using a quote delimited command definition might otherwise result in not that
