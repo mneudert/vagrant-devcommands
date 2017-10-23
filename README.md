@@ -76,7 +76,7 @@ command 'with_param',
     p_optional: { optional: true },
 
     # wrapped option value
-    p_wrapped: { wrap: "--and %s wrapped" }
+    p_wrapped: { wrap: "--and %s wrapped" },
 
     # parameters with a limited set of allowed values
     # the allowed values are checked prior to escaping/wrapping!
