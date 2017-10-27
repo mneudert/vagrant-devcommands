@@ -122,6 +122,20 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       expect(cmd.run_script([])).to eq('missing optional')
     end
+
+    it 'allows parameter alias values' do
+      cmd = described_class.new(name:       'alias',
+                                parameters: {
+                                  alsd: {
+                                    aliases: { 'foo' => 'bar', 'bar' => 'baz' }
+                                  }
+                                },
+                                script: '%<alsd>s')
+
+      expect(cmd.run_script(['--alsd=passthru'])).to eq('passthru')
+      expect(cmd.run_script(['--alsd=bar'])).to eq('baz')
+      expect(cmd.run_script(['--alsd=foo'])).to eq('baz')
+    end
   end
 
   describe 'with literal percent sign' do

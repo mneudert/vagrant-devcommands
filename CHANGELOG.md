@@ -3,6 +3,7 @@
 ## v0.12.0.dev
 
 - Enhancements
+  - Command parameters can define alias values to be replaced before escaping
   - Commandfile entries with duplicate names will now issue a warning while
     still discarding all previous definitions
   - Commandfile entries with unknown options will issue a warning

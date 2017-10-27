@@ -78,6 +78,11 @@ command 'with_param',
     # wrapped option value
     p_wrapped: { wrap: '--and %s wrapped' },
 
+    # parameters with aliased values
+    # the aliases are resolved prior to escaping/wrapping/allowance!
+    # aliases are resolved in order of definition (multiple can apply)
+    p_aliased: { aliases: { 'foo' => 'bar' }},
+
     # parameters with a limited set of allowed values
     # the allowed values are checked prior to escaping/wrapping!
     # optional parameters are only validated if given!

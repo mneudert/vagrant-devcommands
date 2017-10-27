@@ -87,9 +87,26 @@ module VagrantPlugins
             end
           end.parse!(argv)
 
-          wrap_parameters(escape_parameters(validate_parameters(params)))
+          params = unalias_parameters(params)
+          params = validate_parameters(params)
+          params = escape_parameters(params)
+          params = wrap_parameters(params)
+          params
         end
         # rubocop:enable Metrics/MethodLength
+
+        def unalias_parameters(params)
+          @parameters.each do |key, conf|
+            next if params[key].nil?
+            next if conf[:aliases].nil?
+
+            conf[:aliases].each do |input, output|
+              params[key] = params[key] == input ? output : params[key]
+            end
+          end
+
+          params
+        end
 
         def validate_parameters(params)
           @parameters.each do |key, conf|
