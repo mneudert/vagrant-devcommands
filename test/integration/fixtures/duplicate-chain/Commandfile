@@ -2,3 +2,4 @@ command 'foo', script: 'ignore'
 
 chain 'trigger_duplicate', commands: [{ command: 'foo' }]
 chain 'trigger_duplicate', commands: [{ command: 'foo' }]
+chain 'trigger_duplicate', commands: [{ command: 'foo' }]

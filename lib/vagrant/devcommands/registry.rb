@@ -15,6 +15,12 @@ module VagrantPlugins
         @chains          = {}
         @commands        = {}
         @command_aliases = {}
+
+        @duplicates = {
+          'chains'          => [],
+          'commands'        => [],
+          'command_aliases' => []
+        }
       end
 
       def available?(name)
@@ -46,6 +52,23 @@ module VagrantPlugins
 
       private
 
+      def check_model(model, entry)
+        speccheck_model(model, entry)
+        dupcheck_model(model)
+      end
+
+      def dupcheck_model(model)
+        type         = model_attr(model)
+        type_attr    = "@#{type}"
+        type_entries = instance_variable_get(type_attr)
+
+        return unless type_entries[model.name]
+        return if @duplicates[type].include?(model.name)
+
+        @messager.def_duplicate(what: model_name(model), name: model.name)
+        @duplicates[type] << model.name
+      end
+
       def model_attr(model)
         case model
         when Model::Chain
@@ -75,7 +98,7 @@ module VagrantPlugins
           begin
             model = modeler.model(entry)
 
-            speccheck_model(model, entry)
+            check_model(model, entry)
             register_model(model)
           rescue ArgumentError => e
             @messager.def_ignored(e.message, name: entry[:name])
@@ -87,10 +110,6 @@ module VagrantPlugins
         type         = model_attr(model)
         type_attr    = "@#{type}"
         type_entries = instance_variable_get(type_attr)
-
-        if type_entries[model.name]
-          @messager.def_duplicate(what: model_name(model), name: model.name)
-        end
 
         type_entries[model.name] = model
 

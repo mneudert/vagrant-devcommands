@@ -2,3 +2,4 @@ command 'foo', script: 'ignore'
 
 command_alias 'trigger_duplicate', command: 'foo'
 command_alias 'trigger_duplicate', command: 'foo'
+command_alias 'trigger_duplicate', command: 'foo'

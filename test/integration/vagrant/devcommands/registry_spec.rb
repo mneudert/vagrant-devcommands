@@ -360,6 +360,7 @@ describe VagrantPlugins::DevCommands::Registry do
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
       expect(messages).to match(/chain.+'trigger_duplicate'.+more than once/i)
+      expect(messages.scan(/'trigger_duplicate'/).count).to eq(1)
     end
 
     it 'warns for commands' do
@@ -374,6 +375,7 @@ describe VagrantPlugins::DevCommands::Registry do
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
       expect(messages).to match(/command.+'trigger_duplicate'.+more than once/i)
+      expect(messages.scan(/'trigger_duplicate'/).count).to eq(1)
     end
 
     it 'warns for command aliases' do
@@ -387,9 +389,8 @@ describe VagrantPlugins::DevCommands::Registry do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to(
-        match(/command alias.+'trigger_duplicate'.+more than once/i)
-      )
+      expect(messages).to match(/alias.+'trigger_duplicate'.+more than once/i)
+      expect(messages.scan(/'trigger_duplicate'/).count).to eq(1)
     end
   end
 
