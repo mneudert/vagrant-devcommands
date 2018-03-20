@@ -1,6 +1,6 @@
 require 'vagrant'
 
-I18n.load_path << File.expand_path('../../../locales/en.yml', __FILE__)
+I18n.load_path << File.expand_path('../../locales/en.yml', __dir__)
 I18n.reload!
 
 require 'vagrant/devcommands/synopsis'
