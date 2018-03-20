@@ -1,23 +1,23 @@
 language: ruby
-sudo:     required
+sudo: required
 
 services: docker
 
 jobs:
   include:
     - &test
-      stage:  test
-      rvm:    2.2.5
-      env:    VER_VAGRANT=2.0.2 TRAVIS_COVERAGE=true
+      stage: test
+      rvm: 2.2.5
+      env: VER_VAGRANT=2.0.2 TRAVIS_COVERAGE=true
       script: bundle exec rake travis
     - <<: *test
       env: VER_VAGRANT=1.9.8
     - <<: *test
       env: VER_VAGRANT=master
     - &test_acceptance
-      stage:  test (acceptance)
-      rvm:    2.2.5
-      env:    VER_VAGRANT=2.0.2
+      stage: test (acceptance)
+      rvm: 2.2.5
+      env: VER_VAGRANT=2.0.2
       script: ./test/acceptance/test.sh
     - <<: *test_acceptance
       env: VER_VAGRANT=1.9.8
