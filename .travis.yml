@@ -1,7 +1,5 @@
 language: ruby
-sudo: required
-
-services: docker
+sudo: false
 
 jobs:
   include:
@@ -18,6 +16,7 @@ jobs:
       stage: test (acceptance)
       rvm: 2.2.5
       env: VER_VAGRANT=2.0.3
+      services: docker
       script: ./test/acceptance/test.sh
     - <<: *test_acceptance
       env: VER_VAGRANT=1.9.8
