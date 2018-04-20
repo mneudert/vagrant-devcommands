@@ -32,7 +32,7 @@ Add to a `Commandfile` besides your `Vagrantfile`:
 command 'basic', 'hostname'
 
 command 'with_options',
-  machine: :my_machine,
+  machine: 'my_machine',
   desc: 'executes "hostname" on the machine "my_machine"',
   script: 'hostname',
   tty: true,
