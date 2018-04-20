@@ -161,6 +161,18 @@ These will be evaluated when running the command.
 
 Every rule from regular scripts (parameters, escaping `%`, ...) still apply.
 
+#### Commands with a TTY ("interactive")
+
+If you have a command that expects some sort of interaction with the user you
+may need to set the `tty` option for a command:
+
+```ruby
+command 'interactive', tty: true
+```
+
+This allows full interaction with programs like `irb` or `mysql`.
+
+
 ### Global Command Definitions
 
 To have commands available even wihout a `Commandfile` you can define the
