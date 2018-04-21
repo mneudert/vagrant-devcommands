@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.12.0.dev
+## v0.12.0 (2018-04-21)
 
 - Enhancements
   - Command parameters can define alias values to be replaced before escaping
