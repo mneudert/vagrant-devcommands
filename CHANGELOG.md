@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.13.0.dev
+
+- Enhancements
+  - Unknown parameters can be catched and used by setting
+    the option `passthru: true` on one of your parameters
+    ([#3](https://github.com/mneudert/vagrant-devcommands/issues/3))
+
 ## v0.12.0 (2018-04-21)
 
 - Enhancements

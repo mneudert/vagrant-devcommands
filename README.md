@@ -86,7 +86,11 @@ command 'with_param',
     # parameters with a limited set of allowed values
     # the allowed values are checked prior to escaping/wrapping!
     # optional parameters are only validated if given!
-    p_limited: { allowed: ['completely'] }
+    p_limited: { allowed: ['completely'] },
+
+    # you can define a specific parameter to receive
+    # all otherwise unknown parameters and flags
+    p_passthru: { optional: true, passthru: true }
   },
   script: %(
     echo %<p_mandatory>s \
@@ -94,7 +98,8 @@ command 'with_param',
          %<p_escaped>s \
          %<p_optional>s \
          %<p_wrapped>s \
-         %<p_limited>s
+         %<p_limited>s \
+         %<p_passthru>s
   )
 ```
 

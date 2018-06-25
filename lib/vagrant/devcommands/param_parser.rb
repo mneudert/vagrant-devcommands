@@ -45,25 +45,45 @@ module VagrantPlugins
       def parse_argv(command, argv)
         params = parameters_with_defaults(command)
 
-        OptionParser.new do |opts|
-          command.flags.each do |key, conf|
-            params[key] = ''
+        begin
+          OptionParser.new do |opts|
+            command.flags.each do |key, conf|
+              params[key] = ''
 
-            opts.on("--#{key}", "Flag: #{key}") do
-              params[key] = conf[:value] || "--#{key}"
+              opts.on("--#{key}", "Flag: #{key}") do
+                params[key] = conf[:value] || "--#{key}"
+              end
             end
-          end
 
-          command.parameters.each_key do |key|
-            opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
-              params[key] = o
+            command.parameters.each_key do |key|
+              opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
+                params[key] = o
+              end
             end
-          end
-        end.parse!(argv)
+          end.parse!(argv)
+        rescue OptionParser::InvalidOption => e
+          e.recover(argv)
+        end
 
+        params = passthru_parameters(params, command, argv) unless argv.empty?
         params
       end
       # rubocop:enable Metrics/MethodLength
+
+      def passthru_parameters(params, command, argv)
+        has_passthru = false
+
+        command.parameters.each do |key, conf|
+          next unless conf[:passthru]
+
+          params[key]  = argv.join(' ')
+          has_passthru = true
+        end
+
+        raise OptionParser::InvalidOption, argv unless has_passthru
+
+        params
+      end
 
       def unalias_parameters(command, params)
         command.parameters.each do |key, conf|

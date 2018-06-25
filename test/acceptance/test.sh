@@ -39,5 +39,6 @@ echo 'Running tests...'
 . ./test_chains.sh
 . ./test_completion-data.sh
 . ./test_did-you-mean.sh
+. ./test_passthru.sh
 
 echo 'Success!'

@@ -7,6 +7,10 @@ command 'doubleecho',
   parameters: { first: {}, second: {} },
   script:     'echo "[$(hostname) %<first>s %<second>s]"'
 
+command 'passthruecho',
+  machine:    'primary',
+  parameters: { named: {}, rest: { optional: true, passthru: true }},
+  script:     'echo "[$(hostname) %<named>s %<rest>s]"'
 
 chain 'chainecho',
   commands: [
