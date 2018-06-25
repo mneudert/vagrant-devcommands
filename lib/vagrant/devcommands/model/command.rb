@@ -1,10 +1,10 @@
-require 'optparse'
-
 module VagrantPlugins
   module DevCommands
     module Model
       # Definition of an executable command
       class Command
+        PARAM_PARSER = VagrantPlugins::DevCommands::ParamParser
+
         attr_reader :name
 
         attr_reader :flags
@@ -35,105 +35,10 @@ module VagrantPlugins
           script = @script
           script = script.call if script.is_a?(Proc)
 
-          opts = {}
-          opts = parse_argv(argv) unless @flags.empty? && @parameters.empty?
+          param_parser = PARAM_PARSER.new
+          params       = param_parser.parse!(self, argv)
 
-          (script % opts).strip
-        end
-
-        private
-
-        def escape_parameters(params)
-          @parameters.each do |key, conf|
-            next if conf[:escape].nil?
-
-            conf[:escape].each do |char, with|
-              char        = char.to_s unless char.is_a?(String)
-              params[key] = params[key].sub(char, "#{with}#{char}")
-            end
-          end
-
-          params
-        end
-
-        def parameters_with_defaults
-          params = {}
-
-          @parameters.each do |key, conf|
-            params[key] = '' if conf[:optional]
-            params[key] = conf[:default] unless conf[:default].nil?
-          end
-
-          params
-        end
-
-        # rubocop:disable Metrics/MethodLength
-        def parse_argv(argv)
-          params = parameters_with_defaults
-
-          OptionParser.new do |opts|
-            @flags.each do |key, conf|
-              params[key] = ''
-
-              opts.on("--#{key}", "Flag: #{key}") do
-                params[key] = conf[:value] || "--#{key}"
-              end
-            end
-
-            @parameters.each_key do |key|
-              opts.on("--#{key} OPTION", "Parameter: #{key}") do |o|
-                params[key] = o
-              end
-            end
-          end.parse!(argv)
-
-          params = unalias_parameters(params)
-          params = validate_parameters(params)
-          params = escape_parameters(params)
-          params = wrap_parameters(params)
-          params
-        end
-        # rubocop:enable Metrics/MethodLength
-
-        def unalias_parameters(params)
-          @parameters.each do |key, conf|
-            next if params[key].nil?
-            next if conf[:aliases].nil?
-
-            conf[:aliases].each do |input, output|
-              params[key] = params[key] == input ? output : params[key]
-            end
-          end
-
-          params
-        end
-
-        def validate_parameters(params)
-          @parameters.each do |key, conf|
-            next if params[key].nil?
-            next if params[key] == '' && conf[:optional]
-
-            next if conf[:allowed].nil?
-            next if conf[:allowed].include?(params[key])
-
-            raise ArgumentError, "--#{key}=#{params[key]}"
-          end
-
-          params
-        end
-
-        def wrap_parameters(params)
-          @parameters.each do |key, conf|
-            next if conf[:wrap].nil?
-
-            if conf[:default].nil?
-              next if params[key].nil? || params[key].empty?
-            end
-
-            params[key] = conf[:wrap] % params[key]
-          end
-
-          params
+          (script % params).strip
         end
       end
     end
