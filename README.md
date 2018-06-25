@@ -88,7 +88,14 @@ command 'with_param',
     # optional parameters are only validated if given!
     p_limited: { allowed: ['completely'] }
   },
-  script: 'echo %<p_mandatory>s %<p_default>s %<p_escaped>s %<p_optional>s %<p_wrapped>s %<p_limited>s'
+  script: %(
+    echo %<p_mandatory>s \
+         %<p_default>s \
+         %<p_escaped>s \
+         %<p_optional>s \
+         %<p_wrapped>s \
+         %<p_limited>s
+  )
 ```
 
 This allows you to execute the following command:
