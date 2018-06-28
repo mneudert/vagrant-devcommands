@@ -130,6 +130,44 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
   end
 
+  describe 'with passthru parameter configured' do
+    it 'passes unknown parameters' do
+      command = COMMAND.new(
+        parameters: {
+          psthr: { passthru: true }
+        }
+      )
+
+      expect(
+        parser.parse!(command, ['--will=be --passed=on'])
+      ).to eq(psthr: '--will=be --passed=on')
+    end
+
+    it 'properly parses known flags' do
+      command = COMMAND.new(
+        flags:      { flggd: {} },
+        parameters: { psthr: { passthru: true } }
+      )
+
+      expect(
+        parser.parse!(command, ['--flggd', '--will=be', '--passed=on'])
+      ).to eq(flggd: '--flggd', psthr: '--will=be --passed=on')
+    end
+
+    it 'properly parses known parameters' do
+      command = COMMAND.new(
+        parameters: {
+          prsd:  {},
+          psthr: { passthru: true }
+        }
+      )
+
+      expect(
+        parser.parse!(command, ['--prsd=foo', '--will=be', '--passed=on'])
+      ).to eq(prsd: 'foo', psthr: '--will=be --passed=on')
+    end
+  end
+
   describe 'with invalid parameter values' do
     it 'raises an ArgumentError' do
       command = COMMAND.new(parameters: { lmtd: { allowed: ['foo'] } })

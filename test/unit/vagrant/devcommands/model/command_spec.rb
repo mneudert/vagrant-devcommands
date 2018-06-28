@@ -30,5 +30,13 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
       expect { cmd.run_script([]) }.to raise_error(KeyError)
     end
+
+    it 'raises a KeyError (:passthru)' do
+      cmd = described_class.new(name:       'foo',
+                                parameters: { what: { passthru: true } },
+                                script:     'echo "%<what>s"')
+
+      expect { cmd.run_script([]) }.to raise_error(KeyError)
+    end
   end
 end
