@@ -124,10 +124,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
         }
       )
 
-      expect(
-        parser.parse!(command, ['--alsd=passthru'])
-      ).to eq(alsd: 'passthru')
-
+      expect(parser.parse!(command, ['--alsd=pass'])).to eq(alsd: 'pass')
       expect(parser.parse!(command, ['--alsd=bar'])).to eq(alsd: 'baz')
       expect(parser.parse!(command, ['--alsd=foo'])).to eq(alsd: 'baz')
     end
