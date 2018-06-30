@@ -2,7 +2,6 @@
 
 Runs vagrant commands from a Commandfile.
 
-
 ## Usage
 
 ### Command Listing
@@ -184,7 +183,6 @@ command 'interactive', tty: true
 
 This allows full interaction with programs like `irb` or `mysql`.
 
-
 ### Global Command Definitions
 
 To have commands available even wihout a `Commandfile` you can define the
@@ -352,7 +350,6 @@ vagrant run completion-data
 vagrant run completion-data my-command
 ```
 
-
 ## Notes for Windows Users
 
 ### SSH
@@ -380,7 +377,6 @@ helpful error messages about a bad shell command.
 It might also help to double check the line endings in your Commandfile are set
 unix-style (`\n`) and not windows-style (`\r\n`) if you get errors when running
 your commands.
-
 
 ## License
 
