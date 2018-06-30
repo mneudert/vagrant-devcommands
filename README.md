@@ -378,6 +378,17 @@ It might also help to double check the line endings in your Commandfile are set
 unix-style (`\n`) and not windows-style (`\r\n`) if you get errors when running
 your commands.
 
+## Development
+
+You can always install the plugin directly from source:
+
+```shell
+gem build vagrant-devcommands.gemspec
+
+vagrant plugin uninstall vagrant-devcommands
+vagrant plugin install vagrant-devcommands-x.x.x.dev.gem
+```
+
 ## License
 
 Licensed under the [MIT license](http://opensource.org/licenses/MIT).
