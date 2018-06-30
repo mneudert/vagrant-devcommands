@@ -117,7 +117,7 @@ vagrant run with_param \
     --p_mandatory works \
     --p_default sometimes \
     --p_optional 'like a charm' \
-    --p_wrapped is
+    --p_wrapped is \
     --p_limited completely
 ```
 
