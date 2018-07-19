@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.13.0.dev
+## v0.13.0 (2018-07-19)
 
 - Enhancements
   - Unknown parameters can be catched and used by setting
