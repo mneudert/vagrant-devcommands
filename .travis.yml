@@ -6,8 +6,11 @@ jobs:
     - &test
       stage: test
       rvm: 2.3.7
-      env: VER_VAGRANT=2.1.5 TRAVIS_COVERAGE=true
+      env: VER_VAGRANT=2.2.0 TRAVIS_COVERAGE=true
       script: bundle exec rake travis
+    - <<: *test
+      rvm: 2.3.7
+      env: VER_VAGRANT=2.1.5
     - <<: *test
       rvm: 2.2.5
       env: VER_VAGRANT=2.0.4
@@ -19,9 +22,12 @@ jobs:
     - &test_acceptance
       stage: test (acceptance)
       rvm: 2.3.7
-      env: VER_VAGRANT=2.1.5
+      env: VER_VAGRANT=2.2.0
       services: docker
       script: ./test/acceptance/test.sh
+    - <<: *test_acceptance
+      rvm: 2.3.7
+      env: VER_VAGRANT=2.1.5
     - <<: *test_acceptance
       rvm: 2.2.5
       env: VER_VAGRANT=2.0.4
