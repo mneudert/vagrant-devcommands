@@ -17,8 +17,8 @@ module VagrantPlugins
         @command_aliases = {}
 
         @duplicates = {
-          'chains'          => [],
-          'commands'        => [],
+          'chains' => [],
+          'commands' => [],
           'command_aliases' => []
         }
       end

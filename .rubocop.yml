@@ -16,6 +16,5 @@ Metrics/LineLength:
 
 Naming/FileName:
   Exclude:
-    - 'vagrant-devcommands.gemspec'
     - 'test/acceptance/Vagrantfile'
     - 'test/integration/fixtures/**/Vagrantfile'

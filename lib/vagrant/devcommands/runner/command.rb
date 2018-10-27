@@ -23,8 +23,8 @@ module VagrantPlugins
           @plugin.proxy_with_target_vms(machine, single_target: true) do |vm|
             env = vm.action(:ssh_run,
                             ssh_run_command: script,
-                            ssh_opts:        { extra_args: ['-q'] },
-                            tty:             command.tty)
+                            ssh_opts: { extra_args: ['-q'] },
+                            tty: command.tty)
 
             return env[:ssh_run_exit_status] || 0
           end
@@ -67,7 +67,7 @@ module VagrantPlugins
 
           raise I18n.t('vagrant_devcommands.runner.script_error',
                        command: command,
-                       error:   error)
+                       error: error)
         end
       end
     end

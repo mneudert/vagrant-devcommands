@@ -75,7 +75,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
         parameters: {
           wrppd: {
             optional: true,
-            wrap:     '--opt %s'
+            wrap: '--opt %s'
           }
         }
       )
@@ -87,7 +87,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
       command = COMMAND.new(
         parameters: {
           wrppd: {
-            wrap:    '--opt %s',
+            wrap: '--opt %s',
             default: ''
           }
         }
@@ -106,7 +106,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
       command = COMMAND.new(
         parameters: {
           lmtd: {
-            allowed:  ['foo'],
+            allowed: ['foo'],
             optional: true
           }
         }
@@ -145,7 +145,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
 
     it 'properly parses known flags' do
       command = COMMAND.new(
-        flags:      { flggd: {} },
+        flags: { flggd: {} },
         parameters: { psthr: { passthru: true } }
       )
 
@@ -157,7 +157,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     it 'properly parses known parameters' do
       command = COMMAND.new(
         parameters: {
-          prsd:  {},
+          prsd: {},
           psthr: { passthru: true }
         }
       )
@@ -182,7 +182,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
         parameters: {
           lmtd: {
             allowed: ['fump'],
-            escape:  { 'm' => 'u' }
+            escape: { 'm' => 'u' }
           }
         }
       )

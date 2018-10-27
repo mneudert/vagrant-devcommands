@@ -13,9 +13,9 @@ module Helpers
       %i[detail warn error info output success].each do |method|
         define_method(method) do |message, *opts|
           @messages << {
-            method:  method,
+            method: method,
             message: message,
-            opts:    opts
+            opts: opts
           }
         end
       end

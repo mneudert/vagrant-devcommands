@@ -43,7 +43,7 @@ module VagrantPlugins
               @env, @registry
             ),
 
-            'help'    => NAMESPACE_CMD::Help.new(@env, @registry),
+            'help' => NAMESPACE_CMD::Help.new(@env, @registry),
             'version' => NAMESPACE_CMD::Version.new(@env)
           }
         end

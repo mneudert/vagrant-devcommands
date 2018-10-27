@@ -3,9 +3,9 @@ require_relative '../../../../spec_helper'
 describe VagrantPlugins::DevCommands::Model::Command do
   describe 'with configured parameters' do
     it 'interpolates values' do
-      cmd = described_class.new(name:       'foo',
+      cmd = described_class.new(name: 'foo',
                                 parameters: { that: {} },
-                                script:     'echo "%<that>s"')
+                                script: 'echo "%<that>s"')
 
       expect(cmd.run_script(['--that', 'works'])).to eq('echo "works"')
       expect(cmd.run_script(['--that', 'works also'])).to(
@@ -24,17 +24,17 @@ describe VagrantPlugins::DevCommands::Model::Command do
 
   describe 'with missing parameters' do
     it 'raises a KeyError' do
-      cmd = described_class.new(name:       'foo',
+      cmd = described_class.new(name: 'foo',
                                 parameters: { what: {} },
-                                script:     'echo "%<what>s"')
+                                script: 'echo "%<what>s"')
 
       expect { cmd.run_script([]) }.to raise_error(KeyError)
     end
 
     it 'raises a KeyError (:passthru)' do
-      cmd = described_class.new(name:       'foo',
+      cmd = described_class.new(name: 'foo',
                                 parameters: { what: { passthru: true } },
-                                script:     'echo "%<what>s"')
+                                script: 'echo "%<what>s"')
 
       expect { cmd.run_script([]) }.to raise_error(KeyError)
     end

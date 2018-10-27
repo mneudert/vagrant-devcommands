@@ -29,24 +29,24 @@ module VagrantPlugins
 
         def chain(name, options = nil)
           @entries << {
-            type:    :chain,
-            name:    name.to_s,
+            type: :chain,
+            name: name.to_s,
             options: options
           }
         end
 
         def command(name, options = nil)
           @entries << {
-            type:    :command,
-            name:    name.to_s,
+            type: :command,
+            name: name.to_s,
             options: options
           }
         end
 
         def command_alias(name, options = nil)
           @entries << {
-            type:    :command_alias,
-            name:    name.to_s,
+            type: :command_alias,
+            name: name.to_s,
             options: options
           }
         end

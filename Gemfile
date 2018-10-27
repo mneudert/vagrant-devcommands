@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 group :development do
   vagrant_opts = {
-    git:    'https://github.com/hashicorp/vagrant.git',
+    git: 'https://github.com/hashicorp/vagrant.git',
     branch: 'master'
   }
 

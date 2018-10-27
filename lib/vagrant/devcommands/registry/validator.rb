@@ -22,7 +22,7 @@ module VagrantPlugins
               next if registry.valid_command?(element[:command])
 
               @messager.def_ignored('chain_missing_command',
-                                    chain:   chain,
+                                    chain: chain,
                                     command: element)
 
               registry.chains.delete(chain)
@@ -41,7 +41,7 @@ module VagrantPlugins
 
             @messager.def_ignored('command_alias_missing_command',
                                   command_alias: command_alias,
-                                  command:       cmd)
+                                  command: cmd)
 
             registry.command_aliases.delete(command_alias)
           end

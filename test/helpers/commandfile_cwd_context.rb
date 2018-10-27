@@ -7,7 +7,7 @@ shared_context 'commandfile_cwd' do
 
   def cwd_env
     Vagrant::Environment.new(
-      cwd:      Dir.pwd,
+      cwd: Dir.pwd,
       ui_class: Helpers::UI::Tangible
     )
   end
