@@ -45,19 +45,15 @@ of the command name using either %{command} or %<command>s.
 eoh
 ```
 
-_Note_: If you are defining literal `%` (percent sign) in your commands you
-have to escape them using a second `%`. For example `date '+%%Y-%%m-%%d'`.
+_Note_: If you are defining literal `%` (percent sign) in your commands you have to escape them using a second `%`. For example `date '+%%Y-%%m-%%d'`.
 
-_Note_: Spaces in command names are not supported. Definitions with spaces will
-be ignored.
+_Note_: Spaces in command names are not supported. Definitions with spaces will be ignored.
 
-_Note_: Please be aware that setting a custom `usage` hides the original usage
-line from the help output.
+_Note_: Please be aware that setting a custom `usage` hides the original usage line from the help output.
 
 #### Commands with Parameters
 
-Passing additional parameters to a command is (minimally) supported using an
-sprintf syntax:
+Passing additional parameters to a command is (minimally) supported using an sprintf syntax:
 
 ```ruby
 command 'with_param',
@@ -120,18 +116,13 @@ vagrant run with_param \
     --p_limited completely
 ```
 
-For now a command expecting one or more parameters will fail if the user does
-not provide them. Any arguments exceeding the number used are silently
-discarded.
+For now a command expecting one or more parameters will fail if the user does not provide them. Any arguments exceeding the number used are silently discarded.
 
-Escaping rules are defined as `{ 'char_to_escape' => 'char_to_use_as_escape' }`.
-These are applied prior to interpolation into the command. Regular ruby escaping
-rules apply.
+Escaping rules are defined as `{ 'char_to_escape' => 'char_to_use_as_escape' }`. These are applied prior to interpolation into the command. Regular ruby escaping rules apply.
 
 #### Commands with Flags
 
-Every command can be associated with (by definition optional) flags available
-for later command interpolation:
+Every command can be associated with (by definition optional) flags available for later command interpolation:
 
 ```ruby
 command 'with_flags',
@@ -155,13 +146,11 @@ vagrant run with_flags --f_standard
 vagrant run with_flags --f_valued
 ```
 
-By default a flag gets interpolated as `--#{flagname}`. If a value is defined
-this value will be interpolated unmodified.
+By default a flag gets interpolated as `--#{flagname}`. If a value is defined this value will be interpolated unmodified.
 
 #### Commands defined by Lambda/Proc
 
-You can (more or less) dynamically generate your scripts by defining the
-command with a lambda or proc as its script.
+You can (more or less) dynamically generate your scripts by defining the command with a lambda or proc as its script.
 
 ```ruby
 command 'from_lambda', script: lambda { 'echo "lambda works"' }
@@ -174,8 +163,7 @@ Every rule from regular scripts (parameters, escaping `%`, ...) still apply.
 
 #### Commands with a TTY ("interactive")
 
-If you have a command that expects some sort of interaction with the user you
-may need to set the `tty` option for a command:
+If you have a command that expects some sort of interaction with the user you may need to set the `tty` option for a command:
 
 ```ruby
 command 'interactive', tty: true
@@ -185,9 +173,7 @@ This allows full interaction with programs like `irb` or `mysql`.
 
 ### Global Command Definitions
 
-To have commands available even wihout a `Commandfile` you can define the
-globally. To do this just create a file named `.vagrant.devcommands` in your
-`$HOME` directory.
+To have commands available even wihout a `Commandfile` you can define the globally. To do this just create a file named `.vagrant.devcommands` in your `$HOME` directory.
 
 You can use this command to find the correct path if unsure:
 
@@ -218,20 +204,15 @@ eoh
 
 The configured commands will be executed in the order defined.
 
-If one or more of your commands requires parameters all of them have to be
-passed to the chain execution.
+If one or more of your commands requires parameters all of them have to be passed to the chain execution.
 
-By default a chain breaks upon the first non-zero return value of any
-configured command. To deactivate this behaviour you can set `:break_on_error`
-to `false`. Any value other than `false` will stick to the default.
+By default a chain breaks upon the first non-zero return value of any configured command. To deactivate this behaviour you can set `:break_on_error` to `false`. Any value other than `false` will stick to the default.
 
-_Note_: Spaces in command names are not supported. Definitions with spaces will
-be ignored.
+_Note_: Spaces in command names are not supported. Definitions with spaces will be ignored.
 
 #### Chain Definitions with Pre-Defined Parameters
 
-If required you can modify the arguments given to each chain element by setting
-additional/custom argv values for a single chain element:
+If required you can modify the arguments given to each chain element by setting additional/custom argv values for a single chain element:
 
 ```ruby
 command 'chainecho',
@@ -256,9 +237,7 @@ vagrant run chainecho --first='initial' --second='initial'
 vagrant run chainecho --first='param' --second='param'
 ```
 
-By default every command will be executed using the machine defined by the
-command itself or the only one available. You can, however, run the complete
-chain against a specific machine using `vagrant run your_machine your_chain`.
+By default every command will be executed using the machine defined by the command itself or the only one available. You can, however, run the complete chain against a specific machine using `vagrant run your_machine your_chain`.
 
 #### Chain Definitions with Specific Machines
 
@@ -286,13 +265,11 @@ vagrant run secondary chainhost
 vagrant run tertiary chainhost
 ```
 
-This configuration can itself be modified by passing a machine name to run
-all chain commands on using  using `vagrant run your_machine your_chain`.
+This configuration can itself be modified by passing a machine name to run all chain commands on using  using `vagrant run your_machine your_chain`.
 
 ### Abort Parsing inside Commandfile
 
-If you, for whatever reasons, want to abort further parsing of a `Commandfile`
-you can simple return from it:
+If you, for whatever reasons, want to abort further parsing of a `Commandfile` you can simple return from it:
 
 ```ruby
 command 'foo', script: 'foo'
@@ -307,16 +284,13 @@ return if v_cur < v_min
 command 'bar', script: 'bar'
 ```
 
-This example leads to the command `bar` not being available if the currently
-installed plugin has a version below `1.3.3.7`.
+This example leads to the command `bar` not being available if the currently installed plugin has a version below `1.3.3.7`.
 
-Please be aware that returning from a global commandfile completely skips
-evaluating a local one.
+Please be aware that returning from a global commandfile completely skips evaluating a local one.
 
 ### Command Alias Definitions
 
-For commands you want to keep generic but often call with a specific set of
-parameter values you can define an alias:
+For commands you want to keep generic but often call with a specific set of parameter values you can define an alias:
 
 ```ruby
 command 'customecho',
@@ -334,9 +308,7 @@ I get displayed when running "vagrant run help aliasecho".
 eoh
 ```
 
-The setting `command` is required, the other options `argv` and `machine` are
-optional and used for the actual customization. Any argument configured will
-take precedence over the value given to `vagrant run` itself.
+The setting `command` is required, the other options `argv` and `machine` are optional and used for the actual customization. Any argument configured will take precedence over the value given to `vagrant run` itself.
 
 ### Experimental: Shell Completion
 
@@ -354,14 +326,11 @@ vagrant run completion-data my-command
 
 ### SSH
 
-If you are using this plugin on a Windows host system, please make sure your
-regular `vagrant ssh [machine]` succeeds. In some cases you may need to add the
-`ssh.exe` (e.g. from a git installation) manually to your `%PATH%`.
+If you are using this plugin on a Windows host system, please make sure your regular `vagrant ssh [machine]` succeeds. In some cases you may need to add the `ssh.exe` (e.g. from a git installation) manually to your `%PATH%`.
 
 ### Command Definition
 
-When using multi-line commands you probably need to define your command using
-a sigil notation like the following:
+When using multi-line commands you probably need to define your command using a sigil notation like the following:
 
 ```ruby
 command 'long_running_task',
@@ -371,12 +340,9 @@ command 'long_running_task',
                 && echo 'finished long running task')
 ```
 
-Using a quote delimited command definition might otherwise result in not that
-helpful error messages about a bad shell command.
+Using a quote delimited command definition might otherwise result in not that helpful error messages about a bad shell command.
 
-It might also help to double check the line endings in your Commandfile are set
-unix-style (`\n`) and not windows-style (`\r\n`) if you get errors when running
-your commands.
+It might also help to double check the line endings in your Commandfile are set unix-style (`\n`) and not windows-style (`\r\n`) if you get errors when running your commands.
 
 ## Development
 
