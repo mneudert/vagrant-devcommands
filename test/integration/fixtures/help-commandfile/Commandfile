@@ -37,6 +37,12 @@ command 'unordered',
     scnd: {}
   }
 
+command 'default_is_optional',
+  script: 'default_is_optional',
+  parameters: {
+    frst: { default: 'something' }
+  }
+
 
 chain 'chained', commands: [
   { command: 'foo' },

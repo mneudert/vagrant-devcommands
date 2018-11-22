@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.14.0.dev
+
+- Bug fixes
+  - Parameters with a default value configured will now be properly displayed as optional in the detailed command help
+
 ## v0.13.0 (2018-07-19)
 
 - Enhancements

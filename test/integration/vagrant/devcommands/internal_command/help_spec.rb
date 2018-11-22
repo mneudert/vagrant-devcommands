@@ -58,6 +58,14 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
       )
     end
 
+    it 'lists parameters with defaults as optional' do
+      command.new(%w[help default_is_optional], @env).execute
+
+      expect(@env.ui.messages[0][:message]).to(
+        match(/default_is_optional \[--frst=<frst>\]/i)
+      )
+    end
+
     it 'uses correct order for param/flag listing' do
       command.new(%w[help unordered], @env).execute
 

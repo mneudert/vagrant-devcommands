@@ -20,13 +20,13 @@ module VagrantPlugins
 
       def self.collect_mandatory_params(params)
         params.collect do |key, opts|
-          "--#{key}=<#{key}>" unless opts[:optional]
+          "--#{key}=<#{key}>" unless opts[:optional] || opts[:default]
         end
       end
 
       def self.collect_optional_params(params)
         params.collect do |key, opts|
-          "[--#{key}=<#{key}>]" if opts[:optional]
+          "[--#{key}=<#{key}>]" if opts[:optional] || opts[:default]
         end
       end
 
