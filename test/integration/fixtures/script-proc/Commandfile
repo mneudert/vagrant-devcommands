@@ -1,7 +1,0 @@
-command 'lambdaecho',
-  parameters: { what: {} },
-  script:     lambda { 'echo "%<what>s"' }
-
-command 'procecho',
-  parameters: { what: {} },
-  script:     proc { 'echo "%<what>s"' }

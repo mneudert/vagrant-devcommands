@@ -169,22 +169,4 @@ describe VagrantPlugins::DevCommands::Command do
       ).to match(/vagrant run.+limitecho/i)
     end
   end
-
-  describe 'with a proc/lambda as script' do
-    before :each do
-      cwd('integration/fixtures/script-proc')
-
-      @env = cwd_env
-    end
-
-    it 'calls lambda before running' do
-      described_class.new(['lambdaecho'], @env).execute
-      expect(@env.ui.messages[0][:message]).to match(/lambdaecho.+parameter/i)
-    end
-
-    it 'calls proc before running' do
-      described_class.new(['procecho'], @env).execute
-      expect(@env.ui.messages[0][:message]).to match(/procecho.+parameter/i)
-    end
-  end
 end

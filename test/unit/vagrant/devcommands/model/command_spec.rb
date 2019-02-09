@@ -39,4 +39,26 @@ describe VagrantPlugins::DevCommands::Model::Command do
       expect { cmd.run_script([]) }.to raise_error(KeyError)
     end
   end
+
+  describe 'with a proc/lambda as script' do
+    it 'calls lambda' do
+      cmd = described_class.new(name: 'foo',
+                                parameters: { what: {} },
+                                script: lambda {
+                                  'echo "%<what>s"'
+                                })
+
+      expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar"')
+    end
+
+    it 'calls proc' do
+      cmd = described_class.new(name: 'foo',
+                                parameters: { what: {} },
+                                script: proc {
+                                  'echo "%<what>s"'
+                                })
+
+      expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar"')
+    end
+  end
 end
