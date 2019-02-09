@@ -2,6 +2,9 @@
 
 ## v0.14.0.dev
 
+- Enhancements
+  - Lambda/Proc values of command scripts are now executed in the instance of the command when running
+
 - Bug fixes
   - Parameters with a default value configured will now be properly displayed as optional in the detailed command help
 

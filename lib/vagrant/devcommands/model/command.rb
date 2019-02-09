@@ -33,12 +33,22 @@ module VagrantPlugins
 
         def run_script(argv)
           script = @script
-          script = script.call if script.is_a?(Proc)
+          script = eval_script_proc(script) if script.is_a?(Proc)
 
           param_parser = PARAM_PARSER.new
           params       = param_parser.parse!(self, argv)
 
           (script % params).strip
+        end
+
+        private
+
+        def eval_script_proc(script)
+          if script.lambda?
+            instance_exec(&script)
+          else
+            instance_eval(&script)
+          end
         end
       end
     end
