@@ -15,9 +15,6 @@ jobs:
       rvm: 2.2.5
       env: VER_VAGRANT=2.0.4
     - <<: *test
-      rvm: 2.2.5
-      env: VER_VAGRANT=1.9.8
-    - <<: *test
       env: VER_VAGRANT=master
     - &test_acceptance
       stage: test (acceptance)
@@ -31,8 +28,5 @@ jobs:
     - <<: *test_acceptance
       rvm: 2.2.5
       env: VER_VAGRANT=2.0.4
-    - <<: *test_acceptance
-      rvm: 2.2.5
-      env: VER_VAGRANT=1.9.8
     - <<: *test_acceptance
       env: VER_VAGRANT=master
