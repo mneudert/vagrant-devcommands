@@ -51,6 +51,16 @@ describe VagrantPlugins::DevCommands::Model::Command do
       expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar"')
     end
 
+    it 'calls lambda with parsed argv' do
+      cmd = described_class.new(name: 'foo',
+                                parameters: { what: {} },
+                                script: lambda { |params|
+                                  'echo "%<what>s == ' + params[:what] + '"'
+                                })
+
+      expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar == bar"')
+    end
+
     it 'calls proc' do
       cmd = described_class.new(name: 'foo',
                                 parameters: { what: {} },
@@ -59,6 +69,16 @@ describe VagrantPlugins::DevCommands::Model::Command do
                                 })
 
       expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar"')
+    end
+
+    it 'calls proc with parsed argv' do
+      cmd = described_class.new(name: 'foo',
+                                parameters: { what: {} },
+                                script: proc { |params|
+                                  'echo "%<what>s == ' + params[:what] + '"'
+                                })
+
+      expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar == bar"')
     end
   end
 end

@@ -4,6 +4,7 @@
 
 - Enhancements
   - Lambda/Proc values of command scripts are now executed in the instance of the command when running
+  - Lambda/Proc scripts get the parsed argv values as the first (and only) argument unless defined with a zero arity
 
 - Bug fixes
   - Parameters with a default value configured will now be properly displayed as optional in the detailed command help

@@ -26,6 +26,27 @@ chain 'chainmachine',
   ]
 
 
+command 'lambda_argv',
+  machine:    'primary',
+  parameters: { param: {} },
+  script:     lambda { |params| 'echo "lambda ' + params[:param] + '"' }
+
+command 'lambda_zero',
+  machine:    'primary',
+  parameters: { param: {} },
+  script:     lambda { 'echo "lambda %<param>s"' }
+
+command 'proc_argv',
+  machine:    'primary',
+  parameters: { param: {} },
+  script:     proc { |params| 'echo "proc ' + params[:param] + '"' }
+
+command 'proc_zero',
+  machine:    'primary',
+  parameters: { param: {} },
+  script:     proc { 'echo "proc %<param>s"' }
+
+
 command 'primary',
   desc:    'used to validate commands and host can have the same name',
   machine: 'primary',

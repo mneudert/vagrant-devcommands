@@ -37,6 +37,7 @@ echo 'Running tests...'
 . ./test_aliases.sh
 . ./test_box-name-clash.sh
 . ./test_chains.sh
+. ./test_closures.sh
 . ./test_completion-data.sh
 . ./test_did-you-mean.sh
 . ./test_passthru.sh

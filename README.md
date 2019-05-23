@@ -155,9 +155,21 @@ You can (more or less) dynamically generate your scripts by defining the command
 ```ruby
 command 'from_lambda', script: lambda { 'echo "lambda works"' }
 command 'from_proc', script: proc { 'echo "proc works"' }
+
+command 'from_lambda_params',
+  parameters: { argv_param: {} },
+  script: lambda { |params|
+    'echo "lambda works: ' + params[:argv_param] + '"'
+  }
+
+command 'from_proc_params',
+  parameters: { argv_param: {} },
+  script: proc { |params|
+    'echo "proc works: ' + params[:argv_param] + '"'
+  }
 ```
 
-These will be evaluated when running the command.
+These will be evaluated when running the command and optionally received the parsed shell arguments when defined with an arity of one.
 
 Every rule from regular scripts (parameters, escaping `%`, ...) still apply.
 
