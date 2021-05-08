@@ -1,13 +1,13 @@
 require_relative '../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::ParamParser do
-  COMMAND = VagrantPlugins::DevCommands::Model::Command
+  command_model = VagrantPlugins::DevCommands::Model::Command
 
   let(:parser) { described_class.new }
 
   describe 'with configured parameters' do
     it 'allows optional parameters' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           mdtry: {},
           optnl: { optional: true }
@@ -27,20 +27,20 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'allows flags' do
-      command = COMMAND.new(flags: { dflt: {} })
+      command = command_model.new(flags: { dflt: {} })
 
       expect(parser.parse!(command, [])).to eq(dflt: '')
       expect(parser.parse!(command, ['--dflt'])).to eq(dflt: '--dflt')
     end
 
     it 'allows flags with values' do
-      command = COMMAND.new(flags: { dflt: { value: '--custom' } })
+      command = command_model.new(flags: { dflt: { value: '--custom' } })
 
       expect(parser.parse!(command, ['--dflt'])).to eq(dflt: '--custom')
     end
 
     it 'allows escaping parameter values' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           escaped: {
             escape: { 'z' => 'y', 'y' => 'x' }
@@ -54,7 +54,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'allows parameter defaults' do
-      command = COMMAND.new(parameters: { dflt: { default: 'dflt' } })
+      command = command_model.new(parameters: { dflt: { default: 'dflt' } })
 
       expect(parser.parse!(command, [])).to eq(dflt: 'dflt')
       expect(
@@ -63,7 +63,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'allows parameter value wrapping' do
-      command = COMMAND.new(parameters: { wrppd: { wrap: '--opt %s' } })
+      command = command_model.new(parameters: { wrppd: { wrap: '--opt %s' } })
 
       expect(
         parser.parse!(command, ['--wrppd', 'custom'])
@@ -71,7 +71,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'does not wrap unpassed optional parameters' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           wrppd: {
             optional: true,
@@ -84,7 +84,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'does wrap unpassed optional parameters with empty default' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           wrppd: {
             wrap: '--opt %s',
@@ -97,13 +97,13 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'allows limiting parameter values' do
-      command = COMMAND.new(parameters: { lmtd: { allowed: ['foo'] } })
+      command = command_model.new(parameters: { lmtd: { allowed: ['foo'] } })
 
       expect(parser.parse!(command, ['--lmtd', 'foo'])).to eq(lmtd: 'foo')
     end
 
     it 'ignores limiting values for missing optional parameters' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           lmtd: {
             allowed: ['foo'],
@@ -116,7 +116,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'allows parameter alias values' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           alsd: {
             aliases: { 'foo' => 'bar', 'bar' => 'baz' }
@@ -132,7 +132,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
 
   describe 'with passthru parameter configured' do
     it 'passes unknown parameters' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           psthr: { passthru: true }
         }
@@ -144,7 +144,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'properly parses known flags' do
-      command = COMMAND.new(
+      command = command_model.new(
         flags: { flggd: {} },
         parameters: { psthr: { passthru: true } }
       )
@@ -155,7 +155,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'properly parses known parameters' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           prsd: {},
           psthr: { passthru: true }
@@ -170,7 +170,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
 
   describe 'with invalid parameter values' do
     it 'raises an ArgumentError' do
-      command = COMMAND.new(parameters: { lmtd: { allowed: ['foo'] } })
+      command = command_model.new(parameters: { lmtd: { allowed: ['foo'] } })
 
       expect { parser.parse!(command, ['--lmtd', 'bar']) }.to(
         raise_error(ArgumentError)
@@ -178,7 +178,7 @@ describe VagrantPlugins::DevCommands::ParamParser do
     end
 
     it 'raises an ArgumentError before escaping' do
-      command = COMMAND.new(
+      command = command_model.new(
         parameters: {
           lmtd: {
             allowed: ['fump'],
