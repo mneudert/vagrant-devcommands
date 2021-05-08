@@ -22,14 +22,4 @@ namespace :test do
   end
 end
 
-namespace :test do
-  # travis testing task
-  RSpec::Core::RakeTask.new(:travis) do |t|
-    t.pattern = 'test/**/*_spec.rb'
-  end
-
-  Rake::Task['test:travis'].clear_comments
-end
-
 task default: ['style:ruby', 'test:unit', 'test:integration']
-task travis: ['style:ruby', 'test:travis']
