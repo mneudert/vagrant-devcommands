@@ -12,6 +12,11 @@ Gem::Specification.new do |spec|
   spec.authors  = ['Marc Neudert']
   spec.email    = ['marc.neudert@gmail.com']
 
+  # roughly tracking ruby included in the installer package
+  # https://github.com/hashicorp/vagrant-installers/blob/main/substrate/run.sh
+  spec.required_ruby_version     = '~> 2.4'
+  spec.required_rubygems_version = '>= 1.3.6'
+
   spec.summary     = VagrantPlugins::DevCommands::SYNOPSIS
   spec.description = 'Vagrant plugin to run commands specified'\
                      ' in a Commandfile inside one of your vagrant boxes'
