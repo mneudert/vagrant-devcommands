@@ -4,6 +4,13 @@ on: [push, pull_request]
 
 jobs:
   test:
+    strategy:
+      matrix:
+        include:
+          - ruby: 2.4
+          - ruby: 2.5
+          - ruby: 2.6
+
     runs-on: ubuntu-20.04
 
     steps:
@@ -11,7 +18,7 @@ jobs:
 
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
 
     - run: bundle exec rake test:unit
