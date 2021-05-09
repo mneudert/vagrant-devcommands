@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'optparse'
 
 module VagrantPlugins
   module DevCommands
     # Provides access to messages used by the plugin
     class Messages
-      I18N_KEY = 'vagrant_devcommands.message'.freeze
+      I18N_KEY = 'vagrant_devcommands.message'
 
       def self.chain_no_help(&out)
         out.call I18n.t("#{I18N_KEY}.chain_no_help")

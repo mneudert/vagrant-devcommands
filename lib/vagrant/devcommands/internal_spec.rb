@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module VagrantPlugins
   module DevCommands
     # Contains the specs for internal commands
     class InternalSpec
-      I18N_KEY = 'vagrant_devcommands.internal'.freeze
+      I18N_KEY = 'vagrant_devcommands.internal'
 
       COMPLETION_DATA = {
         desc: I18n.t("#{I18N_KEY}.completion-data.desc"),

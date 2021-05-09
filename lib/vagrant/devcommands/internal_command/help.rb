@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module VagrantPlugins
   module DevCommands
     module InternalCommand
       # Internal "help" command
       class Help
-        I18N_KEY = 'vagrant_devcommands.internal.help'.freeze
+        I18N_KEY = 'vagrant_devcommands.internal.help'
         UTIL     = VagrantPlugins::DevCommands::Util
         MESSAGES = VagrantPlugins::DevCommands::Messages
         PRINTER  = VagrantPlugins::DevCommands::HelpPrinter

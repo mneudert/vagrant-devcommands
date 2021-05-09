@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_context 'commandfile_cwd' do
   def cwd(dir)
     @initial_dir = Dir.pwd

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Helpers
   module UI
     # Stores all messages for later retrieval

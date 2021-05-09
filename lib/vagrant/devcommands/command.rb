@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module VagrantPlugins
   module DevCommands
     # Defines the executable vagrant command
     class Command < Vagrant.plugin(2, :command)
-      I18N_KEY = 'vagrant_devcommands.'.freeze
+      I18N_KEY = 'vagrant_devcommands.'
 
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS

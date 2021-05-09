@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VagrantPlugins
   module DevCommands
     # Registry for definitions from the Commandfile

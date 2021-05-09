@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'vagrant'
 
 I18n.load_path << File.expand_path('../../locales/en.yml', __dir__)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VagrantPlugins
   module DevCommands
     class Util
@@ -110,7 +112,7 @@ module VagrantPlugins
 
         def matching_index_range(origin)
           min = origin - matching_window
-          min = 0 if min < 0
+          min = 0 if min.negative?
 
           max = origin + matching_window
 

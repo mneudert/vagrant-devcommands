@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module VagrantPlugins
   module DevCommands
     class Registry
       # Generic registry message printer
       class Messager
-        I18N_KEY = 'vagrant_devcommands.registry'.freeze
+        I18N_KEY = 'vagrant_devcommands.registry'
 
         def initialize(env)
           @env = env

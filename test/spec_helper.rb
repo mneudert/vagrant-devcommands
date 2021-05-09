@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'vagrant/devcommands'
 
 require_relative './helpers/ui'
