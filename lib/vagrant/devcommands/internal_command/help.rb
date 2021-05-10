@@ -40,7 +40,7 @@ module VagrantPlugins
           end
         end
 
-        def info(msg, pre_ln = false)
+        def info(msg, pre_ln: false)
           @env.ui.info '' if pre_ln
           @env.ui.info msg
         end
@@ -51,9 +51,9 @@ module VagrantPlugins
 
         def internal_help(command)
           internal_help_header(command)
-          info(internal_commands[command].help.strip, true)
+          info(internal_commands[command].help.strip, pre_ln: true)
 
-          message(:plugin_readme, true) if command == 'help'
+          message(:plugin_readme, pre_ln: true) if command == 'help'
         end
 
         def internal_help_header(command)
@@ -70,7 +70,7 @@ module VagrantPlugins
                         @registry.commands])
         end
 
-        def message(msg, pre_ln = false)
+        def message(msg, pre_ln: false)
           if pre_ln
             MESSAGES.pre_ln(msg, &@env.ui.method(:info))
           else
@@ -92,7 +92,7 @@ module VagrantPlugins
         def plugin_help_chains(chains, pad_to)
           return if chains.empty?
 
-          info(I18n.t("#{I18N_KEY}.list.chains"), true)
+          info(I18n.t("#{I18N_KEY}.list.chains"), pre_ln: true)
 
           chains.sort.each do |name, chain|
             info(UTIL.padded_columns(pad_to, name, chain.desc))
@@ -102,7 +102,7 @@ module VagrantPlugins
         def plugin_help_commands(type, commands, pad_to)
           return if commands.empty?
 
-          info(I18n.t("#{I18N_KEY}.list.commands_#{type}"), true)
+          info(I18n.t("#{I18N_KEY}.list.commands_#{type}"), pre_ln: true)
 
           commands.sort.each do |name, command|
             info(UTIL.padded_columns(pad_to, name, command.desc))
@@ -112,7 +112,7 @@ module VagrantPlugins
         def plugin_help_command_aliases(command_aliases, pad_to)
           return if command_aliases.empty?
 
-          info(I18n.t("#{I18N_KEY}.list.command_aliases"), true)
+          info(I18n.t("#{I18N_KEY}.list.command_aliases"), pre_ln: true)
 
           command_aliases.sort.each do |name, command_alias|
             info(UTIL.padded_columns(pad_to, name, command_alias.desc))

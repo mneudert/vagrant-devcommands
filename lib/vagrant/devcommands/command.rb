@@ -54,15 +54,15 @@ module VagrantPlugins
         return false if alternatives.empty?
 
         if alternatives.length == 1
-          display_error(I18n.t("#{I18N_KEY}.did_you_mean_single"), true)
+          display_error(I18n.t("#{I18N_KEY}.did_you_mean_single"), pre_ln: true)
         else
-          display_error(I18n.t("#{I18N_KEY}.did_you_mean_multi"), true)
+          display_error(I18n.t("#{I18N_KEY}.did_you_mean_multi"), pre_ln: true)
         end
 
         alternatives.sort.each { |(k, _v)| display_error("        #{k}") }
       end
 
-      def display_error(msg, pre_ln = false, post_ln = false)
+      def display_error(msg, pre_ln: false, post_ln: false)
         @env.ui.error '' if pre_ln
         @env.ui.error msg
         @env.ui.error '' if post_ln
@@ -98,7 +98,7 @@ module VagrantPlugins
 
         runner.run(runnable)
       rescue RuntimeError => e
-        display_error(e.message, false, true)
+        display_error(e.message, post_ln: true)
         run_internal('help', [command])
 
         nil

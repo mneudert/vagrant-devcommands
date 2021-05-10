@@ -21,9 +21,9 @@ module VagrantPlugins
         private
 
         def body(help)
-          return message(:command_alias_no_help, true) if help.nil?
+          return message(:command_alias_no_help, pre_ln: true) if help.nil?
 
-          info(help.strip, true)
+          info(help.strip, pre_ln: true)
         end
 
         def header(command_alias)
@@ -37,15 +37,15 @@ module VagrantPlugins
           alias_for = [command_alias.command, command_alias.argv].join(' ')
 
           info(I18n.t("#{I18N_KEY}.usage", what: usage))
-          info(I18n.t("#{I18N_KEY}.alias_for", what: alias_for), true)
+          info(I18n.t("#{I18N_KEY}.alias_for", what: alias_for), pre_ln: true)
         end
 
-        def info(msg, pre_ln = false)
+        def info(msg, pre_ln: false)
           @env.ui.info '' if pre_ln
           @env.ui.info msg
         end
 
-        def message(msg, pre_ln = false)
+        def message(msg, pre_ln: false)
           if pre_ln
             MESSAGES.pre_ln(msg, &@env.ui.method(:info))
           else

@@ -22,9 +22,9 @@ module VagrantPlugins
         private
 
         def body(help)
-          return message(:chain_no_help, true) if help.nil?
+          return message(:chain_no_help, pre_ln: true) if help.nil?
 
-          info(help.strip, true)
+          info(help.strip, pre_ln: true)
         end
 
         def chain_help_line(cmd)
@@ -34,7 +34,7 @@ module VagrantPlugins
         end
 
         def commands(chain)
-          info('Chained commands (in order):', true)
+          info('Chained commands (in order):', pre_ln: true)
 
           chain.commands.each do |cmd|
             info(UTIL.padded_columns(0, chain_help_line(cmd)))
@@ -52,12 +52,12 @@ module VagrantPlugins
           info(I18n.t("#{I18N_KEY}.usage", what: usage))
         end
 
-        def info(msg, pre_ln = false)
+        def info(msg, pre_ln: false)
           @env.ui.info '' if pre_ln
           @env.ui.info msg
         end
 
-        def message(msg, pre_ln = false)
+        def message(msg, pre_ln: false)
           if pre_ln
             MESSAGES.pre_ln(msg, &@env.ui.method(:info))
           else

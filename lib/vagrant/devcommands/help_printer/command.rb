@@ -25,7 +25,7 @@ module VagrantPlugins
         def arguments(arguments, title)
           return if arguments.nil? || arguments.empty?
 
-          info("#{title}:", true)
+          info("#{title}:", pre_ln: true)
           arguments_body(arguments)
         end
 
@@ -38,9 +38,9 @@ module VagrantPlugins
         end
 
         def body(help)
-          return message(:command_no_help, true) if help.nil?
+          return message(:command_no_help, pre_ln: true) if help.nil?
 
-          info(help.strip, true)
+          info(help.strip, pre_ln: true)
         end
 
         def header(command)
@@ -57,12 +57,12 @@ module VagrantPlugins
           info(I18n.t("#{I18N_KEY}.usage", what: usage))
         end
 
-        def info(msg, pre_ln = false)
+        def info(msg, pre_ln: false)
           @env.ui.info '' if pre_ln
           @env.ui.info msg
         end
 
-        def message(msg, pre_ln = false)
+        def message(msg, pre_ln: false)
           if pre_ln
             MESSAGES.pre_ln(msg, &@env.ui.method(:info))
           else
