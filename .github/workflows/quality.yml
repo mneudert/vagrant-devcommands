@@ -6,12 +6,15 @@ jobs:
   check:
     runs-on: ubuntu-20.04
 
+    env:
+      VER_VAGRANT: 2.0.4
+
     steps:
     - uses: actions/checkout@v2
 
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: 2.4
         bundler-cache: true
 
     - run: bundle exec rake style:ruby
