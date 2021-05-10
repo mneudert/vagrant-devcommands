@@ -8,10 +8,18 @@ jobs:
       matrix:
         include:
           - ruby: 2.4
+            vagrant: 2.0.4
           - ruby: 2.5
+            vagrant: 2.1.5
           - ruby: 2.6
+            vagrant: 2.2.12
+          - ruby: 2.7
+            vagrant: master
 
     runs-on: ubuntu-20.04
+
+    env:
+      VER_VAGRANT: ${{ matrix.vagrant }}
 
     steps:
     - uses: actions/checkout@v2
