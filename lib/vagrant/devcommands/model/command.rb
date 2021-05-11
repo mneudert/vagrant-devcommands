@@ -7,17 +7,7 @@ module VagrantPlugins
       class Command
         PARAM_PARSER = VagrantPlugins::DevCommands::ParamParser
 
-        attr_reader :name
-
-        attr_reader :flags
-        attr_reader :parameters
-        attr_reader :script
-        attr_reader :tty
-
-        attr_reader :machine
-        attr_reader :desc
-        attr_reader :help
-        attr_reader :usage
+        attr_reader :name, :flags, :parameters, :script, :tty, :machine, :desc, :help, :usage
 
         def initialize(spec)
           @name = spec[:name]

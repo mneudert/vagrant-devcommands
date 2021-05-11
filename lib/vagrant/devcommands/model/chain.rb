@@ -5,12 +5,7 @@ module VagrantPlugins
     module Model
       # Definition of an executable command chain
       class Chain
-        attr_reader :name
-        attr_reader :commands
-
-        attr_reader :desc
-        attr_reader :help
-        attr_reader :usage
+        attr_reader :name, :commands, :desc, :help, :usage
 
         def initialize(spec)
           @name     = spec[:name]

@@ -23,9 +23,7 @@ module VagrantPlugins
 
             i18n_msg = 'chain_conflict_command'
 
-            if registry.reserved_command?(name)
-              i18n_msg = 'chain_conflict_internal'
-            end
+            i18n_msg = 'chain_conflict_internal' if registry.reserved_command?(name)
 
             @messager.chain_ignored(i18n_msg, name)
 
@@ -43,12 +41,9 @@ module VagrantPlugins
           end
         end
 
-        # rubocop:disable Metrics/MethodLength
         def resolve_command_alias_naming_conflicts(registry)
           registry.command_aliases.each_key do |name|
-            unless registry.valid_command?(name) || registry.valid_chain?(name)
-              next
-            end
+            next unless registry.valid_command?(name) || registry.valid_chain?(name)
 
             i18n_key = 'command'
             i18n_key = 'chain'    if registry.valid_chain?(name)
@@ -61,7 +56,6 @@ module VagrantPlugins
             registry.command_aliases.delete(name)
           end
         end
-        # rubocop:enable Metrics/MethodLength
       end
     end
   end

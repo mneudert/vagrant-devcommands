@@ -13,8 +13,7 @@ module VagrantPlugins
         params = unalias_parameters(command, params)
         params = validate_parameters(command, params)
         params = escape_parameters(command, params)
-        params = wrap_parameters(command, params)
-        params
+        wrap_parameters(command, params)
       end
 
       private
@@ -43,6 +42,7 @@ module VagrantPlugins
         params
       end
 
+      # rubocop:disable Metrics/AbcSize
       # rubocop:disable Metrics/MethodLength
       def parse_argv(command, argv)
         params = parameters_with_defaults(command)
@@ -70,6 +70,7 @@ module VagrantPlugins
         params = passthru_parameters(params, command, argv) unless argv.empty?
         params
       end
+      # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/MethodLength
 
       def passthru_parameters(params, command, argv)
@@ -118,9 +119,7 @@ module VagrantPlugins
         command.parameters.each do |key, conf|
           next if conf[:wrap].nil?
 
-          if conf[:default].nil?
-            next if params[key].nil? || params[key].empty?
-          end
+          next if conf[:default].nil? && (params[key].nil? || params[key].empty?)
 
           params[key] = conf[:wrap] % params[key]
         end

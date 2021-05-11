@@ -19,8 +19,8 @@ module VagrantPlugins
           local  = @commandfile.path
 
           contents = ''
-          contents += "\n" + global.read unless global.nil?
-          contents += "\n" + local.read unless local.nil?
+          contents += "\n#{global.read}" unless global.nil?
+          contents += "\n#{local.read}" unless local.nil?
 
           instance_eval(contents)
 

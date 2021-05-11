@@ -35,9 +35,7 @@ module VagrantPlugins
           options        = { script: options } unless options.is_a?(Hash)
           options[:name] = name
 
-          unless valid_script?(options[:script])
-            raise ArgumentError, 'command_no_script'
-          end
+          raise ArgumentError, 'command_no_script' unless valid_script?(options[:script])
 
           VagrantPlugins::DevCommands::Model::Command.new(options)
         end

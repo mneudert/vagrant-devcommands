@@ -57,7 +57,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       cmd = described_class.new(name: 'foo',
                                 parameters: { what: {} },
                                 script: lambda { |params|
-                                  'echo "%<what>s == ' + params[:what] + '"'
+                                  "echo \"%<what>s == #{params[:what]}\""
                                 })
 
       expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar == bar"')
@@ -77,7 +77,7 @@ describe VagrantPlugins::DevCommands::Model::Command do
       cmd = described_class.new(name: 'foo',
                                 parameters: { what: {} },
                                 script: proc { |params|
-                                  'echo "%<what>s == ' + params[:what] + '"'
+                                  "echo \"%<what>s == #{params[:what]}\""
                                 })
 
       expect(cmd.run_script(['--what', 'bar'])).to eq('echo "bar == bar"')

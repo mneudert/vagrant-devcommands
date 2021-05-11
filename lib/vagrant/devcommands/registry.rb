@@ -6,9 +6,7 @@ module VagrantPlugins
     class Registry
       RESERVED_COMMANDS = %w[completion-data help version].freeze
 
-      attr_accessor :chains
-      attr_accessor :commands
-      attr_accessor :command_aliases
+      attr_accessor :chains, :commands, :command_aliases
 
       def initialize(env)
         @env      = env

@@ -75,6 +75,7 @@ module VagrantPlugins
           end
         end
 
+        # rubocop:disable Metrics/AbcSize
         # rubocop:disable Metrics/MethodLength
         def find_common_characters
           common_chars_of_shorter = Array.new(@shorter.size)
@@ -98,6 +99,7 @@ module VagrantPlugins
 
           [common_chars_of_shorter, common_chars_of_longer].map(&:compact)
         end
+        # rubocop:enable Metrics/AbcSize
         # rubocop:enable Metrics/MethodLength
 
         def limited_common_prefix_length
