@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.summary     = VagrantPlugins::DevCommands::SYNOPSIS
   spec.description = 'Vagrant plugin to run commands specified'\
-                     ' in a Commandfile inside one of your vagrant boxes'
+                     ' in a Commandfile inside one of your Vagrant boxes'
   spec.homepage    = 'https://github.com/mneudert/vagrant-devcommands'
   spec.license     = 'MIT'
 

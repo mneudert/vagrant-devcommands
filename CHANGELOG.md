@@ -62,7 +62,7 @@
   - If an unknown command is requested a possible alternative is suggested based on the calculated [Jaro-Winkler distance](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance)
 
 - Deprecations
-  - The configuration parameter `:box` has been renamed to `:machine` to match the vagrant naming. Support for the old configuration will be dropped in a future version
+  - The configuration parameter `:box` has been renamed to `:machine` to match the Vagrant naming. Support for the old configuration will be dropped in a future version
 
 ## v0.8.0 (2017-04-19)
 

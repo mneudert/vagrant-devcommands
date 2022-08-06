@@ -1,6 +1,6 @@
 # Vagrant DevCommands
 
-Runs vagrant commands from a Commandfile.
+Runs Vagrant commands from a Commandfile.
 
 ## Usage
 
