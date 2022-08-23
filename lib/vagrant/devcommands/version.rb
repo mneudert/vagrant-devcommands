@@ -3,6 +3,6 @@
 module VagrantPlugins
   # Defines the current plugin version
   module DevCommands
-    VERSION = '0.14.0'
+    VERSION = '0.15.0.dev'
   end
 end
