@@ -22,18 +22,18 @@ module VagrantPlugins
         end
 
         def def_duplicate(args)
-          @env.ui.warn I18n.t("#{I18N_KEY}.def_duplicate", args)
+          @env.ui.warn I18n.t("#{I18N_KEY}.def_duplicate", **args)
           @env.ui.warn ''
         end
 
         def def_ignored(message, args)
-          @env.ui.warn I18n.t("#{I18N_KEY}.#{message}", args)
+          @env.ui.warn I18n.t("#{I18N_KEY}.#{message}", **args)
           @env.ui.warn I18n.t("#{I18N_KEY}.def_ignored")
           @env.ui.warn ''
         end
 
         def unknown_options(args)
-          @env.ui.warn I18n.t("#{I18N_KEY}.unknown_options", args)
+          @env.ui.warn I18n.t("#{I18N_KEY}.unknown_options", **args)
           @env.ui.warn ''
         end
       end

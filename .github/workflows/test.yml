@@ -7,15 +7,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - ruby: 2.4
+          - ruby: '2.4'
             vagrant: 2.0.4
-          - ruby: 2.5
+          - ruby: '2.5'
             vagrant: 2.1.5
-          - ruby: 2.6
+          - ruby: '2.6'
             vagrant: 2.2.19
-          - ruby: 2.7
+          - ruby: '2.7'
             vagrant: 2.3.0
-          - ruby: 2.7
+          - ruby: '3.0'
             vagrant: main
 
     runs-on: ubuntu-20.04

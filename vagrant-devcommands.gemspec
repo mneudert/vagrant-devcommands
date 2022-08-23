@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   # roughly tracking ruby included in the installer package
   # https://github.com/hashicorp/vagrant-installers/blob/main/substrate/run.sh
-  spec.required_ruby_version     = '~> 2.4'
+  spec.required_ruby_version     = '>= 2.4', '< 3.1'
   spec.required_rubygems_version = '>= 1.3.6'
 
   spec.summary     = VagrantPlugins::DevCommands::SYNOPSIS
