@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.14.0.dev
+## v0.14.0 (2022-08-23)
 
 - Enhancements
   - Lambda/Proc values of command scripts are now executed in the instance of the command when running
