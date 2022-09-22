@@ -17,6 +17,8 @@ jobs:
             vagrant: 2.3.0
           - ruby: '3.0'
             vagrant: main
+          - ruby: '3.1'
+            vagrant: main
 
     runs-on: ubuntu-20.04
 
