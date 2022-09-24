@@ -8,9 +8,9 @@ jobs:
       matrix:
         include:
           - ruby: '2.4'
-            vagrant: 2.0.4
+            vagrant: 2.2.9
           - ruby: '2.5'
-            vagrant: 2.1.5
+            vagrant: 2.2.10
           - ruby: '2.6'
             vagrant: 2.2.19
           - ruby: '2.7'

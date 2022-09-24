@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.15.0-dev
+
+- Backwards incompatible changes
+  - Minimum supported Vagrant version is now `2.2.9`
+
 ## v0.14.0 (2022-08-23)
 
 - Enhancements
