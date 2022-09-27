@@ -17,7 +17,7 @@
 ## v0.13.0 (2018-07-19)
 
 - Enhancements
-  - Unknown parameters can be catched and used by setting the option `passthru: true` on one of your parameters ([#3](https://github.com/mneudert/vagrant-devcommands/issues/3))
+  - Unknown parameters can be caught and used by setting the option `passthru: true` on one of your parameters ([#3](https://github.com/mneudert/vagrant-devcommands/issues/3))
 
 ## v0.12.0 (2018-04-21)
 

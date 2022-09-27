@@ -185,7 +185,7 @@ This allows full interaction with programs like `irb` or `mysql`.
 
 ### Global Command Definitions
 
-To have commands available even wihout a `Commandfile` you can define the globally. To do this just create a file named `.vagrant.devcommands` in your `$HOME` directory.
+To have commands available even without a `Commandfile` you can define them globally. To do this just create a file named `.vagrant.devcommands` in your `$HOME` directory.
 
 You can use this command to find the correct path if unsure:
 
