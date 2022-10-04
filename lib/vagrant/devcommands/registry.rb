@@ -95,14 +95,12 @@ module VagrantPlugins
         modeler = Commandfile::Modeler.new
 
         commandfile_entries.each do |entry|
-          begin
-            model = modeler.model(entry)
+          model = modeler.model(entry)
 
-            check_model(model, entry)
-            register_model(model)
-          rescue ArgumentError => e
-            @messager.def_ignored(e.message, name: entry[:name])
-          end
+          check_model(model, entry)
+          register_model(model)
+        rescue ArgumentError => e
+          @messager.def_ignored(e.message, name: entry[:name])
         end
       end
 

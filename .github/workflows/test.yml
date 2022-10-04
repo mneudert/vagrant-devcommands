@@ -7,8 +7,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - ruby: '2.4'
-            vagrant: 2.2.9
           - ruby: '2.5'
             vagrant: 2.2.10
           - ruby: '2.6'
