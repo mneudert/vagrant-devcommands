@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
   test:
+    runs-on: ubuntu-22.04
+
     strategy:
       matrix:
         include:
@@ -17,8 +19,6 @@ jobs:
             vagrant: main
           - ruby: '3.1'
             vagrant: main
-
-    runs-on: ubuntu-20.04
 
     env:
       VER_VAGRANT: ${{ matrix.vagrant }}
