@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.authors  = ['Marc Neudert']
   spec.email    = ['marc.neudert@gmail.com']
 
-  spec.required_ruby_version     = '>= 2.5', '< 3.2'
+  spec.required_ruby_version     = '>= 2.5', '< 3.3'
   spec.required_rubygems_version = '>= 1.3.6'
 
   spec.summary     = VagrantPlugins::DevCommands::SYNOPSIS

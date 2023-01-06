@@ -19,6 +19,8 @@ jobs:
             vagrant: main
           - ruby: '3.1'
             vagrant: main
+          - ruby: '3.2'
+            vagrant: main
 
     env:
       VER_VAGRANT: ${{ matrix.vagrant }}
