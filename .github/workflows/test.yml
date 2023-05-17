@@ -16,7 +16,7 @@ jobs:
           - ruby: '2.7'
             vagrant: 2.3.4
           - ruby: '3.0'
-            vagrant: main
+            vagrant: 2.3.5
           - ruby: '3.1'
             vagrant: main
           - ruby: '3.2'
