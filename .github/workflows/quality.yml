@@ -3,7 +3,16 @@ name: Code Quality
 on: [push, pull_request]
 
 jobs:
-  check:
+  quality_actions:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: yamllint .
+        working-directory: .github
+
+  quality_ruby:
     runs-on: ubuntu-22.04
 
     env:
