@@ -32,6 +32,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.5'
+          rubygems: latest
           bundler-cache: true
 
       - run: bundle exec rake style:ruby
@@ -65,6 +66,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+          rubygems: latest
           bundler-cache: true
 
       - run: bundle exec rake test:unit
