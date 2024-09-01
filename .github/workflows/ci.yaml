@@ -24,14 +24,14 @@ jobs:
     runs-on: ubuntu-24.04
 
     env:
-      VER_VAGRANT: 2.2.10
+      VER_VAGRANT: 2.3.5
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.5'
+          ruby-version: '3.0'
           rubygems: latest
           bundler-cache: true
 
@@ -44,14 +44,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: '2.5'
-            vagrant: 2.2.10
-          - ruby: '2.6'
-            vagrant: 2.2.19
-          - ruby: '2.7'
-            vagrant: 2.3.4
           - ruby: '3.0'
-            vagrant: 2.3.7
+            vagrant: 2.3.5
           - ruby: '3.1'
             vagrant: 2.4.1
           - ruby: '3.2'
