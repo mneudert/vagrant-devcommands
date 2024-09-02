@@ -9,7 +9,7 @@ module VagrantPlugins
       def self.synopsis
         synopsis = VagrantPlugins::DevCommands::SYNOPSIS
 
-        synopsis[0, 1].downcase + synopsis[1..-1]
+        synopsis[0, 1].downcase + synopsis[1..]
       end
 
       def initialize(argv, env)
