@@ -11,7 +11,7 @@ group :development do
   if ENV.key?('VER_VAGRANT') && ENV['VER_VAGRANT'] != 'main'
     vagrant_opts.delete(:branch)
 
-    vagrant_opts['tag'] = "v#{ENV['VER_VAGRANT']}"
+    vagrant_opts['tag'] = "v#{ENV.fetch('VER_VAGRANT', nil)}"
   end
 
   gem 'vagrant', vagrant_opts

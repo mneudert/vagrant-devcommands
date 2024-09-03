@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = '>= 1.3.6'
 
   spec.summary     = VagrantPlugins::DevCommands::SYNOPSIS
-  spec.description = 'Vagrant plugin to run commands specified'\
-                     ' in a Commandfile inside one of your Vagrant boxes'
+  spec.description = 'Vagrant plugin to run commands specified ' \
+                     'in a Commandfile inside one of your Vagrant boxes'
   spec.homepage    = 'https://github.com/mneudert/vagrant-devcommands'
   spec.license     = 'MIT'
 
@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org' if spec.respond_to?(:metadata)
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

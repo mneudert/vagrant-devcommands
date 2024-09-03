@@ -64,7 +64,7 @@ module VagrantPlugins
         def compute_non_zero_distance(matched_count, transposition_count)
           sum = (matched_count / @shorter.size.to_f) +
                 (matched_count / @longer.size.to_f) +
-                ((matched_count - transposition_count / 2) / matched_count)
+                ((matched_count - (transposition_count / 2)) / matched_count)
 
           sum / 3.0
         end
@@ -105,11 +105,7 @@ module VagrantPlugins
         def limited_common_prefix_length
           length = common_prefix_length
 
-          if length > MAX_COMMON_PREFIX_LENGTH
-            MAX_COMMON_PREFIX_LENGTH
-          else
-            length
-          end
+          [length, MAX_COMMON_PREFIX_LENGTH].min
         end
 
         def matching_index_range(origin)
