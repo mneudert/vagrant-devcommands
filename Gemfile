@@ -19,7 +19,7 @@ group :development do
   gem 'coveralls', '~> 0.8'
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.10'
-  gem 'rubocop', '~> 1.12.0'
+  gem 'rubocop', '~> 1.66.0'
 end
 
 group :plugins do
