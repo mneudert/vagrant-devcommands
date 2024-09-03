@@ -15,6 +15,11 @@ group :development do
   end
 
   gem 'vagrant', vagrant_opts
+
+  gem 'coveralls', '~> 0.8'
+  gem 'rake', '~> 13.0'
+  gem 'rspec', '~> 3.10'
+  gem 'rubocop', '~> 1.12.0'
 end
 
 group :plugins do

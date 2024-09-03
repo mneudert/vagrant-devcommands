@@ -31,9 +31,4 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org' if spec.respond_to?(:metadata)
-
-  spec.add_development_dependency 'coveralls', '~> 0.8'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.10'
-  spec.add_development_dependency 'rubocop', '~> 1.12.0'
 end
