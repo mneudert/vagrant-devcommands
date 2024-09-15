@@ -8,7 +8,7 @@ describe VagrantPlugins::DevCommands::Registry do
   commandfile = VagrantPlugins::DevCommands::Commandfile
 
   describe 'chain definition' do
-    before :each do
+    before do
       cwd('integration/fixtures/chain-commandfile')
 
       @env = cwd_env
@@ -36,7 +36,7 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'command definition' do
-    before :each do
+    before do
       cwd('integration/fixtures/simple-commandfile')
 
       @env = cwd_env
@@ -74,7 +74,7 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'command alias definition' do
-    before :each do
+    before do
       cwd('integration/fixtures/command-alias-commandfile')
 
       @env = cwd_env
@@ -203,7 +203,7 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining command alias with name of an existing command' do
-    before :each do
+    before do
       cwd('integration/fixtures/naming-conflict-alias-command')
 
       @env = cwd_env
@@ -229,7 +229,7 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining chain with name of an existing command' do
-    before :each do
+    before do
       cwd('integration/fixtures/naming-conflict-chain-command')
 
       @env = cwd_env
@@ -255,7 +255,7 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining command alias with name of a reserved command' do
-    before :each do
+    before do
       cwd('integration/fixtures/naming-conflict-alias-internal')
 
       @env = cwd_env
@@ -307,7 +307,7 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining command alias with name of an existing chain' do
-    before :each do
+    before do
       cwd('integration/fixtures/naming-conflict-alias-chain')
 
       @env = cwd_env

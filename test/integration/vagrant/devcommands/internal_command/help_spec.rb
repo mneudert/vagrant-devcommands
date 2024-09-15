@@ -8,7 +8,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   command = VagrantPlugins::DevCommands::Command
 
   describe 'running help for a command' do
-    before :each do
+    before do
       cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env
@@ -94,7 +94,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   end
 
   describe 'running help for a chain' do
-    before :each do
+    before do
       cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env
@@ -141,7 +141,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
   end
 
   describe 'running help for a command alias' do
-    before :each do
+    before do
       cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env

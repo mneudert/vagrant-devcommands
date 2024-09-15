@@ -46,7 +46,7 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with a global Commandfile' do
-    before :each do
+    before do
       cwd('integration/fixtures/simple-commandfile')
 
       @env = cwd_env
@@ -76,7 +76,7 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with an invalid command' do
-    before :each do
+    before do
       cwd('integration/fixtures/simple-commandfile')
 
       @env = cwd_env
@@ -107,7 +107,7 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with missing command parameters' do
-    before :each do
+    before do
       cwd('integration/fixtures/parameters')
 
       @env = cwd_env
@@ -129,7 +129,7 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with invalid command parameters' do
-    before :each do
+    before do
       cwd('integration/fixtures/parameters')
 
       @env = cwd_env
@@ -151,7 +151,7 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with command parameters values not allowed' do
-    before :each do
+    before do
       cwd('integration/fixtures/parameters')
 
       @env = cwd_env

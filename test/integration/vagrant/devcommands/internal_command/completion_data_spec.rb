@@ -32,7 +32,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
   end
 
   describe 'fetching completion-data for a specific command' do
-    before :each do
+    before do
       cwd('integration/fixtures/help-commandfile')
 
       @env = cwd_env
