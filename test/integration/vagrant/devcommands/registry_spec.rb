@@ -8,15 +8,14 @@ describe VagrantPlugins::DevCommands::Registry do
   commandfile = VagrantPlugins::DevCommands::Commandfile
 
   describe 'chain definition' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/chain-commandfile')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'allows defining chains' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -25,8 +24,8 @@ describe VagrantPlugins::DevCommands::Registry do
     end
 
     it 'detects invalid chains' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -36,15 +35,14 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'command definition' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/simple-commandfile')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'allows defining commands' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -53,8 +51,8 @@ describe VagrantPlugins::DevCommands::Registry do
     end
 
     it 'auto registers the commands name' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -63,8 +61,8 @@ describe VagrantPlugins::DevCommands::Registry do
     end
 
     it 'detects invalid commands' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -74,15 +72,14 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'command alias definition' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/command-alias-commandfile')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'allows defining command aliases' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -90,8 +87,8 @@ describe VagrantPlugins::DevCommands::Registry do
     end
 
     it 'detects invalid commands' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
 
@@ -203,25 +200,24 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining command alias with name of an existing command' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/naming-conflict-alias-command')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays a message' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).to match(/foo.+both.+ignored/im)
     end
 
     it 'removes conflicting command aliases from registry' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(registry.command_aliases.empty?).to be(true)
@@ -229,25 +225,24 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining chain with name of an existing command' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/naming-conflict-chain-command')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays a message' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).to match(/foo.+both.+ignored/im)
     end
 
     it 'removes conflicting chains from registry' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(registry.chains.empty?).to be(true)
@@ -255,25 +250,24 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining command alias with name of a reserved command' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/naming-conflict-alias-internal')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays a message' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).to match(/help.+internal.+ignored/im)
     end
 
     it 'removes conflicting command aliases from registry' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(registry.command_aliases.empty?).to be(true)
@@ -281,25 +275,24 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining chain with name of a reserved command' do
-    before :context do
+    let(:env) do
       cwd('integration/fixtures/naming-conflict-chain-internal')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays a message' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).to match(/help.+internal.+ignored/im)
     end
 
     it 'removes conflicting chains from registry' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(registry.chains.empty?).to be(true)
@@ -307,25 +300,24 @@ describe VagrantPlugins::DevCommands::Registry do
   end
 
   describe 'defining command alias with name of an existing chain' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/naming-conflict-alias-chain')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays a message' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).to match(/foo.+both.+ignored/im)
     end
 
     it 'removes conflicting command aliases from registry' do
-      file     = commandfile.new(@env)
-      registry = described_class.new(@env)
+      file     = commandfile.new(env)
+      registry = described_class.new(env)
 
       registry.read_commandfile(file)
       expect(registry.command_aliases.empty?).to be(true)

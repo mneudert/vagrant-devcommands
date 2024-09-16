@@ -33,6 +33,11 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with a Commandfile' do
+    let(:env) do
+      cwd('integration/fixtures/simple-commandfile')
+      cwd_env
+    end
+
     it 'displays help' do
       cwd('integration/fixtures/simple-commandfile')
 
@@ -46,10 +51,9 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with a global Commandfile' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/simple-commandfile')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays global commands' do
@@ -57,9 +61,9 @@ describe VagrantPlugins::DevCommands::Command do
         File.expand_path('../../fixtures/home_notempty', File.dirname(__FILE__))
       )
 
-      described_class.new([], @env).execute
+      described_class.new([], env).execute
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).to match(/global_command/im)
     end
 
@@ -68,28 +72,27 @@ describe VagrantPlugins::DevCommands::Command do
         File.expand_path('../../fixtures/home_notempty', File.dirname(__FILE__))
       )
 
-      described_class.new([], @env).execute
+      described_class.new([], env).execute
       expect(
-        @env.ui.messages.map { |m| m[:message] }.join("\n")
+        env.ui.messages.map { |m| m[:message] }.join("\n")
       ).not_to match(/should not appear/im)
     end
   end
 
   describe 'with an invalid command' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/simple-commandfile')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays message' do
-      described_class.new(['xxx'], @env).execute
-      expect(@env.ui.messages[0][:message]).to match(/invalid command/i)
+      described_class.new(['xxx'], env).execute
+      expect(env.ui.messages[0][:message]).to match(/invalid command/i)
     end
 
     it 'suggests an alternative' do
-      described_class.new(['duane'], @env).execute
-      expect(@env.ui.messages[3][:message]).to match(/dwayne/i)
+      described_class.new(['duane'], env).execute
+      expect(env.ui.messages[3][:message]).to match(/dwayne/i)
     end
   end
 
@@ -107,67 +110,64 @@ describe VagrantPlugins::DevCommands::Command do
   end
 
   describe 'with missing command parameters' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/parameters')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays an error' do
-      described_class.new(['paramecho'], @env).execute
+      described_class.new(['paramecho'], env).execute
       expect(
-        @env.ui.messages[0][:message]
+        env.ui.messages[0][:message]
       ).to match(/paramecho.+missing.+what/i)
     end
 
     it 'displays command usage help' do
-      described_class.new(['paramecho'], @env).execute
+      described_class.new(['paramecho'], env).execute
       expect(
-        @env.ui.messages[2][:message]
+        env.ui.messages[2][:message]
       ).to match(/vagrant run.+paramecho/i)
     end
   end
 
   describe 'with invalid command parameters' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/parameters')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays an error' do
-      described_class.new(['paramecho', '--will=raise'], @env).execute
+      described_class.new(['paramecho', '--will=raise'], env).execute
       expect(
-        @env.ui.messages[0][:message]
+        env.ui.messages[0][:message]
       ).to match(/paramecho.+invalid.+--will/i)
     end
 
     it 'displays command usage help' do
-      described_class.new(['paramecho', '--will=raise'], @env).execute
+      described_class.new(['paramecho', '--will=raise'], env).execute
       expect(
-        @env.ui.messages[2][:message]
+        env.ui.messages[2][:message]
       ).to match(/vagrant run.+paramecho/i)
     end
   end
 
   describe 'with command parameters values not allowed' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/parameters')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'displays an error' do
-      described_class.new(['limitecho', '--what=raise'], @env).execute
+      described_class.new(['limitecho', '--what=raise'], env).execute
       expect(
-        @env.ui.messages[0][:message]
+        env.ui.messages[0][:message]
       ).to match(/limitecho.+not allowed.+--what/i)
     end
 
     it 'displays command usage help' do
-      described_class.new(['limitecho', '--what=raise'], @env).execute
+      described_class.new(['limitecho', '--what=raise'], env).execute
       expect(
-        @env.ui.messages[2][:message]
+        env.ui.messages[2][:message]
       ).to match(/vagrant run.+limitecho/i)
     end
   end

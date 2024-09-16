@@ -32,20 +32,19 @@ describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
   end
 
   describe 'fetching completion-data for a specific command' do
-    before do
+    let(:env) do
       cwd('integration/fixtures/help-commandfile')
-
-      @env = cwd_env
+      cwd_env
     end
 
     it 'returns flags and parameters space-delimited' do
-      command.new(%w[completion-data unordered], @env).execute
-      expect(@env.ui.messages[0][:message]).to eq('flg frst scnd')
+      command.new(%w[completion-data unordered], env).execute
+      expect(env.ui.messages[0][:message]).to eq('flg frst scnd')
     end
 
     it 'is empty for unknown commands' do
-      command.new(%w[completion-data unknown], @env).execute
-      expect(@env.ui.messages[0][:message]).to eq('')
+      command.new(%w[completion-data unknown], env).execute
+      expect(env.ui.messages[0][:message]).to eq('')
     end
   end
 end
