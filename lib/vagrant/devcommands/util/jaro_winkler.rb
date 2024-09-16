@@ -83,7 +83,7 @@ module VagrantPlugins
 
           @shorter.each_char.with_index do |shorter_char, shorter_index|
             matching_index_range(shorter_index).each do |longer_index|
-              longer_char = @longer.chars[longer_index]
+              longer_char = @longer[longer_index]
 
               next unless shorter_char == longer_char
 
