@@ -47,9 +47,9 @@ module VagrantPlugins
 
         def message(msg, pre_ln: false)
           if pre_ln
-            MESSAGES.pre_ln(msg, &@env.ui.method(:info))
+            MESSAGES.pre_ln(msg) { |m| @env.ui.info(m) }
           else
-            MESSAGES.public_send(msg, &@env.ui.method(:info))
+            MESSAGES.public_send(msg) { |m| @env.ui.info(m) }
           end
         end
       end

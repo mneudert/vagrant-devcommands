@@ -81,8 +81,8 @@ module VagrantPlugins
         commandfile = Commandfile.new(@env)
 
         unless commandfile.exist?
-          Messages.missing_commandfile(&@env.ui.method(:error))
-          Messages.pre_ln(:plugin_readme, &@env.ui.method(:info))
+          Messages.missing_commandfile { |m| @env.ui.error(m) }
+          Messages.pre_ln(:plugin_readme) { |m| @env.ui.info(m) }
 
           return false
         end
