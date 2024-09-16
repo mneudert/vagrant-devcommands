@@ -71,7 +71,7 @@ describe VagrantPlugins::DevCommands::Command do
       described_class.new([], @env).execute
       expect(
         @env.ui.messages.map { |m| m[:message] }.join("\n")
-      ).to_not match(/should not appear/im)
+      ).not_to match(/should not appear/im)
     end
   end
 
@@ -102,7 +102,7 @@ describe VagrantPlugins::DevCommands::Command do
       described_class.new(['version'], env).execute
       expect(
         env.ui.messages.map { |m| m[:message] }.join("\n")
-      ).to_not match(/no commands/i)
+      ).not_to match(/no commands/i)
     end
   end
 
