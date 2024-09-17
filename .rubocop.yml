@@ -1,5 +1,6 @@
 require:
   - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
   Include:
@@ -24,3 +25,12 @@ Naming/FileName:
   Exclude:
     - 'test/acceptance/Vagrantfile'
     - 'test/integration/fixtures/**/Vagrantfile'
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  Enabled: false
