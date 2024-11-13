@@ -47,7 +47,7 @@ jobs:
           - ruby: '3.0'
             vagrant: 2.3.5
           - ruby: '3.1'
-            vagrant: 2.4.2
+            vagrant: 2.4.3
           - ruby: '3.2'
             vagrant: main
 
