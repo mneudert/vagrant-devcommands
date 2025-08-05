@@ -53,7 +53,7 @@ jobs:
           - ruby: '3.1'
             vagrant: 2.4.0
           - ruby: '3.2'
-            vagrant: 2.4.7
+            vagrant: 2.4.8
           - ruby: '3.3'
             vagrant: main
 
