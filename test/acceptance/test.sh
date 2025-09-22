@@ -9,22 +9,22 @@ export VAGRANT_I_KNOW_WHAT_IM_DOING_PLEASE_BE_QUIET='true'
 
 # utility functions
 setup() {
-  echo 'Installing dependencies...'
-  bundle install > /dev/null
+	echo 'Installing dependencies...'
+	bundle install >/dev/null
 
-  echo 'Starting containers...'
-  bundle exec vagrant up > /dev/null
+	echo 'Starting containers...'
+	bundle exec vagrant up >/dev/null
 
-  trap teardown EXIT
+	trap teardown EXIT
 }
 
 teardown() {
-  echo 'Destroying containers...'
-  bundle exec vagrant destroy -f > /dev/null
+	echo 'Destroying containers...'
+	bundle exec vagrant destroy -f >/dev/null
 }
 
 trim() {
-  sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< "${1}"
+	sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<<"${1}"
 }
 
 # run tests
