@@ -44,6 +44,17 @@ jobs:
 
       - run: bundle exec rake style:ruby
 
+  quality_shell:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: mfinelli/setup-shfmt@v4
+      - run: shfmt -d test/**/*.sh
+
   test:
     runs-on: ubuntu-24.04
 
