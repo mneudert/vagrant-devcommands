@@ -19,10 +19,10 @@ group :development do
   gem 'coveralls', '~> 0.8'
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.10'
-  gem 'rubocop', '~> 1.66.0'
-  gem 'rubocop-performance', '~> 1.22.0', require: false
-  gem 'rubocop-rake', '~> 0.6.0', require: false
-  gem 'rubocop-rspec', '~> 3.0.0', require: false
+  gem 'rubocop', '~> 1.81'
+  gem 'rubocop-performance', '~> 1.26', require: false
+  gem 'rubocop-rake', '~> 0.7', require: false
+  gem 'rubocop-rspec', '~> 3.7', require: false
 end
 
 group :plugins do
