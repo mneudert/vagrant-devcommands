@@ -19,7 +19,7 @@ module VagrantPlugins
       end
 
       def execute
-        return 127 unless read_commandfile
+        return 127 unless read_commandfile?
 
         command = Util.argv_command(@argv, @env)
 
@@ -77,7 +77,7 @@ module VagrantPlugins
         true
       end
 
-      def read_commandfile
+      def read_commandfile?
         commandfile = Commandfile.new(@env)
 
         unless commandfile.exist?
