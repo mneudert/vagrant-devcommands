@@ -5,7 +5,7 @@ require_relative '../../../../spec_helper'
 describe VagrantPlugins::DevCommands::InternalCommand::CompletionData do
   include_context 'commandfile_cwd'
 
-  command = VagrantPlugins::DevCommands::Command
+  let(:command) { VagrantPlugins::DevCommands::Command }
 
   describe 'fetching completion-data with an empty commandfile' do
     it 'is empty' do

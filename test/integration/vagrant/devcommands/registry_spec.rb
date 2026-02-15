@@ -5,7 +5,7 @@ require_relative '../../../spec_helper'
 describe VagrantPlugins::DevCommands::Registry do
   include_context 'commandfile_cwd'
 
-  commandfile = VagrantPlugins::DevCommands::Commandfile
+  let(:commandfile) { VagrantPlugins::DevCommands::Commandfile }
 
   describe 'chain definition' do
     let(:env) do

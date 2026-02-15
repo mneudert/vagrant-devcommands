@@ -3,8 +3,8 @@
 require_relative '../../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::Runner::InternalCommand do
-  command_model = VagrantPlugins::DevCommands::Model::Command
-  registry      = VagrantPlugins::DevCommands::Registry
+  let(:command_model) { VagrantPlugins::DevCommands::Model::Command }
+  let(:registry) { VagrantPlugins::DevCommands::Registry }
 
   describe 'displaying command list' do
     it 'includes internal commands' do

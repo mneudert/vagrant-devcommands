@@ -3,8 +3,7 @@
 require_relative '../../../spec_helper'
 
 describe VagrantPlugins::DevCommands::ParamParser do
-  command_model = VagrantPlugins::DevCommands::Model::Command
-
+  let(:command_model) { VagrantPlugins::DevCommands::Model::Command }
   let(:parser) { described_class.new }
 
   describe 'with configured parameters' do
