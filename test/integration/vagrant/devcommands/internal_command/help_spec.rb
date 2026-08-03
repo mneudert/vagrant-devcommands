@@ -18,7 +18,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/help message for foo/)
+      expect(messages).to include('help message for foo')
     end
 
     it 'displays an error if undefined' do
@@ -110,7 +110,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/help message for chainhelp/)
+      expect(messages).to include('help message for chainhelp')
     end
 
     it 'displays an error if undefined' do
@@ -149,7 +149,7 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/help message for aliashelp/)
+      expect(messages).to include('help message for aliashelp')
     end
 
     it 'displays an error if undefined' do

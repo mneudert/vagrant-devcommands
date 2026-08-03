@@ -19,8 +19,8 @@ describe VagrantPlugins::DevCommands::InternalCommand::Help do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/help for the help command/)
-      expect(messages).to match(/github/)
+      expect(messages).to include('help for the help command')
+      expect(messages).to include('github')
       expect(messages).to match(/README.md/)
     end
   end

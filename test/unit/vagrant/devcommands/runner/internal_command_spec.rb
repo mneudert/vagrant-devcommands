@@ -17,8 +17,8 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/version/)
-      expect(messages).to match(/help/)
+      expect(messages).to include('version')
+      expect(messages).to include('help')
     end
   end
 
@@ -43,8 +43,8 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/bar/)
-      expect(messages).to match(/foo/)
+      expect(messages).to include('bar')
+      expect(messages).to include('foo')
     end
 
     it 'display description if available' do
@@ -59,7 +59,7 @@ describe VagrantPlugins::DevCommands::Runner::InternalCommand do
 
       messages = env.ui.messages.map { |m| m[:message] }.join("\n")
 
-      expect(messages).to match(/has a description/)
+      expect(messages).to include('has a description')
     end
   end
 
